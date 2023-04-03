@@ -1,0 +1,20 @@
+{
+  "id": "10967",
+  "name": "FURTUN SILICON 06.0X3.00X200MM PENTRU NIVONA",
+  "art_id": "0024084",
+  "price": 2635,
+  "description": "Acest furtun de silicon cu o lungime de 200 mm este amplasat în aparatele de cafea Nivona enumerate mai jos între cuplajul de fluid de pe unitatea de preparare și gura de scurgere a băuturii.\n\nConținutul livrării:\n\n1x furtun 6,0x3,00x200mm, așa cum se arată",
+  "imgNr": 1,
+  "compatiblie_models": [
+    {
+      "markName": "NIVONA",
+      "markId": "13",
+      "models": [
+        { "id": "988", "name": "NICR 930 - Typ 254", "markId": "13" },
+        { "id": "989", "name": "NICR 960 - Typ 698", "markId": "13" },
+        { "id": "990", "name": "NICR 970 - Typ 698", "markId": "13" }
+      ]
+    }
+  ],
+  "category": "Furtune și conectori"
+}

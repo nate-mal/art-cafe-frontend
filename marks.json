@@ -1,0 +1,259 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "attributes": {
+        "name": "UNIVERSAL",
+        "createdAt": "2023-02-22T12:44:56.280Z",
+        "updatedAt": "2023-02-22T12:44:56.280Z",
+        "publishedAt": "2023-02-22T12:44:56.254Z"
+      }
+    },
+    {
+      "id": 2,
+      "attributes": {
+        "name": "AEG",
+        "createdAt": "2023-02-22T12:44:56.290Z",
+        "updatedAt": "2023-02-22T12:44:56.290Z",
+        "publishedAt": "2023-02-22T12:44:56.263Z"
+      }
+    },
+    {
+      "id": 3,
+      "attributes": {
+        "name": "JURA",
+        "createdAt": "2023-02-22T12:44:56.309Z",
+        "updatedAt": "2023-02-22T12:44:56.309Z",
+        "publishedAt": "2023-02-22T12:44:56.277Z"
+      }
+    },
+    {
+      "id": 4,
+      "attributes": {
+        "name": "KRUPS",
+        "createdAt": "2023-02-22T12:44:56.328Z",
+        "updatedAt": "2023-02-22T12:44:56.328Z",
+        "publishedAt": "2023-02-22T12:44:56.295Z"
+      }
+    },
+    {
+      "id": 5,
+      "attributes": {
+        "name": "BOSCH",
+        "createdAt": "2023-02-22T12:44:56.362Z",
+        "updatedAt": "2023-02-22T12:44:56.362Z",
+        "publishedAt": "2023-02-22T12:44:56.325Z"
+      }
+    },
+    {
+      "id": 6,
+      "attributes": {
+        "name": "DELONGHI",
+        "createdAt": "2023-02-22T12:44:56.378Z",
+        "updatedAt": "2023-02-22T12:44:56.378Z",
+        "publishedAt": "2023-02-22T12:44:56.342Z"
+      }
+    },
+    {
+      "id": 7,
+      "attributes": {
+        "name": "DOLCE GUSTO",
+        "createdAt": "2023-02-22T12:44:56.389Z",
+        "updatedAt": "2023-02-22T12:44:56.389Z",
+        "publishedAt": "2023-02-22T12:44:56.358Z"
+      }
+    },
+    {
+      "id": 8,
+      "attributes": {
+        "name": "FRANKE",
+        "createdAt": "2023-02-22T12:44:56.416Z",
+        "updatedAt": "2023-02-22T12:44:56.416Z",
+        "publishedAt": "2023-02-22T12:44:56.376Z"
+      }
+    },
+    {
+      "id": 9,
+      "attributes": {
+        "name": "GAGGENAU",
+        "createdAt": "2023-02-22T12:44:56.428Z",
+        "updatedAt": "2023-02-22T12:44:56.428Z",
+        "publishedAt": "2023-02-22T12:44:56.383Z"
+      }
+    },
+    {
+      "id": 10,
+      "attributes": {
+        "name": "MELITTA",
+        "createdAt": "2023-02-22T12:44:56.441Z",
+        "updatedAt": "2023-02-22T12:44:56.441Z",
+        "publishedAt": "2023-02-22T12:44:56.414Z"
+      }
+    },
+    {
+      "id": 11,
+      "attributes": {
+        "name": "MIELE",
+        "createdAt": "2023-02-22T12:44:56.469Z",
+        "updatedAt": "2023-02-22T12:44:56.469Z",
+        "publishedAt": "2023-02-22T12:44:56.433Z"
+      }
+    },
+    {
+      "id": 12,
+      "attributes": {
+        "name": "NEFF",
+        "createdAt": "2023-02-22T12:44:56.490Z",
+        "updatedAt": "2023-02-22T12:44:56.490Z",
+        "publishedAt": "2023-02-22T12:44:56.456Z"
+      }
+    },
+    {
+      "id": 13,
+      "attributes": {
+        "name": "NIVONA",
+        "createdAt": "2023-02-22T12:44:56.519Z",
+        "updatedAt": "2023-02-22T12:44:56.519Z",
+        "publishedAt": "2023-02-22T12:44:56.483Z"
+      }
+    },
+    {
+      "id": 14,
+      "attributes": {
+        "name": "PHILIPS",
+        "createdAt": "2023-02-22T12:44:56.540Z",
+        "updatedAt": "2023-02-22T12:44:56.540Z",
+        "publishedAt": "2023-02-22T12:44:56.513Z"
+      }
+    },
+    {
+      "id": 15,
+      "attributes": {
+        "name": "SAECO",
+        "createdAt": "2023-02-22T12:44:56.577Z",
+        "updatedAt": "2023-02-22T12:44:56.577Z",
+        "publishedAt": "2023-02-22T12:44:56.558Z"
+      }
+    },
+    {
+      "id": 16,
+      "attributes": {
+        "name": "SENSEO",
+        "createdAt": "2023-02-22T12:44:56.596Z",
+        "updatedAt": "2023-02-22T12:44:56.596Z",
+        "publishedAt": "2023-02-22T12:44:56.581Z"
+      }
+    },
+    {
+      "id": 17,
+      "attributes": {
+        "name": "SIEMENS",
+        "createdAt": "2023-02-22T12:44:56.615Z",
+        "updatedAt": "2023-02-22T12:44:56.615Z",
+        "publishedAt": "2023-02-22T12:44:56.600Z"
+      }
+    },
+    {
+      "id": 18,
+      "attributes": {
+        "name": "GAGGIA",
+        "createdAt": "2023-02-22T12:44:56.639Z",
+        "updatedAt": "2023-02-22T12:44:56.639Z",
+        "publishedAt": "2023-02-22T12:44:56.621Z"
+      }
+    },
+    {
+      "id": 19,
+      "attributes": {
+        "name": "SCHAERER",
+        "createdAt": "2023-02-22T12:44:56.661Z",
+        "updatedAt": "2023-02-22T12:44:56.661Z",
+        "publishedAt": "2023-02-22T12:44:56.644Z"
+      }
+    },
+    {
+      "id": 20,
+      "attributes": {
+        "name": "SOLIS",
+        "createdAt": "2023-02-22T12:44:56.679Z",
+        "updatedAt": "2023-02-22T12:44:56.679Z",
+        "publishedAt": "2023-02-22T12:44:56.664Z"
+      }
+    },
+    {
+      "id": 21,
+      "attributes": {
+        "name": "ROTEL",
+        "createdAt": "2023-02-22T12:44:56.700Z",
+        "updatedAt": "2023-02-22T12:44:56.700Z",
+        "publishedAt": "2023-02-22T12:44:56.685Z"
+      }
+    },
+    {
+      "id": 22,
+      "attributes": {
+        "name": "ECM",
+        "createdAt": "2023-02-22T12:44:56.762Z",
+        "updatedAt": "2023-02-22T12:44:56.762Z",
+        "publishedAt": "2023-02-22T12:44:56.703Z"
+      }
+    },
+    {
+      "id": 23,
+      "attributes": {
+        "name": "PROFITEC",
+        "createdAt": "2023-02-22T12:44:56.801Z",
+        "updatedAt": "2023-02-22T12:44:56.801Z",
+        "publishedAt": "2023-02-22T12:44:56.768Z"
+      }
+    },
+    {
+      "id": 24,
+      "attributes": {
+        "name": "QUICKMILL",
+        "createdAt": "2023-02-22T12:44:56.827Z",
+        "updatedAt": "2023-02-22T12:44:56.827Z",
+        "publishedAt": "2023-02-22T12:44:56.804Z"
+      }
+    },
+    {
+      "id": 25,
+      "attributes": {
+        "name": "ROCKET",
+        "createdAt": "2023-02-22T12:44:56.849Z",
+        "updatedAt": "2023-02-22T12:44:56.849Z",
+        "publishedAt": "2023-02-22T12:44:56.830Z"
+      }
+    },
+    {
+      "id": 26,
+      "attributes": {
+        "name": "RANCILIO",
+        "createdAt": "2023-02-22T12:44:56.874Z",
+        "updatedAt": "2023-02-22T12:44:56.874Z",
+        "publishedAt": "2023-02-22T12:44:56.856Z"
+      }
+    },
+    {
+      "id": 27,
+      "attributes": {
+        "name": "LA PAVONI",
+        "createdAt": "2023-02-22T12:44:56.893Z",
+        "updatedAt": "2023-02-22T12:44:56.893Z",
+        "publishedAt": "2023-02-22T12:44:56.876Z"
+      }
+    },
+    {
+      "id": 28,
+      "attributes": {
+        "name": "WMF",
+        "createdAt": "2023-02-22T12:44:56.921Z",
+        "updatedAt": "2023-02-22T12:44:56.921Z",
+        "publishedAt": "2023-02-22T12:44:56.900Z"
+      }
+    }
+  ],
+  "meta": {
+    "pagination": { "page": 1, "pageSize": 30, "pageCount": 1, "total": 28 }
+  }
+}
