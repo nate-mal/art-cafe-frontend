@@ -20,7 +20,7 @@ function ThankYouPage({ res }) {
   const ctxCart = React.useContext(CartContext);
   React.useEffect(() => {
     ctxCart.updateCart("CLEAN");
-  }, []);
+  }, [ctxCart.cartSize]);
   console.log(res);
   return (
     <Root>

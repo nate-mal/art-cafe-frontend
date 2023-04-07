@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Link from "../../Link";
 import {
@@ -1088,7 +1089,12 @@ const EstimatePage = () => {
         maxWidth="lg"
         fullScreen={matchesSM}
       >
-        <Grid container justifyContent="center">
+        <Grid item>
+          <Grid item align="right" style={{ padding: "1em" }}>
+            <IconButton onClick={() => setDialogOpen(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
           <Grid item sx={{ marginTop: "1em", marginBottom: "1em" }}>
             <Typography variant="h2" align="center">
               Estimare cost
@@ -1251,6 +1257,7 @@ const EstimatePage = () => {
                       fontSize: "1.5rem",
                       color: theme.palette.common.orange,
                       lineHeight: 1.25,
+                      marginLeft: "5px",
                     }}
                   >
                     {total.toFixed(2)} lei
@@ -1298,7 +1305,7 @@ const EstimatePage = () => {
                   height: 50,
                   width: "fit-content",
                   fontSize: "1.25rem",
-                  marginTop: "2em",
+                  marginTop: "1.5em",
 
                   "&:hover": {
                     backgroundColor: theme.palette.primary.light,

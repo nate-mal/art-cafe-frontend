@@ -22,6 +22,20 @@ import { minOrder } from "../../../lib/settings";
 // import Checkout from "./Checkout";
 const Cart = (props) => {
   const ctxCart = useContext(CartContext);
+
+  let cartIsValid = true;
+  if (ctxCart.cartContent.length <= 0) {
+    cartIsValid = false;
+  }
+  ctxCart.cartContent.map((cartItem) => {
+    if (
+      !cartItem.stock ||
+      cartItem.stock.status === "out-of-stock" ||
+      cartItem.stock.satus === "sold-out"
+    ) {
+      cartIsValid = false;
+    }
+  });
   // const [showCheckout, setShowCheckout] = useState(false);
   const [hasOrder, setHasOrder] = useState(false);
   // const stripePromise = loadStripe(
@@ -54,6 +68,7 @@ const Cart = (props) => {
               name={cartItem.item.name}
               price={cartItem.item.price * cartItem.amount}
               amount={cartItem.amount}
+              stock={cartItem.stock}
             />
           );
         })}
@@ -67,7 +82,7 @@ const Cart = (props) => {
         {ctxCart.cartContent.length > 0 && (
           <Button
             // variant="contained"
-            disabled={ctxCart.cartCost < minOrder}
+            disabled={!cartIsValid || ctxCart.cartCost < minOrder}
             color="secondary"
             // component={Link}
             // href={estimate.link}
@@ -101,6 +116,10 @@ const Cart = (props) => {
           <Typography variant="subtitle1" style={{ fontSize: "1rem" }}>
             *adaugă {((minOrder - ctxCart.cartCost) / 100).toFixed(2)} lei
             (comandă minimă {minOrder / 100} lei)
+          </Typography>
+        ) : !cartIsValid ? (
+          <Typography variant="subtitle1" style={{ fontSize: "1rem" }}>
+            verifică stocul produselor
           </Typography>
         ) : (
           <Typography variant="subtitle1" style={{ fontSize: "1rem" }}>

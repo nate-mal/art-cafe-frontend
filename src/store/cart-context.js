@@ -5,8 +5,10 @@ import React, {
   useCallback,
   useRef,
 } from "react";
+import { debounce } from "lodash";
 import Cart from "../components/Cart/Cart";
 import axios from "axios";
+import useDebounce from "../hooks/useDebounce";
 const CartContext = React.createContext([
   {
     item: {
@@ -29,19 +31,13 @@ export const CartContextProvider = (props) => {
       if (state.length > 0) {
         updatedState = state.map((cartItem) => {
           if (cartItem.item.id === action.value.item.id) {
-            const updatedAmount = cartItem.amount + action.value.amount;
+            const updatedAmount =
+              parseInt(cartItem.amount) + parseInt(action.value.amount);
             alreadyinCart = true;
 
-            if (!action.checkStock) {
-              checkStock({
-                item: cartItem.item,
-                amount: updatedAmount,
-                stock: cartItem.stock,
-              });
-            }
             return {
               item: cartItem.item,
-              amount: updatedAmount,
+              amount: +updatedAmount,
               stock: action.value.stock,
             };
           } else return cartItem;
@@ -55,7 +51,11 @@ export const CartContextProvider = (props) => {
           if (cartItem.item.id === action.value.id) {
             const updatedAmount = cartItem.amount + action.value.amount;
             if (updatedAmount > 0)
-              return { item: cartItem.item, amount: updatedAmount };
+              return {
+                item: cartItem.item,
+                amount: updatedAmount,
+                stock: action.value.stock,
+              };
             else return "removed";
           } else return cartItem;
         })
@@ -124,20 +124,91 @@ export const CartContextProvider = (props) => {
     } else {
       isMounted.current = true;
       if (localStorage.getItem("cart")) {
-        console.log("cartstorage", JSON.parse(localStorage.getItem("cart")));
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        console.log("cartstorage", cart);
         dispatchCartContext({
           type: "FILL",
-          value: JSON.parse(localStorage.getItem("cart")),
+          value: cart.map((cartItem) => ({ ...cartItem, stock: undefined })),
+        });
+        cart.map((cartItem) => {
+          if (!cartItem.stock || new Date(cartItem.stock.expiry) < new Date()) {
+            checkStock("ADD", {
+              item: cartItem.item,
+              amount: cartItem.amount,
+            });
+          } else {
+            dispatchCartContext({
+              type: "ADD",
+              value: { ...cartItem, amount: 0 },
+            });
+          }
         });
       }
     }
-  }, [cartSize]);
+  }, [cartContent]);
 
+  const debouncedCheckStock = useDebounce(checkStock);
+
+  // const updateCartHandler = (function () {
+  //   let timeoutId;
+  //   return (actionType, value) => {
+  //     dispatchCartContext({ type: actionType, value: value });
+  //     if (actionType === "ADD") {
+  //       const cartItem = cartContent.find(
+  //         (cartItem) => cartItem.item.id === value.item.id
+  //       );
+  //       const pre_amount = cartItem ? cartItem.amount : 0;
+  //       const amount = pre_amount + value.amount;
+  //       checkStock(actionType, {
+  //         item: value.item,
+  //         amount: amount,
+  //       });
+  //     } else if (actionType === "IN/DECREASE_AMOUNT") {
+  //       const cartItem = cartContent.find(
+  //         (cartItem) => cartItem.item.id === value.id
+  //       );
+  //       const pre_amount = cartItem ? cartItem.amount : 0;
+  //       const amount = pre_amount + value.amount;
+  //       if (amount > 0) {
+  //         clearTimeout(timeoutId);
+  //         timeoutId = setTimeout(() => {
+  //           checkStock(actionType, {
+  //             item: { id: value.id },
+  //             amount: amount,
+  //           });
+  //         }, 3000);
+  //       }
+  //     }
+  //   };
+  // })();
   const updateCartHandler = (actionType, value) => {
     dispatchCartContext({ type: actionType, value: value });
+    if (actionType === "ADD") {
+      const cartItem = cartContent.find(
+        (cartItem) => cartItem.item.id === value.item.id
+      );
+      const pre_amount = cartItem ? cartItem.amount : 0;
+      const amount = parseInt(pre_amount) + parseInt(value.amount);
+      debouncedCheckStock(actionType, {
+        item: value.item,
+        amount: amount,
+      });
+    } else if (actionType === "IN/DECREASE_AMOUNT") {
+      const cartItem = cartContent.find(
+        (cartItem) => cartItem.item.id === value.id
+      );
+      const pre_amount = cartItem ? cartItem.amount : 0;
+      const amount = parseInt(pre_amount) + parseInt(value.amount);
+      if (amount > 0) {
+        debouncedCheckStock(actionType, {
+          item: { id: value.id },
+          amount: amount,
+        });
+      }
+    }
   };
 
-  async function checkStock(cartItem) {
+  async function checkStock(actionType, cartItem) {
     console.log("check");
     const response = await axios.get(
       `/api/stock?productId=${cartItem.item.id}&targetQty=${+cartItem.amount}`
@@ -146,12 +217,22 @@ export const CartContextProvider = (props) => {
     console.log("response", response);
 
     const stock = await response.data;
+    var expiry = new Date();
+    // set expiry after 6 hours
+    expiry.setTime(expiry.getTime() + 6 * 60 * 60 * 1000);
+    stock.expiry = expiry;
     console.log("stock", stock);
-    dispatchCartContext({
-      type: "ADD",
-      checkStock: true,
-      value: { item: cartItem.item, amount: 0, stock },
-    });
+    if (actionType === "ADD") {
+      dispatchCartContext({
+        type: actionType,
+        value: { item: cartItem.item, amount: 0, stock },
+      });
+    } else {
+      dispatchCartContext({
+        type: actionType,
+        value: { id: cartItem.item.id, amount: 0, stock },
+      });
+    }
     return response.data;
   }
 

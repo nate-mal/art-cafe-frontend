@@ -119,7 +119,7 @@ export default function Review(props) {
                       <Typography
                         variant="h6"
                         component="div"
-                        align="end"
+                        align="right"
                         sx={{
                           fontWeight: "bold",
                           color: "gray",
@@ -173,15 +173,15 @@ export default function Review(props) {
             Detalii plată:
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
+            {payments.map((payment, index) => (
+              <Grid item key={index}>
                 <Grid item xs={6}>
                   <Typography gutterBottom>{payment.name}</Typography>
                 </Grid>
                 <Grid item xs={6}>
                   <Typography gutterBottom>{payment.detail}</Typography>
                 </Grid>
-              </React.Fragment>
+              </Grid>
             ))}
           </Grid>
         </Grid>

@@ -11,6 +11,19 @@ export default function CheckoutPage() {
   const [order, setOrder] = React.useState({});
 
   const isMounted = React.useRef(false);
+  let stockIsValid = true;
+  if (ctxCart.cartContent.length <= 0) {
+    stockIsValid = false;
+  }
+  ctxCart.cartContent.map((cartItem) => {
+    if (
+      !cartItem.stock ||
+      cartItem.stock.status === "out-of-stock" ||
+      cartItem.stock.satus === "sold-out"
+    ) {
+      stockIsValid = false;
+    }
+  });
 
   // React.useEffect(() => {
   //   if (isMounted.current) {
@@ -27,13 +40,14 @@ export default function CheckoutPage() {
       alignItems="center"
     >
       <Grid item>
-        {(ctxCart.cartCost < minOrder &&
+        {!stockIsValid ||
+        (ctxCart.cartCost < minOrder &&
           Object.keys(order).length === 0 &&
           order.constructor === Object) ||
         (empty &&
           Object.keys(order).length === 0 &&
           order.constructor === Object) ? (
-          <EmptyCartMessageComponent />
+          <EmptyCartMessageComponent stockIsValid={stockIsValid} />
         ) : (
           <Checkout
             order={order}

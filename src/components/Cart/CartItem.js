@@ -6,8 +6,16 @@ import CartContext from "../../store/cart-context";
 import QuantityPicker from "../Product/ProductDetailed/QuantityPicker/QuantityPicker";
 import IconButton from "@mui/material/IconButton";
 import AddCircleSharpIcon from "@mui/icons-material/AddCircleSharp";
+import CircleIcon from "@mui/icons-material/Circle";
 import RemoveCircleSharpIcon from "@mui/icons-material/RemoveCircleSharp";
-import { Typography, Grid, Card, InputBase, Box } from "@mui/material";
+import {
+  Typography,
+  Grid,
+  Card,
+  InputBase,
+  Box,
+  CircularProgress,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
 const CartItem = (props) => {
@@ -49,6 +57,34 @@ const CartItem = (props) => {
     };
   };
 
+  let stock;
+  if (props.stock) {
+    switch (props.stock.status) {
+      case "in-stock":
+        stock = { ...props.stock, label: "In stoc extern", color: "green" };
+        break;
+      case "sold-out":
+        stock = { ...props.stock, label: "Stoc epuizat", color: "red" };
+        break;
+      case "out-of-stock":
+        stock = {
+          ...props.stock,
+          label: `Stoc depășit, maxim ${props.stock.max} `,
+          color: "red",
+        };
+        break;
+      case "undefined-stock":
+        stock = {
+          ...props.stock,
+          label: `disponibil cu verificare telefonică`,
+          color: "orange",
+        };
+        break;
+      default:
+        stock = undefined;
+        break;
+    }
+  }
   return (
     <li>
       <Grid container direction="column" sx={{ marginTop: "1em" }}>
@@ -131,6 +167,35 @@ const CartItem = (props) => {
               </IconButton>
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item>
+          <Typography
+            variant="body1"
+            component="h5"
+            color={stock ? stock.color : "inherit"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "5px",
+            }}
+          >
+            {stock ? (
+              stock.color === "red" ? (
+                <div className={`${classes.blob} ${classes.red}`}></div>
+              ) : (
+                <div
+                  className={`${classes["blob-base"]}`}
+                  style={{ background: stock.color }}
+                ></div>
+              )
+            ) : (
+              <CircularProgress
+                style={{ margin: 0, marginRight: "10px", marginLeft: "10px" }}
+                size={12}
+              />
+            )}
+            {stock ? stock.label : "verificare stoc..."}
+          </Typography>
         </Grid>
       </Grid>
       <Box

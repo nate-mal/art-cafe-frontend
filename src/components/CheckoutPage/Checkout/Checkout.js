@@ -275,7 +275,7 @@ export default function Checkout(props) {
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : activeStep === steps.length - 1 ? (
-                  "Place order"
+                  "Plasează comanda"
                 ) : (
                   "Next"
                 )}
@@ -288,7 +288,7 @@ export default function Checkout(props) {
   );
 }
 
-export function EmptyCartMessageComponent() {
+export function EmptyCartMessageComponent({ stockIsValid }) {
   return (
     <Container
       component="main"
@@ -309,8 +309,12 @@ export function EmptyCartMessageComponent() {
           align="center"
           sx={{ marginBottom: "1em" }}
         >
-          Acumulează produse în valoare de minim {(minOrder / 100).toFixed(0)}{" "}
-          lei pentru a putea continua.
+          {stockIsValid
+            ? `Acumulează produse în valoare de minim ${(
+                minOrder / 100
+              ).toFixed(0)}
+          lei pentru a putea continua.`
+            : `Verifică valabilitatea stocului  în coș și revino`}
         </Typography>
         <Typography variant="subtitle1" gutterBottom align="justify">
           Dar nu-ți face griji, suntem aici pentru a te ajuta să găsești cele

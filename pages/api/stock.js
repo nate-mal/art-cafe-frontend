@@ -10,6 +10,7 @@ export default async function handler(req, res) {
     if (isNaN(target)) {
       throw "not a valid number";
     }
+    console.log("target", target);
 
     const location_res = await strapi.get(
       `/api/location?location_key=${location_key}&productId=${productId}`
