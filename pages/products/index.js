@@ -85,6 +85,17 @@ export async function getServerSideProps(ctx) {
       displayedAttributes: ["id", "_meilisearch_id", "name", "models"],
     });
 
+    // do {
+    //   const tasks = await client.getTasks({
+    //     statuses: ["enqueued", "processing"],
+    //   });
+    //   const results = tasks.results;
+    //   // 150ms
+    //   if (results.length > 0) break;
+
+    //   await new Promise((resolve) => setTimeout(resolve, 150));
+    // } while (true);
+
     const markData = await markIndex.getDocument(markMeiId, {
       fields: ["id", "_meilisearch_id", "name", "models"],
     });
@@ -135,6 +146,17 @@ export async function getServerSideProps(ctx) {
       "slug",
     ],
   });
+
+  // do {
+  //   const tasks = await client.getTasks({
+  //     statuses: ["enqueued", "processing"],
+  //   });
+  //   const results = tasks.results;
+  //   // 150ms
+  //   if (results.length > 0) break;
+
+  //   await new Promise((resolve) => setTimeout(resolve, 150));
+  // } while (true);
 
   const result = await index.search(search ? search : "", {
     filter: filter ? filter : undefined,

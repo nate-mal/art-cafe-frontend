@@ -60,10 +60,10 @@ export default function Review(props) {
         Conținutul comenzi:
       </Typography>
       <List disablePadding>
-        {products.map((product) => {
+        {products.map((product, index) => {
           const img_path = `/images/${product.art_id}/image-0.jpg`;
           return (
-            <ListItem>
+            <ListItem key={index}>
               <Grid container direction="column" sx={{ marginTop: "1em" }}>
                 <Grid item>
                   <Typography variant="body1" component="h5">

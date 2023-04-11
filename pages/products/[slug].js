@@ -15,7 +15,7 @@ export default function ProductDetailedPage({ item }) {
         <title>{`Art Cafe ${item.name}`}</title>
         <meta name="description" content={item.description} />
       </Head>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ minHeight: "100vh" }}>
         <Grid container spacing={4} sx={{ marginTop: "5em" }}>
           <Grid item xs={12} md={6}>
             <ProductCarousel

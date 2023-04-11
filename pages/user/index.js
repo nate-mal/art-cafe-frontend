@@ -7,6 +7,7 @@ import GoogleLogin from "../../src/components/LoginPage/GoogleLogin";
 import FacebookLogin from "../../src/components/LoginPage/FacebookLogin";
 
 import { useRouter } from "next/router";
+import Grid from "@mui/material/Grid";
 
 export default function Home() {
   const { user, email, id, checkLogin } = useContext(UserContext);
@@ -21,7 +22,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
+    <Grid
+      item
+      className="flex flex-col justify-center items-center h-screen"
+      style={{ minHeight: "100vh" }}
+    >
       <h1 className="text-3xl">Welcome</h1>
       {error && <div>{error}</div>}
       {user && (
@@ -47,6 +52,6 @@ export default function Home() {
           <FacebookLogin />
         </>
       )}
-    </div>
+    </Grid>
   );
 }

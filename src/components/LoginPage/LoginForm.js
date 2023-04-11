@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "/context/user";
+import Link from "../../Link";
 
 function LoginForm() {
   const { handleSubmit, register } = useForm();
@@ -62,7 +63,7 @@ function LoginForm() {
         {alert[1]}
       </form>
       <div>
-        <a href="/user/forgotpassword">Forgot password?</a>
+        <Link href="/user/forgotpassword">Forgot password?</Link>
       </div>
     </main>
   );

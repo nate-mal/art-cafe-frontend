@@ -20,6 +20,7 @@ import axios from "/lib/api";
 import CartContext from "../../../store/cart-context";
 import { minOrder } from "../../../../lib/settings";
 import { CircularProgress } from "@mui/material";
+import { RouteHandlerManager } from "next/dist/server/future/route-handler-managers/route-handler-manager";
 
 const steps = ["Detalii pentru livrare", "Metodă de plată", "Confimă comanda"];
 
@@ -30,7 +31,11 @@ export default function Checkout(props) {
   const [payment_method, setPaymentMethod] = React.useState("online");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [emailTouched, setEmailTouched] = React.useState(false);
+  const [emailHelper, setEmailHelper] = React.useState("");
   const [phone, setPhone] = React.useState("");
+  const [phoneTouched, setPhoneTouched] = React.useState(false);
+  const [phoneHelper, setPhoneHelper] = React.useState("");
   const [jud, setJud] = React.useState("");
   const [loc, setLoc] = React.useState("");
   const [adr, setAdr] = React.useState("");
@@ -42,6 +47,7 @@ export default function Checkout(props) {
   const { order, setOrder } = props;
   const [res, setRes] = React.useState({});
   console.log(order);
+
   const stripePromise = loadStripe(
     "pk_test_51MoUkfBPlc2h5wspzXuCmLzOYdRYOtKPp7W38kzA2SaqraHa7i0i2WfwFypR32vFVDWd8xb2FUNRjIcfAAYLewYq006mChW3T5"
   );
@@ -75,12 +81,21 @@ export default function Checkout(props) {
   };
 
   const dispatchAddress = (key, value) => {
+    let valid;
     switch (key) {
       case "name":
         setName(value);
         break;
       case "email":
         setEmail(value);
+        if (emailTouched) {
+          valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value);
+          if (!valid) {
+            setEmailHelper("Email invalid");
+          } else {
+            setEmailHelper("");
+          }
+        }
         break;
       case "jud":
         setJud(value);
@@ -96,6 +111,16 @@ export default function Checkout(props) {
         break;
       case "phone":
         setPhone(value);
+        if (phoneTouched) {
+          valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
+            value
+          );
+          if (!valid) {
+            setPhoneHelper("Număr invalid");
+          } else {
+            setPhoneHelper("");
+          }
+        }
         break;
       case "same_payment_address":
         setSamePaymentAddress(value);
@@ -110,6 +135,10 @@ export default function Checkout(props) {
         break;
     }
   };
+  React.useEffect(() => {
+    if (emailTouched) dispatchAddress("email", emailTouched);
+    if (phoneTouched) dispatchAddress("phone", phoneTouched);
+  }, [emailTouched, phoneTouched]);
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -126,6 +155,10 @@ export default function Checkout(props) {
               payment_adr,
               payment_name,
             }}
+            helpers={{ phoneHelper, emailHelper }}
+            onBlurPhone={(event) => setPhoneTouched(event.target.value)}
+            onBlurEmail={(event) => setEmailTouched(event.target.value)}
+            error={phoneHelper.length !== 0}
             dispatchAddress={dispatchAddress}
           />
         );
@@ -163,19 +196,23 @@ export default function Checkout(props) {
           setRes(res);
         }
       }
+      setActiveStep(activeStep + 1);
     }
     if (activeStep === 2) {
       const fetchOrder = async () => {
         // setLoading(true)
         console.log(res.checkout_session);
         try {
-          const orderRes = await axios.post("/api/confirm", {
-            checkout_session: res.checkout_session,
-          });
-          console.log(orderRes);
+          Router.push(
+            `/checkout/success?checkout_session=${res.checkout_session}`
+          );
+          // const orderRes = await axios.post("/api/confirm", {
+          //   checkout_session: res.checkout_session,
+          // });
+          // console.log(orderRes);
 
-          setOrder(orderRes.data);
-          ctxCart.updateCart("CLEAN");
+          // setOrder(orderRes.data);
+          // ctxCart.updateCart("CLEAN");
         } catch (err) {
           console.log(err);
           setOrder(null);
@@ -183,6 +220,7 @@ export default function Checkout(props) {
         // setLoading(false)
       };
       fetchOrder();
+      return;
     }
     setActiveStep(activeStep + 1);
   };
@@ -227,7 +265,7 @@ export default function Checkout(props) {
             </Step>
           ))}
         </Stepper>
-        {activeStep === steps.length ? (
+        {/* {activeStep === steps.length ? (
           <React.Fragment>
             <Typography variant="h4" gutterBottom align="center">
               Vă mulțumim pentru comanda depusă!
@@ -256,33 +294,40 @@ export default function Checkout(props) {
               curent cu stadiul comenzii d-voastră până la livrare.
             </Typography>
           </React.Fragment>
-        ) : (
-          <React.Fragment>
-            {getStepContent(activeStep)}
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                  Back
-                </Button>
-              )}
-
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                disabled={loading}
-                sx={{ mt: 3, ml: 1, color: "#fff" }}
-              >
-                {loading ? (
-                  <CircularProgress color="inherit" size={20} />
-                ) : activeStep === steps.length - 1 ? (
-                  "Plasează comanda"
-                ) : (
-                  "Next"
-                )}
+        ) : ( */}
+        <React.Fragment>
+          {getStepContent(activeStep)}
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            {activeStep !== 0 && (
+              <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                Back
               </Button>
-            </Box>
-          </React.Fragment>
-        )}
+            )}
+
+            <Button
+              variant="contained"
+              onClick={handleNext}
+              disabled={
+                loading ||
+                name.length === 0 ||
+                adr.length === 0 ||
+                jud.length === 0 ||
+                loc.length === 0 ||
+                emailHelper.length !== 0 ||
+                phoneHelper.length !== 0
+              }
+              sx={{ mt: 3, ml: 1, color: "#fff" }}
+            >
+              {loading ? (
+                <CircularProgress color="inherit" size={20} />
+              ) : activeStep === steps.length - 1 ? (
+                "Plasează comanda"
+              ) : (
+                "Next"
+              )}
+            </Button>
+          </Box>
+        </React.Fragment>
       </Paper>
     </Container>
   );

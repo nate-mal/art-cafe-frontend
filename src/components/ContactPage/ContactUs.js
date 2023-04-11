@@ -51,7 +51,7 @@ const ContactUs = (props) => {
               event.target.value
             );
             if (!valid) {
-              setEmailHelper("Invalid email");
+              setEmailHelper("Email invalid");
             } else {
               setEmailHelper("");
             }
@@ -64,7 +64,7 @@ const ContactUs = (props) => {
               event.target.value
             );
             if (!valid) {
-              setPhoneHelper("Invalid phone number");
+              setPhoneHelper("Număr invalid");
             } else {
               setPhoneHelper("");
             }
@@ -79,8 +79,8 @@ const ContactUs = (props) => {
   const onConfirm = async () => {
     setLoading(true);
     axios
-      .get("https://us-central1-nat-development.cloudfunctions.net/sendMail", {
-        params: { name, email, phone, message },
+      .post("/api/email", {
+        body: { name, email, phone, message },
       })
       .then((response) => {
         console.log(response);
@@ -123,7 +123,11 @@ const ContactUs = (props) => {
     </React.Fragment>
   );
   return (
-    <Grid container direction="row" sx={{ marginTop: "-2em" }}>
+    <Grid
+      container
+      direction="row"
+      data-aos={matchesMD ? "fade-up" : "fade-right"}
+    >
       <Grid
         item
         container
@@ -137,7 +141,6 @@ const ContactUs = (props) => {
           marginTop: matchesSM ? "3em" : matchesMD ? "5em" : "3em",
           marginBottom: matchesMD ? "5em" : 0,
         }}
-        data-aos={matchesMD ? "fade-up" : "fade-right"}
       >
         <Grid item>
           <Grid item sx={{ textAlign: matchesMD ? "center" : "inherit" }}>
@@ -384,7 +387,8 @@ const ContactUs = (props) => {
                 name.length === 0 ||
                 message.length === 0 ||
                 emailHelper.length !== 0 ||
-                phoneHelper.length !== 0
+                phoneHelper.length !== 0 ||
+                loading
               }
               onClick={() => {
                 onConfirm();

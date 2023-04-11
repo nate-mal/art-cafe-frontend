@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import useRouter from "next/router";
 import { UserContext } from "../../context/user";
 import ForgotForm from "../../src/components/LoginPage/ForgotForm";
+import Container from "@mui/material/Container";
 
 const forgotpassword = () => {
   const { user, checkLogin } = useContext(UserContext);
@@ -16,7 +17,11 @@ const forgotpassword = () => {
     useRouter.push("/user");
   }
 
-  return <ForgotForm />;
+  return (
+    <Container style={{ minHeight: "100vh" }}>
+      <ForgotForm />
+    </Container>
+  );
 };
 
 export default forgotpassword;

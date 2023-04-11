@@ -126,9 +126,25 @@ export async function getStaticProps(ctx) {
   await productsIndex.updateSettings({
     distinctAttribute: "sub_category_id",
   });
-  await productsIndex.updateSettings({
-    distinctAttribute: "sub_category",
+
+  // do {
+  //   const tasks = await client.getTasks({
+  //     statuses: ["enqueued", "processing"],
+  //   });
+  //   const results = tasks.results;
+  //   // 150ms
+  //   if (results.length > 0) break;
+
+  //   await new Promise((resolve) => setTimeout(resolve, 150));
+  // } while (true);
+  console.log("setoro", set);
+
+  await index.waitForTask(set.taskUid);
+  const tasks = await client.getTasks({
+    statuses: ["enqueued", "processing"],
   });
+  console.log("taskotu", tasks);
+
   const filter =
     mark === "mark-1"
       ? "compatible_models_ids = universal"
@@ -152,6 +168,17 @@ export async function getStaticProps(ctx) {
   await productsIndex.updateSettings({
     distinctAttribute: null,
   });
+  do {
+    const tasks = await client.getTasks({
+      statuses: ["enqueued", "processing"],
+    });
+    const results = tasks.results;
+    // 150ms
+    if (results.length > 0) break;
+
+    await new Promise((resolve) => setTimeout(resolve, 150));
+  } while (true);
+
   const categories_length = await productsIndex.search("", {
     limit: 0,
     offset: 0,
@@ -198,6 +225,7 @@ export async function getStaticProps(ctx) {
   // check length
   console.log(mark_name, "(producs): ", categories_product.hits.length);
   console.log(mark_name, "(categories): ", categories_ids.length);
+
   return {
     props: {
       results: {

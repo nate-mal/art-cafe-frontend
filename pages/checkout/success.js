@@ -53,8 +53,10 @@ function ThankYouPage({ res }) {
               align="justify"
               color="#81C784"
             >
-              Tranzacția a fost efectuată cu succes și comanda a fost
-              înregistrată cu nr.
+              {" "}
+              {res.payment_status === "paid"
+                ? "Tranzacția a fost efectuată cu succes și comanda a fost înregistrată cu nr."
+                : "Comanda a fost înregistrată cu nr."}
               <Typography variant="span" color="secondary">
                 #{res && res.id}.
               </Typography>

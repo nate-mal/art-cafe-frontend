@@ -43,12 +43,12 @@ export default function ProductDetailed({ item }) {
     );
   };
 
-  React.useEffect(() => {
-    (async () => {
-      const data = await fetch("http://192.168.100.8:4001/api/products/5001");
-      console.log(await data.json());
-    })();
-  }, []);
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const data = await fetch("http://192.168.100.8:4002/api/products/5001");
+  //     console.log(await data.json());
+  //   })();
+  // }, []);
   return (
     <Grid item md alignItems="center">
       <Typography

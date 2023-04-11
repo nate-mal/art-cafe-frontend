@@ -491,7 +491,7 @@ const EstimatePage = () => {
               event.target.value
             );
             if (!valid) {
-              setEmailHelper("Invalid email");
+              setEmailHelper("Email invalid");
             } else {
               setEmailHelper("");
             }
@@ -504,7 +504,7 @@ const EstimatePage = () => {
               event.target.value
             );
             if (!valid) {
-              setPhoneHelper("Invalid phone number");
+              setPhoneHelper("Număr invalid");
             } else {
               setPhoneHelper("");
             }
@@ -751,18 +751,18 @@ const EstimatePage = () => {
   const sendEstimate = () => {
     setLoading(true);
     axios
-      .get("https://us-central1-nat-development.cloudfunctions.net/sendMail", {
-        params: {
+      .post("/api/email", {
+        body: {
           name,
           email,
           phone,
           message,
           total,
           category,
-          service,
-          platforms,
-          features,
-          customFeatures,
+          machine_type: service,
+          maintenance: platforms,
+          problems: features,
+          parts_policy: customFeatures,
           users,
         },
       })
@@ -1152,10 +1152,10 @@ const EstimatePage = () => {
                   variant="standard"
                   label="Telefon"
                   id="phone"
-                  helperText={phoneHelper}
                   fullWidth
                   value={phone}
                   onChange={onChange}
+                  helperText={phoneHelper}
                   onBlur={setPhoneTouched}
                   error={phoneHelper.length !== 0}
                 />
@@ -1218,7 +1218,8 @@ const EstimatePage = () => {
                       name.length === 0 ||
                       message.length === 0 ||
                       emailHelper.length !== 0 ||
-                      phoneHelper.length !== 0
+                      phoneHelper.length !== 0 ||
+                      loading
                     }
                   >
                     {loading ? (

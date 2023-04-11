@@ -104,18 +104,18 @@ export default function MyApp(props) {
 
   useEffect(() => {
     if (Router.pathname === "/reparo") {
-      setPhone("40747390307");
+      setPhone("40749060251");
       setAccountName("Atelierul Art Cafe");
     } else {
-      setPhone("40749060251");
+      setPhone("40747390307");
       setAccountName("Art Cafe");
     }
     Router.events.on("routeChangeComplete", (url) => {
       if (url === "/reparo") {
-        setPhone("40747390307");
+        setPhone("40749060251");
         setAccountName("Atelierul Art Cafe");
       } else {
-        setPhone("40749060251");
+        setPhone("40747390307");
         setAccountName("Art Cafe");
       }
     });

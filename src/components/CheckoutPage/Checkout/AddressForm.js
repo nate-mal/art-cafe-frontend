@@ -6,7 +6,13 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import JudAutocomplete from "./JudAutocomplete.js";
 import LocAsyncAutocomplete from "./LocAsyncAutocomplete.js";
-export default function AddressForm({ address, dispatchAddress }) {
+export default function AddressForm({
+  address,
+  dispatchAddress,
+  helpers,
+  onBlurPhone,
+  onBlurEmail,
+}) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -39,6 +45,9 @@ export default function AddressForm({ address, dispatchAddress }) {
             type="phone"
             value={address.phone}
             onChange={(event) => dispatchAddress("phone", event.target.value)}
+            helperText={helpers.phoneHelper}
+            onBlur={onBlurPhone}
+            error={helpers.phoneHelper.length !== 0}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -52,6 +61,9 @@ export default function AddressForm({ address, dispatchAddress }) {
             variant="standard"
             value={address.email}
             onChange={(event) => dispatchAddress("email", event.target.value)}
+            helperText={helpers.emailHelper}
+            onBlur={onBlurEmail}
+            error={helpers.emailHelper.length !== 0}
           />
         </Grid>
 
@@ -158,7 +170,9 @@ export default function AddressForm({ address, dispatchAddress }) {
               autoComplete="payment address-line"
               variant="standard"
               value={address.payment_adr}
-              onChange={(event) => dispatchAddress("adr", event.target.value)}
+              onChange={(event) =>
+                dispatchAddress("payment_adr", event.target.value)
+              }
             />
           </Grid>
         )}
