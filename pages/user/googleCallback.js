@@ -2,7 +2,9 @@ import { useRouter } from "next/router";
 import { useEffect, useContext, useState } from "react";
 
 import { UserContext } from "../../context/user";
-
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 export default function googleCallback() {
   const [error, setError] = useState();
   const router = useRouter();
@@ -27,5 +29,18 @@ export default function googleCallback() {
     router.push(`/user?msg=${error}`);
   }
 
-  return <p>Logging in with Google</p>;
+  return (
+    <>
+      <Box style={{ minHeight: "100vh" }}></Box>
+      <Backdrop
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+        open={Boolean(!user)}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
+  );
 }

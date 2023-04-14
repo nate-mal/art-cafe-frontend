@@ -11,6 +11,7 @@ function LoginForm() {
   const { setUser, doLogin, loggingIn } = useContext(UserContext);
 
   const onSubmit = async (values) => {
+    console.log(values);
     const ret = await doLogin(values);
 
     if (ret[0] == "alert") {

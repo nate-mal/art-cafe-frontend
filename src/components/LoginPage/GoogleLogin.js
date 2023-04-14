@@ -1,12 +1,13 @@
+import Button from "@mui/material/Button";
+import Link from "../../Link";
 import React from "react";
 
 const GoogleLogin = () => {
   return (
-    <button
-      className="px-6 py-3 mt-4 font-semibold text-gray-900 bg-white border-2 border-gray-500 rounded-md shadow outline-none hover:bg-slate-50 hover:border-slate-400 focus:outline-none"
-      onClick={() =>
-        (window.location = "http://localhost:1337/api/connect/google")
-      }
+    <Button
+      variant="text"
+      component={Link}
+      href={`${process.env.NEXT_PUBLIC_API_URL}/api/connect/google`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +34,7 @@ const GoogleLogin = () => {
         ></path>
       </svg>
       Login via Google
-    </button>
+    </Button>
   );
 };
 

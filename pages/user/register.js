@@ -14,11 +14,7 @@ function Register() {
     useRouter.push("/user");
   }
 
-  return (
-    <Container style={{ minHeight: "100vh" }}>
-      <RegisterForm />
-    </Container>
-  );
+  return <RegisterForm />;
 }
 
 export default Register;
