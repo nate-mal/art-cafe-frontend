@@ -124,12 +124,10 @@ export async function getStaticProps(ctx) {
     distinctAttribute: "sub_category",
   });
  
- const set_2 = await productsIndex.updateSettings({
+ const set2 = await productsIndex.updateSettings({
     distinctAttribute: "sub_category_id",
   });
-  const set_3 = await productsIndex.updateSettings({
-    distinctAttribute: "sub_category",
-  });
+ 
 
   // do {
   //   const tasks = await client.getTasks({
@@ -144,8 +142,8 @@ export async function getStaticProps(ctx) {
   console.log("setoro", set);
 
   await index.waitForTask(set.taskUid);
-  await index.waitForTask(set_2.taskUid);
-  await index.waitForTask(set_3.taskUid);
+  await index.waitForTask(set2.taskUid);
+ 
   const tasks = await client.getTasks({
     statuses: ["enqueued", "processing"],
   });
@@ -174,16 +172,16 @@ export async function getStaticProps(ctx) {
   await productsIndex.updateSettings({
     distinctAttribute: null,
   });
-  // do {
-  //   const tasks = await client.getTasks({
-  //     statuses: ["enqueued", "processing"],
-  //   });
-  //   const results = tasks.results;
-  //   // 150ms
-  //   if (results.length > 0) break;
+  do {
+    const tasks = await client.getTasks({
+      statuses: ["enqueued", "processing"],
+    });
+    const results = tasks.results;
+    // 150ms
+    if (results.length > 0) break;
 
-  //   await new Promise((resolve) => setTimeout(resolve, 150));
-  // } while (true);
+    await new Promise((resolve) => setTimeout(resolve, 150));
+  } while (true);
 
   const categories_length = await productsIndex.search("", {
     limit: 0,
