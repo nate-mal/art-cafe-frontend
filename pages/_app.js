@@ -135,6 +135,7 @@ export default function MyApp(props) {
               <Header options={options} specialOption={estimate} />
               <Component {...pageProps} />
               <Footer options={options} />
+           
               <FloatingWhatsApp
                 phoneNumber={phone}
                 accountName={accountName}
@@ -145,6 +146,7 @@ export default function MyApp(props) {
                 notification
                 notificationSound
               />
+          
             </ThemeProvider>
           </CartContextProvider>
         </UserProvider>

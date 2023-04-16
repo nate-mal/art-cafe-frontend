@@ -13,7 +13,7 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { Card, IconButton, Tab, useMediaQuery, Badge } from "@mui/material";
+import { Card, IconButton, Fade, useMediaQuery, Badge } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
@@ -294,17 +294,17 @@ const Header = ({ options, specialOption }) => {
 
   return (
     <>
-      <AppBar position="fixed">
-        <Toolbar disableGutters sx={{ justifyContent: "end" }}>
+      <AppBar position="absolute">
+        <Toolbar disableGutters style={{ justifyContent: "end" }}>
           <Button
             component={Link}
             href="/"
-            sx={{ padding: 0, marginRight: "auto" }}
+            style={{ padding: 0, marginRight: "auto" }}
             disableRipple
           >
             <Box
               component="img"
-              alt="company logo"
+              alt="art cafe logo"
               src="/assets/logo.png"
               sx={{
                 [defaultTheme.breakpoints.down("md")]: {
@@ -322,15 +322,17 @@ const Header = ({ options, specialOption }) => {
           </Button>
 
           <Hidden mdDown> {tabs}</Hidden>
+          <Fade in={true} timeout={1000}>
           <IconButton
             color="secondary"
             onClick={ctxCart.showCart.function}
-            sx={{ position: "relative" }}
+            style={{ position: "relative" }}
           >
-            <Badge badgeContent={ctxCart.cartSize} color="error">
+            <Badge badgeContent={ctxCart.cartSize } color="error">
               <ShoppingCartOutlinedIcon />
             </Badge>
           </IconButton>
+          </Fade>
           <Cart />
           {drawer}
         </Toolbar>

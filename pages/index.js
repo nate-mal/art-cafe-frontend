@@ -19,7 +19,7 @@ export default function Marks({ marks }) {
         />
       </Head>
       <Container maxWidth="lg">
-        <Box sx={{ my: 4 }}>
+        {/* <Box sx={{ my: 4 }}> */}
           {/* <Link href="/products">Products</Link> */}
           <Box data-aos="fade-zoom-in" sx={{ padding: "2em", textAlign: "center" }}>
             <Typography
@@ -40,7 +40,7 @@ export default function Marks({ marks }) {
             </Typography>
           </Box>
           <MarkList items={marks} />
-        </Box>
+        {/* </Box> */}
       </Container>
       <LandingPage />
     </>

@@ -35,7 +35,7 @@ export default function MarkList({ items }) {
   // const [showItems, setShowItems] = useState(items.slice(0, half));
   const [showHalf, setShowHalft] = useState(false);
   return (
-    <Grid container sx={{ flexGrow: 1 }}>
+    <Grid container style={{ flexGrow: 1 }}>
       {/* <NextPagination total={total} limit={limit}> */}
       <Box
         data-aos="fade-zoom-in"
