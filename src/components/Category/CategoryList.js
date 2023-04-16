@@ -49,7 +49,7 @@ export default function CategoriList({ items, markMeiId }) {
         </Grid>
       </Box>
       {showHalf && items.length > half && (
-        <Box data-aos="fade-zoom-in">
+        <Fade in={true} timeout={800}>
           <Grid item container spacing={2} sx={{ marginTop: ".4em" }}>
             {sorted_items.slice(half).map((item) => {
               return (
@@ -59,7 +59,7 @@ export default function CategoriList({ items, markMeiId }) {
               );
             })}
           </Grid>
-        </Box>
+        </Fade>
       )}
 
       {!showHalf && items.length > half && (
