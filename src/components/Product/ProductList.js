@@ -22,7 +22,7 @@ export default function BasicGrid({ products, total, limit, offset, query }) {
       <NextPagination total={total} limit={limit} offset={offset} query={query}>
         <Grid
           // className={classes["bounce-in"]}
-          data-aos="fade-up"
+          // data-aos="fade-up"
           item
           container
           spacing={2}

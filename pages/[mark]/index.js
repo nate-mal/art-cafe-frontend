@@ -123,8 +123,12 @@ export async function getStaticProps(ctx) {
     ],
     distinctAttribute: "sub_category",
   });
+ 
   await productsIndex.updateSettings({
     distinctAttribute: "sub_category_id",
+  });
+  await productsIndex.updateSettings({
+    distinctAttribute: "sub_category",
   });
 
   // do {
@@ -151,7 +155,7 @@ export async function getStaticProps(ctx) {
       : `compatible_models_ids IN [${models_ids.toString()}]`;
 
   const categories_product = await productsIndex.search("", {
-    limit: 1000,
+    limit: 2000,
     filter: filter,
     facets: ["sub_category", "sub_category_id"],
   });

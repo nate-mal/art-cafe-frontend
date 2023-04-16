@@ -21,7 +21,7 @@ export default function Marks({ marks }) {
       <Container maxWidth="lg">
         <Box sx={{ my: 4 }}>
           {/* <Link href="/products">Products</Link> */}
-          <Box sx={{ padding: "2em", textAlign: "center" }}>
+          <Box data-aos="fade-zoom-in" sx={{ padding: "2em", textAlign: "center" }}>
             <Typography
               variant="h1"
               component="h2"

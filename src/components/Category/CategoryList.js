@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 
 import CategoryItem from "./CategoryItem";
-import { Button, Fade, Slide, useMediaQuery, useTheme } from "@mui/material";
+import { Button, Fade, Box, useMediaQuery, useTheme } from "@mui/material";
 const MyFade = ({
   children,
   in: In = true,
@@ -35,11 +35,8 @@ export default function CategoriList({ items, markMeiId }) {
   const [showHalf, setHalf] = useState(false);
   return (
     <Grid container sx={{ flexGrow: 1 }}>
-      <Slide
-        in={true}
-        direction={matchesSM ? "right" : "down"}
-        timeout={800}
-        easing="cubic-bezier(0.175, 0.885, 0.32, 1.275)"
+      <Box
+       data-aos="fade-zoom-in"
       >
         <Grid item container spacing={2}>
           {sorted_items.slice(0, half).map((item) => {
@@ -50,9 +47,9 @@ export default function CategoriList({ items, markMeiId }) {
             );
           })}
         </Grid>
-      </Slide>
+      </Box>
       {showHalf && items.length > half && (
-        <Fade in={true} timeout={800}>
+        <Box data-aos="fade-zoom-in">
           <Grid item container spacing={2} sx={{ marginTop: ".4em" }}>
             {sorted_items.slice(half).map((item) => {
               return (
@@ -62,7 +59,7 @@ export default function CategoriList({ items, markMeiId }) {
               );
             })}
           </Grid>
-        </Fade>
+        </Box>
       )}
 
       {!showHalf && items.length > half && (
