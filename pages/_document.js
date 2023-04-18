@@ -22,7 +22,6 @@ export default class MyDocument extends Document {
 <meta property="og:description" content="Piese de schimb pentru aparatele de cafea Jura, DeLonghi, Saeco,
               Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
               Bosch si Gaggia." />
-<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/logo.png`}/>
 <meta property="og:type" content="website" />
 <meta property="og:updated_time" content="1681823297"/>
 <meta property="og:url" content={process.env.NEXT_PUBLIC_URL} />
