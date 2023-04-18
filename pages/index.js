@@ -20,7 +20,7 @@ export default function Marks({ marks }) {
        
 <meta property="og:title" content="Art Cafe Ro"/>
 <meta property="og:type" content="e-commerce" />
-<meta property="og:image" content="/logo.png"/>
+<meta property="og:image" content={`${process.env.NEXT_PUBLIC_URL}/logo.png`}/>
 <meta name="twitter:card" content="summary_large_image"/>
       </Head>
       <Container maxWidth="lg">
