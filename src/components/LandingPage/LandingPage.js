@@ -28,7 +28,7 @@ const LandingPage = () => {
           data-aos="fade-up"
         >
           {/*-----Hero Section-----*/}
-          <Grid sm item sx={{ margin: "2em" }}>
+          <Grid sm item >
             <Typography
               component="h2"
               sx={(theme) => ({
@@ -213,7 +213,7 @@ const LandingPage = () => {
                   container
                   direction="column"
                   sx={{ color: "white" }}
-                  data-aos={matchesSM ? "fade-up" : "fade-right"}
+                  data-aos={matchesSM ? "fade-up" : "fade-zoom-in"}
                 >
                   <Typography variant="h2">Despre noi</Typography>
                   <Typography variant="subtitle2">
@@ -249,7 +249,7 @@ const LandingPage = () => {
                   container
                   direction="column"
                   sx={{ color: "white" }}
-                  data-aos={matchesSM ? "fade-up" : "fade-left"}
+                  data-aos={matchesSM ? "fade-up" : "fade-zoom-in"}
                 >
                   <Typography variant="h2">Contactează-ne</Typography>
                   <Typography variant="subtitle2">

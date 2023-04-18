@@ -24,6 +24,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import Subs from "./Subs";
 import Cart from "../../Cart/Cart";
 import CartContext from "../../../store/cart-context";
+import useScrollDirection from "../../../hooks/useDirections";
 
 const Header = ({ options, specialOption }) => {
   const ctxCart = useContext(CartContext);
@@ -291,10 +292,17 @@ const Header = ({ options, specialOption }) => {
       </IconButton>
     </>
   );
-
+ 
+  const scrollDirection = useScrollDirection();
   return (
     <>
-      <AppBar position="absolute">
+      <AppBar sx={{ 
+  position: "sticky",
+  top: scrollDirection === "down" ? '-6.5rem' : '0px',
+  // height: "6rem",
+  transitionProperty: "all",
+  transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+  transitionDuration: "500ms"}}>
         <Toolbar disableGutters style={{ justifyContent: "end" }}>
           <Button
             component={Link}

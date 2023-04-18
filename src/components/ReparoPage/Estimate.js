@@ -930,14 +930,12 @@ const EstimatePage = () => {
         {questions
           .filter((question) => question.active)
           .map((question, index) => (
-            <Box
+            <Box 
+            
               key={index}
-              data-aos="fade-zoom-in"
-              data-aos-easing="ease-in-back"
-              data-aos-delay="100"
-              data-aos-offset="0"
+           
             >
-              <Grid item>
+              <Grid item  >
                 <Typography
                   variant="h2"
                   align="center"
@@ -972,7 +970,7 @@ const EstimatePage = () => {
                 }}
               >
                 {question.options.map((option) => (
-                  <Grid
+                  <Grid 
                     key={option.id}
                     item
                     container
@@ -994,6 +992,7 @@ const EstimatePage = () => {
                           : null,
                       },
                     }}
+                    
                   >
                     <Grid item sx={{ maxWidth: "12em" }}>
                       <Typography
@@ -1010,6 +1009,7 @@ const EstimatePage = () => {
                     <Grid
                       item
                       style={{ marginRight: matchesMD ? "1em" : undefined }}
+                     
                     >
                       <img src={option.icon} alt={option.iconAlt} />
                     </Grid>
@@ -1088,6 +1088,7 @@ const EstimatePage = () => {
         fullWidth
         maxWidth="lg"
         fullScreen={matchesSM}
+        data-aos="fade-zoom-in"
       >
         <Grid item>
           <Grid item align="right" style={{ padding: "1em" }}>
