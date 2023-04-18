@@ -39,6 +39,13 @@ export default function Home({ result, filterApplied, query }) {
       <Head>
         <title>Art Cafe produse</title>
         <meta name="description" content={description} />
+        <meta property="og:site_name" content="Art Cafe Ro"/>
+<meta property="og:title" content="Art Cafe Produse" />
+<meta property="og:description" content={description} />
+<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/logo.png`}/>
+<meta property="og:type" content="website" />
+<meta property="og:updated_time" content="1681823297"/>
+<meta property="og:url" content={process.env.NEXT_PUBLIC_URL} />
       </Head>
       <Container maxWidth="lg">
         <NextTags
