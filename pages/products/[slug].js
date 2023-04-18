@@ -18,13 +18,10 @@ export default function ProductDetailedPage({ item }) {
       <Head>
         <title>{`Art Cafe ${item.name}`}</title>
         <meta name="description" content={item.description} />
-        <meta property="og:site_name" content="Art Cafe Ro"/>
 <meta property="og:title" content={item.name} />
 <meta property="og:description" content={item.description} />
 <meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/images/${item.art_id}/image-0.jpg`}/>
-<meta property="og:type" content="website" />
 <meta property="og:updated_time" content="1681823297"/>
-<meta property="og:url" content={process.env.NEXT_PUBLIC_URL} />
       </Head>
       <Container maxWidth="lg" style={{ minHeight: "100vh" }}>
         <Grid container spacing={4} sx={{ marginTop: "5em" }}>
