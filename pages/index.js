@@ -17,6 +17,11 @@ export default function Marks({ marks }) {
               Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
               Bosch si Gaggia."
         />
+       
+<meta property="og:title" content="Art Cafe Ro"/>
+<meta property="og:type" content="e-commerce" />
+<meta property="og:image" content="/logo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
       </Head>
       <Container maxWidth="lg">
         {/* <Box sx={{ my: 4 }}> */}
