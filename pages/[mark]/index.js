@@ -20,6 +20,12 @@ export default function Categories({ results }) {
           name="description"
           content={`Categorii de piese de schimb disponibile pentru ${name}`}
         />
+        
+<meta property="og:updated_time" content="1681823297"/>
+<meta property="og:title" content={`Art Cafe ${name}`} />
+<meta property="og:description" content={`Categorii de piese de schimb disponibile pentru ${name}`} />
+<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/${image_path}` }/>
+  
       </Head>
       <Container maxWidth="lg">
         <Box sx={{ my: 4 }}>
