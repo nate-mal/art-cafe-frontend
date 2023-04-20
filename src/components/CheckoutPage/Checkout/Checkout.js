@@ -203,6 +203,7 @@ export default function Checkout(props) {
         // setLoading(true)
         console.log(res.checkout_session);
         try {
+          setLoading(true);
           Router.push(
             `/checkout/success?checkout_session=${res.checkout_session}`
           );
@@ -216,6 +217,8 @@ export default function Checkout(props) {
         } catch (err) {
           console.log(err);
           setOrder(null);
+        } finally {
+          setLoading(false);
         }
         // setLoading(false)
       };

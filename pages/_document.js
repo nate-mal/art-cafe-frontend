@@ -18,6 +18,10 @@ export default class MyDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="logo icon" href="/favicon.ico" />
           <meta name="emotion-insertion-point" content="" />
+          <meta property="og:site_name" content="Art Cafe Ro"/>
+<meta property="og:type" content="website" />
+<meta property="og:updated_time" content="1681823297"/>
+<meta property="og:url" content={process.env.NEXT_PUBLIC_URL} />
           {this.props.emotionStyleTags}
         </Head>
         <body>

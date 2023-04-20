@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import Link from "../../Link";
 import CancelIcon from "@mui/icons-material/Cancel";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
+import { Head } from "next/document";
 import Search from "../ui/Search";
 export default function NextTags(props) {
   const { mark, category, search } = props.options;
@@ -14,8 +15,9 @@ export default function NextTags(props) {
   const query = props.query;
 
   return (
+ 
     <Grid container direction="column">
-      {mark && (
+      {mark && (          
         <Grid
           item
           container
@@ -43,6 +45,7 @@ export default function NextTags(props) {
             {category ? "Schimbă categoria" : "Selectează categorie"}
           </Button>
         </Grid>
+
       )}
       <Grid item container justifyContent="start">
         {category && (

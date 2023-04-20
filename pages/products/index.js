@@ -39,6 +39,11 @@ export default function Home({ result, filterApplied, query }) {
       <Head>
         <title>Art Cafe produse</title>
         <meta name="description" content={description} />
+
+<meta property="og:updated_time" content="1681823297"/>
+<meta property="og:title" content={ filterApplied.mark ? `Art Cafe -> ${filterApplied.mark.title}`: "Art Cafe Produse"} />
+<meta property="og:description" content={filterApplied.mark ? `Produse disponibile pentru ${filterApplied.mark.title}`:  description} />
+<meta property="og:image" itemprop="image" content={filterApplied.mark ? `${process.env.NEXT_PUBLIC_URL}/marks/mark-${filterApplied.mark.id}.png` :  `${process.env.NEXT_PUBLIC_URL}/logo.png`}/>
       </Head>
       <Container maxWidth="lg">
         <NextTags

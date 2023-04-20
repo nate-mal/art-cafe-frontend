@@ -20,6 +20,12 @@ export default function Categories({ results }) {
           name="description"
           content={`Categorii de piese de schimb disponibile pentru ${name}`}
         />
+        
+<meta property="og:updated_time" content="1681823297"/>
+<meta property="og:title" content={`Art Cafe ${name}`} />
+<meta property="og:description" content={`Categorii de piese de schimb disponibile pentru ${name}`} />
+<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/${image_path}` }/>
+  
       </Head>
       <Container maxWidth="lg">
         <Box sx={{ my: 4 }}>
@@ -123,8 +129,12 @@ export async function getStaticProps(ctx) {
     ],
     distinctAttribute: "sub_category",
   });
-  await productsIndex.updateSettings({
+ 
+ const set_2 = await productsIndex.updateSettings({
     distinctAttribute: "sub_category_id",
+  });
+  const set_3 = await productsIndex.updateSettings({
+    distinctAttribute: "sub_category",
   });
 
   // do {
@@ -140,6 +150,8 @@ export async function getStaticProps(ctx) {
   console.log("setoro", set);
 
   await index.waitForTask(set.taskUid);
+  await index.waitForTask(set_2.taskUid);
+  await index.waitForTask(set_3.taskUid);
   const tasks = await client.getTasks({
     statuses: ["enqueued", "processing"],
   });
@@ -151,7 +163,7 @@ export async function getStaticProps(ctx) {
       : `compatible_models_ids IN [${models_ids.toString()}]`;
 
   const categories_product = await productsIndex.search("", {
-    limit: 1000,
+    limit: 2000,
     filter: filter,
     facets: ["sub_category", "sub_category_id"],
   });
@@ -168,16 +180,16 @@ export async function getStaticProps(ctx) {
   await productsIndex.updateSettings({
     distinctAttribute: null,
   });
-  do {
-    const tasks = await client.getTasks({
-      statuses: ["enqueued", "processing"],
-    });
-    const results = tasks.results;
-    // 150ms
-    if (results.length > 0) break;
+  // do {
+  //   const tasks = await client.getTasks({
+  //     statuses: ["enqueued", "processing"],
+  //   });
+  //   const results = tasks.results;
+  //   // 150ms
+  //   if (results.length > 0) break;
 
-    await new Promise((resolve) => setTimeout(resolve, 150));
-  } while (true);
+  //   await new Promise((resolve) => setTimeout(resolve, 150));
+  // } while (true);
 
   const categories_length = await productsIndex.search("", {
     limit: 0,

@@ -6,8 +6,10 @@ import { UserContext } from "../../context/user";
 import GoogleLogin from "../../src/components/LoginPage/GoogleLogin";
 import FacebookLogin from "../../src/components/LoginPage/FacebookLogin";
 
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Grid from "@mui/material/Grid";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function Home() {
   const { user, email, id, checkLogin } = useContext(UserContext);
@@ -17,9 +19,11 @@ export default function Home() {
     (async () => {
       const res = await checkLogin();
       if (res.status === 200) {
+      } else {
+        Router.push("/user/login");
       }
     })();
-  }, []);
+  }, [user]);
 
   return (
     <Grid
@@ -27,11 +31,11 @@ export default function Home() {
       className="flex flex-col justify-center items-center h-screen"
       style={{ minHeight: "100vh" }}
     >
-      <h1 className="text-3xl">Welcome</h1>
       {error && <div>{error}</div>}
       {user && (
         <>
           <div>
+            <h1 className="text-3xl">Welcome</h1>
             <p>
               {id} - {user} {email}
               <br />
@@ -40,18 +44,13 @@ export default function Home() {
           <Logout />
         </>
       )}
-      {!user && (
-        <>
-          <Link href="/user/login" passHref>
-            <button>Login</button>
-          </Link>
-          <Link href="/user/register" passHref>
-            <button>Register</button>
-          </Link>
-          <GoogleLogin />
-          <FacebookLogin />
-        </>
-      )}
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={Boolean(!user)}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Grid>
   );
 }

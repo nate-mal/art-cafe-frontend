@@ -17,11 +17,18 @@ export default function Marks({ marks }) {
               Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
               Bosch si Gaggia."
         />
+<meta property="og:title" content="Art Cafe Ro" />
+<meta property="og:description" content="Piese de schimb pentru aparatele de cafea Jura, DeLonghi, Saeco,
+              Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
+              Bosch si Gaggia." />
+<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/logo.png`}/>
+<meta property="og:updated_time" content="1681823297"/>
+
       </Head>
       <Container maxWidth="lg">
-        <Box sx={{ my: 4 }}>
+        {/* <Box sx={{ my: 4 }}> */}
           {/* <Link href="/products">Products</Link> */}
-          <Box sx={{ padding: "2em", textAlign: "center" }}>
+          <Box data-aos="fade-zoom-in" sx={{ padding: "2em", textAlign: "center" }}>
             <Typography
               variant="h1"
               component="h2"
@@ -40,7 +47,7 @@ export default function Marks({ marks }) {
             </Typography>
           </Box>
           <MarkList items={marks} />
-        </Box>
+        {/* </Box> */}
       </Container>
       <LandingPage />
     </>
