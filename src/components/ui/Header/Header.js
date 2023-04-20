@@ -24,6 +24,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import Subs from "./Subs";
 import Cart from "../../Cart/Cart";
 import CartContext from "../../../store/cart-context";
+import InstantSearch from "../../InstantSearch/index";
 
 const Header = ({ options, specialOption }) => {
   const ctxCart = useContext(CartContext);
@@ -41,6 +42,7 @@ const Header = ({ options, specialOption }) => {
   const [activeSubsIndex, setActiveSubsIndex] = useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openServiceCollapse, setOpenServiceCollapse] = useState(false);
+  const [InstantSearch, setInstantSearch] = useState(false);
 
   const estimate = specialOption
     ? {
@@ -332,6 +334,10 @@ const Header = ({ options, specialOption }) => {
             </Badge>
           </IconButton>
           <Cart />
+          <IconButton color="secondary" onClick={() => setInstantSearch(true)}>
+            <ShoppingCartOutlinedIcon />
+          </IconButton>
+          {InstantSearch && <InstantSearch />}
           {drawer}
         </Toolbar>
       </AppBar>
