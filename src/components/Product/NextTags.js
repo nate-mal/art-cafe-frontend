@@ -15,27 +15,37 @@ export default function NextTags(props) {
   const query = props.query;
 
   return (
- 
     <Grid container direction="column">
-      {mark && (          
-        <Grid
-          item
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          sx={{ padding: "2em", textAlign: "center" }}
-        >
-          <Typography variant="h4" component="h2" gutterBottom>
-            Produse disponibile pentru {mark.title}
-          </Typography>
-          <Image
-            src={`/marks/mark-${mark.id}.png`}
-            alt={mark.title}
-            width={200}
-            height={100}
-            style={{ objectFit: "scale-down", fontWeight: "bolder" }}
-          />
+      <Grid
+        item
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ padding: "2em", textAlign: "center" }}
+      >
+        {mark && (
+          <Grid item>
+            <Typography variant="h4" component="h2" gutterBottom>
+              Produse disponibile pentru {mark.title}
+            </Typography>
+            <Image
+              src={`/marks/mark-${mark.id}.png`}
+              alt={mark.title}
+              width={200}
+              height={100}
+              style={{ objectFit: "scale-down", fontWeight: "bolder" }}
+            />
+          </Grid>
+        )}
+        <Button varint="contained" component={Link} href={`/`}>
+          <KeyboardReturnIcon />
+          {mark ? "Schimbă marca" : "Selectează marcă"}
+        </Button>
+      </Grid>
+
+      {mark && (
+        <Grid item>
           <Button
             varint="contained"
             component={Link}
@@ -45,7 +55,6 @@ export default function NextTags(props) {
             {category ? "Schimbă categoria" : "Selectează categorie"}
           </Button>
         </Grid>
-
       )}
       <Grid item container justifyContent="start">
         {category && (

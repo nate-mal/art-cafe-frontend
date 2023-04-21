@@ -117,7 +117,7 @@ const App = ({ onHit, setQuery, query }) => {
                 <Stats />
               </div>
             ) : (
-              <div style={{ height: "10vh" }} />
+              <div style={{ height: "20px" }} />
             )}
             <SearchBox
               translations={{
@@ -140,7 +140,7 @@ const App = ({ onHit, setQuery, query }) => {
             style={{
               marginBottom: ".5em",
               paddingBottom: 0,
-              marginTop: matchesSM ? "60px" : "30px",
+              marginTop: matchesSM ? "75px" : "50px",
             }}
           >
             Caută cu viteza luminii:

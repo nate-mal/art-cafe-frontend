@@ -49,7 +49,7 @@ const SearchField = ({ onSearch }) => {
           </Grid>
           <Grid item xs={11}>
             <InputBase
-              placeholder="Search…"
+              placeholder="Caută aici ..."
               value={searchValue}
               inputProps={{
                 "aria-label": "search",
