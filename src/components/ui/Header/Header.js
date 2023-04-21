@@ -15,6 +15,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { Card, IconButton, Tab, useMediaQuery, Badge } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -24,6 +25,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import Subs from "./Subs";
 import Cart from "../../Cart/Cart";
 import CartContext from "../../../store/cart-context";
+import InstantSearchDialog from "../../InstantSearch/index";
 
 const Header = ({ options, specialOption }) => {
   const ctxCart = useContext(CartContext);
@@ -41,6 +43,7 @@ const Header = ({ options, specialOption }) => {
   const [activeSubsIndex, setActiveSubsIndex] = useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openServiceCollapse, setOpenServiceCollapse] = useState(false);
+  const [InstantSearch, setInstantSearch] = useState(false);
 
   const estimate = specialOption
     ? {
@@ -320,8 +323,14 @@ const Header = ({ options, specialOption }) => {
               }}
             />
           </Button>
-
           <Hidden mdDown> {tabs}</Hidden>
+          <IconButton color="secondary" onClick={() => setInstantSearch(true)}>
+            <SearchIcon />
+          </IconButton>
+          <InstantSearchDialog
+            open={InstantSearch}
+            onClose={() => setInstantSearch(false)}
+          />
           <IconButton
             color="secondary"
             onClick={ctxCart.showCart.function}
@@ -332,6 +341,7 @@ const Header = ({ options, specialOption }) => {
             </Badge>
           </IconButton>
           <Cart />
+
           {drawer}
         </Toolbar>
       </AppBar>

@@ -1,73 +1,89 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
-import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import MeiSearch from "./MeiSearch";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
-import Slide from "@mui/material/Slide";
+import { useTheme } from "@emotion/react";
+import Link from "../../Link";
+import { Typography } from "@mui/material";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
-export default function FullScreenDialog() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
+export default function InstantSearch({ open, onClose }) {
+  const [query, setQuery] = React.useState("");
+  const theme = useTheme();
+  const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const handleClose = () => {
-    setOpen(false);
+    onClose();
+    setQuery("");
   };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open full-screen dialog
-      </Button>
       <Dialog
-        fullScreen
+        fullScreen={matchesSM}
         open={open}
         onClose={handleClose}
-        TransitionComponent={Transition}
+        scroll="paper"
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+        style={{ marginTop: query === "" ? "1800px" : "", zIndex: 99999 }}
+        PaperProps={{
+          sx: {
+            minHeight: "95vh",
+          },
+        }}
       >
-        <AppBar sx={{ position: "relative" }}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={handleClose}
-              aria-label="close"
-            >
-              <CloseIcon />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
-            </Typography>
-            <Button autoFocus color="inherit" onClick={handleClose}>
-              save
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <List>
-          <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItem>
-        </List>
+        {/* <IconButton
+          style={{ alignSelf: "end", marginRight: ".5em", marginTop: ".5em" }}
+          onClick={handleClose}
+        >
+          <CloseIcon />
+        </IconButton> */}
+        {/* <DialogTitle
+          id="scroll-dialog-title"
+          style={{ textAlign: "center", marginTop: 0, paddingTop: 0 }}
+        >
+          Caută cu viteza luminii:
+          <span style={{ fontSize: "16px" }}>&#128526;</span>
+          <div>( denumire produs, categorie, cod piesă, etc...)</div>
+        </DialogTitle> */}
+
+        <DialogContent>
+          <MeiSearch onHit={handleClose} setQuery={setQuery} query={query} />
+          {/* <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+         
+          </DialogContentText> */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button
+            component={Link}
+            onClick={handleClose}
+            href={`/products?search=${query}`}
+            style={{ marginLeft: "auto" }}
+          >
+            Caută
+          </Button>
+        </DialogActions>
       </Dialog>
     </div>
   );
