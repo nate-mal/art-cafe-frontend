@@ -26,6 +26,7 @@ import Subs from "./Subs";
 import Cart from "../../Cart/Cart";
 import CartContext from "../../../store/cart-context";
 import InstantSearchDialog from "../../InstantSearch/index";
+import ExpandSearch from "./ExpandSearch";
 
 const Header = ({ options, specialOption }) => {
   const ctxCart = useContext(CartContext);
@@ -38,7 +39,7 @@ const Header = ({ options, specialOption }) => {
 
   const defaultTheme = useTheme();
   const matches = useMediaQuery(defaultTheme.breakpoints.down("md"));
-  //   const matchesSM = useMediaQuery(defaultTheme.breakpoints.down("sm"));
+  const matchesSM = useMediaQuery(defaultTheme.breakpoints.down("sm"));
 
   const [activeSubsIndex, setActiveSubsIndex] = useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -278,7 +279,7 @@ const Header = ({ options, specialOption }) => {
       <IconButton
         sx={{
           // marginLeft: "auto",
-          marginRight: "15px",
+          // marginRight: "0px",
           height: "50px",
           width: "50px",
         }}
@@ -324,9 +325,17 @@ const Header = ({ options, specialOption }) => {
             />
           </Button>
           <Hidden mdDown> {tabs}</Hidden>
-          <IconButton color="secondary" onClick={() => setInstantSearch(true)}>
-            <SearchIcon />
-          </IconButton>
+          {matchesSM ? (
+            <IconButton
+              color="secondary"
+              style={{ padding: "3px" }}
+              onClick={() => setInstantSearch(true)}
+            >
+              <SearchIcon />
+            </IconButton>
+          ) : (
+            <ExpandSearch onClick={() => setInstantSearch(true)} />
+          )}
           <InstantSearchDialog
             open={InstantSearch}
             onClose={() => setInstantSearch(false)}
@@ -334,7 +343,7 @@ const Header = ({ options, specialOption }) => {
           <IconButton
             color="secondary"
             onClick={ctxCart.showCart.function}
-            sx={{ position: "relative" }}
+            sx={{ position: "relative", padding: 0 }}
           >
             <Badge badgeContent={ctxCart.cartSize} color="error">
               <ShoppingCartOutlinedIcon />

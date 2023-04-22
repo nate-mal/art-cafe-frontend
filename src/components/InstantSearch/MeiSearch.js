@@ -6,18 +6,20 @@ import Typography from "@mui/material/Typography";
 import { useTheme } from "@emotion/react";
 import {
   InstantSearch,
-  InfiniteHits,
   SearchBox,
   Stats,
   Highlight,
+  createInfiniteHitsSessionStorageCache,
+  connectInfiniteHits,
 } from "react-instantsearch-dom";
 // import "./App.css";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const searchClient = instantMeiliSearch(
   "https://artcafe-meilisearch-production.up.railway.app/",
-  "malhnJ9YYTA3BNm5s8hWUOYx9iHOHDhe3v0AQ6KQpg8HkU"
+  "6d90112e1da3ec2f49ed432d45e40092300c47997776f1bdd5e00a184f2e286a"
 );
+const sessionStorageCache = createInfiniteHitsSessionStorageCache();
 
 import Router from "next/router";
 import { DialogTitle } from "@mui/material";
@@ -42,6 +44,7 @@ const App = ({ onHit, setQuery, query }) => {
         overflow: "hidden",
         cursor: "pointer",
         padding: ".5em",
+        userSelect: "none",
       }}
     >
       <div className="hit-name" style={{ fontWeight: "bold" }}>
@@ -89,7 +92,18 @@ const App = ({ onHit, setQuery, query }) => {
       </div>
     </a>
   );
-
+  const InfiniteHits = ({ hits }) => (
+    <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+      {hits.map((hit) => {
+        return (
+          <li key={`${hit.id}-${hit.art_id}`}>
+            <Hit hit={hit} />
+          </li>
+        );
+      })}
+    </ul>
+  );
+  const CustomInfiniteHits = connectInfiniteHits(InfiniteHits);
   return (
     <div className="ais-InstantSearch">
       <div style={{ width: "100vw", maxWidth: "600px" }}></div>
@@ -120,6 +134,7 @@ const App = ({ onHit, setQuery, query }) => {
               <div style={{ height: "20px" }} />
             )}
             <SearchBox
+              autoFocus={true}
               translations={{
                 submitTitle: "Caută.",
                 resetTitle: "Resetează căutarea.",
@@ -148,12 +163,13 @@ const App = ({ onHit, setQuery, query }) => {
           </Typography>
         </>
 
-        <InfiniteHits
+        <CustomInfiniteHits
           translations={{
             loadPrevious: "Reîncarcă cele anterioare",
             loadMore: "Încarcă mai multe",
           }}
-          hitComponent={Hit}
+          // hitComponent={Hit}
+          cache={sessionStorageCache}
         />
       </InstantSearch>
     </div>
