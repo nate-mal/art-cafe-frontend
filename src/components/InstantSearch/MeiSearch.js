@@ -3,6 +3,8 @@ import classes from "./MeiSearch.module.css";
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import { useTheme } from "@emotion/react";
 import {
   InstantSearch,
@@ -44,6 +46,7 @@ const App = ({ onHit, setQuery, query }) => {
         overflow: "hidden",
         cursor: "pointer",
         padding: ".5em",
+        marginBottom: ".5em",
         userSelect: "none",
       }}
     >
@@ -92,16 +95,41 @@ const App = ({ onHit, setQuery, query }) => {
       </div>
     </a>
   );
-  const InfiniteHits = ({ hits }) => (
-    <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-      {hits.map((hit) => {
-        return (
-          <li key={`${hit.id}-${hit.art_id}`}>
-            <Hit hit={hit} />
-          </li>
-        );
-      })}
-    </ul>
+  const InfiniteHits = ({ hits, hasMore, refineNext }) => (
+    <>
+      <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+        {hits.map((hit) => {
+          return (
+            <li key={`${hit.id}-${hit.art_id}`}>
+              <Hit hit={hit} />
+            </li>
+          );
+        })}
+      </ul>
+      <div>
+        {hits.length === 0 ? (
+          <Typography variant="body1" align="center">
+            {" "}
+            Nu am găsit niciun produs <SentimentDissatisfiedIcon />
+          </Typography>
+        ) : (
+          <div style={{ textAlign: "center" }}>
+            <Typography variant="body1" align="center">
+              {hits.length}
+              {hits.length === 1 ? " produs încărcat" : " produse încărcate"}
+            </Typography>
+            <Button
+              variant="outlined"
+              onClick={refineNext}
+              disabled={!hasMore}
+              style={{ textTransform: "none" }}
+            >
+              Încarcă mai multe
+            </Button>
+          </div>
+        )}
+      </div>
+    </>
   );
   const CustomInfiniteHits = connectInfiniteHits(InfiniteHits);
   return (
@@ -138,7 +166,7 @@ const App = ({ onHit, setQuery, query }) => {
               translations={{
                 submitTitle: "Caută.",
                 resetTitle: "Resetează căutarea.",
-                placeholder: "Caută după denumire, categorie, code, etc",
+                placeholder: "Caută după denumire, categorie, cod, etc",
               }}
               onChange={(event) => {
                 event.preventDefault();

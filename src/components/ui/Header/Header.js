@@ -325,7 +325,7 @@ const Header = ({ options, specialOption }) => {
             />
           </Button>
           <Hidden mdDown> {tabs}</Hidden>
-          {matchesSM ? (
+          <Hidden smUp>
             <IconButton
               color="secondary"
               style={{ padding: "3px" }}
@@ -333,9 +333,10 @@ const Header = ({ options, specialOption }) => {
             >
               <SearchIcon />
             </IconButton>
-          ) : (
+          </Hidden>
+          <Hidden smDown>
             <ExpandSearch onClick={() => setInstantSearch(true)} />
-          )}
+          </Hidden>
           <InstantSearchDialog
             open={InstantSearch}
             onClose={() => setInstantSearch(false)}
