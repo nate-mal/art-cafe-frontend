@@ -20,6 +20,9 @@ import CartContext from "../../store/cart-context";
 import CloseIcon from "@mui/icons-material/Close";
 import { minOrder } from "../../../lib/settings";
 // import Checkout from "./Checkout";
+const iOS =
+  typeof navigator !== "undefined" &&
+  /iPad|iPhone|iPod/.test(navigator.userAgent);
 const Cart = (props) => {
   const ctxCart = useContext(CartContext);
 
@@ -131,7 +134,10 @@ const Cart = (props) => {
   };
   return (
     <SwipeableDrawer
+      disableBackdropTransition={!iOS}
+      disableDiscovery={iOS}
       anchor="right"
+      disableSwipeToOpen
       open={ctxCart.showCart.value}
       onClose={ctxCart.showCart.function}
       onOpen={ctxCart.showCart.function}

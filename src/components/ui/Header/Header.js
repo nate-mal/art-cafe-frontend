@@ -279,7 +279,7 @@ const Header = ({ options, specialOption }) => {
       <IconButton
         sx={{
           // marginLeft: "auto",
-          // marginRight: "0px",
+          marginRight: "2px",
           height: "50px",
           width: "50px",
         }}
@@ -328,7 +328,7 @@ const Header = ({ options, specialOption }) => {
           <Hidden smUp>
             <IconButton
               color="secondary"
-              style={{ padding: "3px" }}
+              style={{ padding: "4px" }}
               onClick={() => setInstantSearch(true)}
             >
               <SearchIcon />
@@ -344,7 +344,7 @@ const Header = ({ options, specialOption }) => {
           <IconButton
             color="secondary"
             onClick={ctxCart.showCart.function}
-            sx={{ position: "relative", padding: 0 }}
+            sx={{ position: "relative", padding: "2px" }}
           >
             <Badge badgeContent={ctxCart.cartSize} color="error">
               <ShoppingCartOutlinedIcon />
