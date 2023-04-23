@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import { Paper, Grid, useTheme, useMediaQuery } from "@mui/material";
 import Image from "next/image";
-export default function ProductCarousel({ art_id, name, imgNr }) {
+export default function ProductCarousel({ art_id, name, imgNr, discount }) {
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const paths = [];

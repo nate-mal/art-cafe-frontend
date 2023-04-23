@@ -25,13 +25,20 @@ export default function MultiActionAreaCard(props) {
   const ctxCart = React.useContext(CartContext);
   const ctxNotify = React.useContext(NotificationContext);
 
-  const { id, name, price, description, art_id, sub_category, slug } = props;
+  const { id, name, price, description, art_id, sub_category, slug, discount } =
+    props;
   function openCart() {
     ctxCart.onShowCart();
   }
   const addToCartHandler = (amount) => {
     const item = {
-      item: { id: id.toString(), art_id, name, price, description },
+      item: {
+        id: id.toString(),
+        art_id,
+        name,
+        price: price - price * (discount / 100),
+        description,
+      },
       amount: 1,
     };
     ctxCart.updateCart("ADD", item);
@@ -50,8 +57,25 @@ export default function MultiActionAreaCard(props) {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        position: "relative",
       }}
     >
+      {discount && (
+        <Typography
+          variant="body1"
+          sx={(theme) => ({
+            padding: ".5em",
+            position: "absolute",
+            top: 10,
+            right: 10,
+            background: theme.palette.secondary.main,
+            color: "#fff",
+            borderRadius: "5px",
+          })}
+        >
+          -{discount} %
+        </Typography>
+      )}
       <CardActionArea component={Link} href={{ pathname: `/products/${slug}` }}>
         <Grid container direction="column" alignContent="center">
           <Grid item container justifyContent="center">
@@ -94,7 +118,7 @@ export default function MultiActionAreaCard(props) {
       <Grid item>
         <Grid
           container
-          justifyContent="space-between"
+          justifyContent="end"
           sx={{ paddingLeft: ".6em", paddingRight: ".6em" }}
         >
           <Grid item></Grid>
@@ -102,11 +126,25 @@ export default function MultiActionAreaCard(props) {
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ fontWeight: 600 }}
+              sx={{
+                fontWeight: 600,
+                textDecoration: discount ? "line-through" : "",
+              }}
             >
-              {price / 100} lei
+              {(price / 100).toFixed(2)} lei
             </Typography>
           </Grid>
+          {discount && (
+            <Grid item>
+              <Typography
+                variant="body2"
+                color="secondary"
+                sx={{ fontWeight: 600, marginLeft: ".5em" }}
+              >
+                {((price - price * (discount / 100)) / 100).toFixed(2)} lei
+              </Typography>
+            </Grid>
+          )}
         </Grid>
         <CardActions>
           <Grid container justifyContent="space-between">

@@ -27,8 +27,10 @@ import Cart from "../../Cart/Cart";
 import CartContext from "../../../store/cart-context";
 import InstantSearchDialog from "../../InstantSearch/index";
 import ExpandSearch from "./ExpandSearch";
+import useDirections from "../../../hooks/useDirections";
 
 const Header = ({ options, specialOption }) => {
+  const scroll = useDirections();
   const ctxCart = useContext(CartContext);
   const router = useRouter();
   const service = router.asPath;
@@ -298,7 +300,13 @@ const Header = ({ options, specialOption }) => {
 
   return (
     <>
-      <AppBar position="fixed">
+      <AppBar
+        position="fixed"
+        style={{
+          transition: "all .6s  ease",
+          marginTop: scroll === "down" ? "-7em" : 0,
+        }}
+      >
         <Toolbar disableGutters sx={{ justifyContent: "end" }}>
           <Button
             component={Link}

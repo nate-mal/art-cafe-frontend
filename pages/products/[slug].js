@@ -1,7 +1,7 @@
-import { ApolloClient, InMemoryCache,gql } from "@apollo/client";
-
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 
 import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Head from "next/head";
 import ProductDetailed from "../../src/components/Product/ProductDetailed/ProductDetailed";
@@ -18,14 +18,35 @@ export default function ProductDetailedPage({ item }) {
       <Head>
         <title>{`Art Cafe ${item.name}`}</title>
         <meta name="description" content={item.description} />
-<meta property="og:title" content={item.name} />
-<meta property="og:description" content={item.description} />
-<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/images/${item.art_id}/image-0.jpg`}/>
-<meta property="og:updated_time" content="1681823297"/>
+        <meta property="og:title" content={item.name} />
+        <meta property="og:description" content={item.description} />
+        <meta
+          property="og:image"
+          itemprop="image"
+          content={`${process.env.NEXT_PUBLIC_URL}/images/${item.art_id}/image-0.jpg`}
+        />
+        <meta property="og:updated_time" content="1681823297" />
       </Head>
       <Container maxWidth="lg" style={{ minHeight: "100vh" }}>
         <Grid container spacing={4} sx={{ marginTop: "5em" }}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} style={{ position: "relative" }}>
+            {item.discount && (
+              <Typography
+                variant="body1"
+                sx={(theme) => ({
+                  padding: ".5em",
+                  position: "absolute",
+                  top: 10,
+                  right: 10,
+                  background: theme.palette.secondary.main,
+                  color: "#fff",
+                  borderRadius: "5px",
+                  zIndex: 999,
+                })}
+              >
+                -{item.discount} %
+              </Typography>
+            )}
             <ProductCarousel
               art_id={item.art_id}
               imgNr={item.imgNr}
@@ -100,6 +121,7 @@ export async function getStaticProps(ctx) {
               description
               price
               images_nr
+              discount
               compatible_models {
                 data {
                   id
@@ -216,6 +238,7 @@ export async function getStaticProps(ctx) {
     name: response.attributes.name,
     art_id: response.attributes.art_id,
     price: response.attributes.price,
+    discount: response.attributes.discount,
     description: response.attributes.description,
     imgNr: response.attributes.images_nr,
     compatible_models: compatible_models,

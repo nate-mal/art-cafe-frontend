@@ -24,7 +24,6 @@ const searchClient = instantMeiliSearch(
 const sessionStorageCache = createInfiniteHitsSessionStorageCache();
 
 import Router from "next/router";
-import { DialogTitle } from "@mui/material";
 
 const App = ({ onHit, setQuery, query }) => {
   const theme = useTheme();
@@ -57,7 +56,23 @@ const App = ({ onHit, setQuery, query }) => {
         ~<Highlight attribute="sub_category" hit={hit} />~
       </div>
       <div style={{ display: "flex" }}>
-        <div className="hit-image">
+        <div className="hit-image" style={{ position: "relative" }}>
+          {hit.discount && (
+            <span
+              style={{
+                fontSize: ".7rem",
+                padding: "2px",
+                position: "absolute",
+                top: 12,
+                right: 12,
+                background: "#f6a118",
+                color: "#fff",
+                borderRadius: "5px",
+              }}
+            >
+              -{hit.discount} %
+            </span>
+          )}
           <img
             src={`/images/${hit.art_id}/image-0.jpg`}
             alt={hit.name}
@@ -82,7 +97,21 @@ const App = ({ onHit, setQuery, query }) => {
           <span>...</span>
           <div style={{ display: matchesSM ? "" : "flex" }}>
             <div>
-              Preț: <strong>{(hit.price / 100).toFixed(2)} lei</strong>
+              Preț:{" "}
+              <strong
+                style={{ textDecoration: hit.discount ? "line-through" : "" }}
+              >
+                {(hit.price / 100).toFixed(2)} lei
+              </strong>{" "}
+              {hit.discount && (
+                <strong style={{ marginLeft: ".5em", color: "#f6a118" }}>
+                  {(
+                    (hit.price - hit.price * (hit.discount / 100)) /
+                    100
+                  ).toFixed(2)}{" "}
+                  lei
+                </strong>
+              )}
             </div>
             <div style={{ marginLeft: "auto" }}>
               Cod:

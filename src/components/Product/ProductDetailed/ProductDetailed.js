@@ -25,11 +25,18 @@ export default function ProductDetailed({ item }) {
     description,
     compatible_models,
     deliveryInfo,
+    discount,
   } = item;
   const [qty, setQty] = React.useState(1);
   const addToCartHandler = () => {
     const item = {
-      item: { id, art_id, name, price, description },
+      item: {
+        id,
+        art_id,
+        name,
+        price: price - price * (discount / 100),
+        description,
+      },
       amount: qty,
     };
     ctxCart.updateCart("ADD", item);
@@ -50,7 +57,7 @@ export default function ProductDetailed({ item }) {
   //   })();
   // }, []);
   return (
-    <Grid item md alignItems="center">
+    <Grid item md alignItems="center" sx={{ position: "relative" }}>
       <Typography
         variant="h5"
         component="h3"
@@ -72,11 +79,24 @@ export default function ProductDetailed({ item }) {
               color: theme.palette.primary.main,
               fontSize: "1rem",
               marginLeft: ".5em",
+              textDecoration: discount ? "line-through" : "",
             }}
           >
             {price / 100} lei
           </strong>
+          {discount && (
+            <strong
+              style={{
+                color: theme.palette.secondary.main,
+                fontSize: "1rem",
+                marginLeft: ".5em",
+              }}
+            >
+              {((price - price * (discount / 100)) / 100).toFixed(2)} lei
+            </strong>
+          )}
         </Typography>
+
         <Typography variant="body2">
           Art. nr.:
           <strong
