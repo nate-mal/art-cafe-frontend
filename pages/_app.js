@@ -14,6 +14,7 @@ import styles from "../src/styles/global.css";
 import Footer from "../src/components/ui/Footer/Footer";
 import UserProvider from "../context/user";
 import NotificationProvider from "../context/notification";
+import DiscountsProvider from "../context/discounts";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
 import Router from "next/router";
 
@@ -128,27 +129,28 @@ export default function MyApp(props) {
       </Head>
       <NotificationProvider>
         <UserProvider>
-          <CartContextProvider>
-            <ThemeProvider theme={theme}>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
-              <Header options={options} specialOption={estimate} />
-              <Component {...pageProps} />
-              <Footer options={options} />
-           
-              <FloatingWhatsApp
-                phoneNumber={phone}
-                accountName={accountName}
-                avatar="/logo.png"
-                chatMessage="Bună ziua! Cu ce vă pot ajuta?"
-                allowEsc
-                allowClickAway
-                notification
-                notificationSound
-              />
-          
-            </ThemeProvider>
-          </CartContextProvider>
+          <DiscountsProvider>
+            <CartContextProvider>
+              <ThemeProvider theme={theme}>
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
+                <Header options={options} specialOption={estimate} />
+                <Component {...pageProps} />
+                <Footer options={options} />
+
+                <FloatingWhatsApp
+                  phoneNumber={phone}
+                  accountName={accountName}
+                  avatar="/logo.png"
+                  chatMessage="Bună ziua! Cu ce vă pot ajuta?"
+                  allowEsc
+                  allowClickAway
+                  notification
+                  notificationSound
+                />
+              </ThemeProvider>
+            </CartContextProvider>
+          </DiscountsProvider>
         </UserProvider>
       </NotificationProvider>
     </CacheProvider>

@@ -1,10 +1,11 @@
 import "instantsearch.css/themes/satellite.css";
 import classes from "./MeiSearch.module.css";
-import React from "react";
+import * as React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import { DiscountsContext } from "../../../context/discounts";
 import { useTheme } from "@emotion/react";
 import {
   InstantSearch,
@@ -26,6 +27,7 @@ const sessionStorageCache = createInfiniteHitsSessionStorageCache();
 import Router from "next/router";
 
 const App = ({ onHit, setQuery, query }) => {
+  const ctxDiscounts = React.useContext(DiscountsContext);
   const theme = useTheme();
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
   const handleHitClick = (e, slug) => {
@@ -35,95 +37,99 @@ const App = ({ onHit, setQuery, query }) => {
     setQuery("");
   };
 
-  const Hit = ({ hit }) => (
-    <a
-      className={classes.card}
-      onClick={(e) => handleHitClick(e, hit.slug)}
-      key={hit.id}
-      style={{
-        maxHeight: "200px",
-        overflow: "hidden",
-        cursor: "pointer",
-        padding: ".5em",
-        marginBottom: ".5em",
-        userSelect: "none",
-      }}
-    >
-      <div className="hit-name" style={{ fontWeight: "bold" }}>
-        <Highlight attribute="name" hit={hit} />
-      </div>
-      <div>
-        ~<Highlight attribute="sub_category" hit={hit} />~
-      </div>
-      <div style={{ display: "flex" }}>
-        <div className="hit-image" style={{ position: "relative" }}>
-          {hit.discount && (
-            <span
-              style={{
-                fontSize: ".7rem",
-                padding: "2px",
-                position: "absolute",
-                top: 12,
-                right: 12,
-                background: "#f6a118",
-                color: "#fff",
-                borderRadius: "5px",
-              }}
-            >
-              -{hit.discount} %
-            </span>
-          )}
-          <img
-            src={`/images/${hit.art_id}/image-0.jpg`}
-            alt={hit.name}
-            width="100px"
-            style={{ padding: "1em" }}
-          />
+  const Hit = ({ hit }) => {
+    const discount =
+      hit.discount ||
+      ctxDiscounts.getDiscountPercentage(hit.sub_category_id, hit.sub_category);
+    return (
+      <a
+        className={classes.card}
+        onClick={(e) => handleHitClick(e, hit.slug)}
+        key={hit.id}
+        style={{
+          maxHeight: "200px",
+          overflow: "hidden",
+          cursor: "pointer",
+          padding: ".5em",
+          marginBottom: ".5em",
+          userSelect: "none",
+        }}
+      >
+        <div className="hit-name" style={{ fontWeight: "bold" }}>
+          <Highlight attribute="name" hit={hit} />
         </div>
         <div>
-          <div
-            className="hit-description"
-            style={{
-              display: "block",
-              textOverflow: "ellipsis",
-              wordWrap: "break-word",
-              overflow: "hidden",
-              maxHeight: "3.6em",
-              lineHeight: "1.8em",
-            }}
-          >
-            <Highlight attribute="description" hit={hit} />
-          </div>
-          <span>...</span>
-          <div style={{ display: matchesSM ? "" : "flex" }}>
-            <div>
-              Preț:{" "}
-              <strong
-                style={{ textDecoration: hit.discount ? "line-through" : "" }}
+          ~<Highlight attribute="sub_category" hit={hit} />~
+        </div>
+        <div style={{ display: "flex" }}>
+          <div className="hit-image" style={{ position: "relative" }}>
+            {discount && (
+              <span
+                style={{
+                  fontSize: ".7rem",
+                  padding: "2px",
+                  position: "absolute",
+                  top: 12,
+                  right: 12,
+                  background: "#f6a118",
+                  color: "#fff",
+                  borderRadius: "5px",
+                }}
               >
-                {(hit.price / 100).toFixed(2)} lei
-              </strong>{" "}
-              {hit.discount && (
-                <strong style={{ marginLeft: ".5em", color: "#f6a118" }}>
-                  {(
-                    (hit.price - hit.price * (hit.discount / 100)) /
-                    100
-                  ).toFixed(2)}{" "}
-                  lei
-                </strong>
-              )}
+                -{discount} %
+              </span>
+            )}
+            <img
+              src={`/images/${hit.art_id}/image-0.jpg`}
+              alt={hit.name}
+              width="100px"
+              style={{ padding: "1em" }}
+            />
+          </div>
+          <div>
+            <div
+              className="hit-description"
+              style={{
+                display: "block",
+                textOverflow: "ellipsis",
+                wordWrap: "break-word",
+                overflow: "hidden",
+                maxHeight: "3.6em",
+                lineHeight: "1.8em",
+              }}
+            >
+              <Highlight attribute="description" hit={hit} />
             </div>
-            <div style={{ marginLeft: "auto" }}>
-              Cod:
-              <strong>
-                <Highlight attribute="art_id" hit={hit} />
-              </strong>
+            <span>...</span>
+            <div style={{ display: matchesSM ? "" : "flex" }}>
+              <div>
+                Preț:{" "}
+                <strong
+                  style={{ textDecoration: discount ? "line-through" : "" }}
+                >
+                  {(hit.price / 100).toFixed(2)} lei
+                </strong>{" "}
+                {discount && (
+                  <strong style={{ marginLeft: ".5em", color: "#f6a118" }}>
+                    {((hit.price - hit.price * (discount / 100)) / 100).toFixed(
+                      2
+                    )}{" "}
+                    lei
+                  </strong>
+                )}
+              </div>
+              <div style={{ marginLeft: "auto" }}>
+                Cod:
+                <strong>
+                  <Highlight attribute="art_id" hit={hit} />
+                </strong>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </a>
-  );
+      </a>
+    );
+  };
   const InfiniteHits = ({ hits, hasMore, refineNext }) => (
     <>
       <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>

@@ -48,7 +48,8 @@
     "react-material-ui-carousel": "^3.4.2",
     "react-spring-lightbox": "^1.7.1",
     "react-whatsapp-button": "^2.0.0",
-    "sharp": "^0.31.3"
+    "sharp": "^0.31.3",
+    "swr": "^2.1.4"
   },
   "devDependencies": {
     "eslint": "latest",

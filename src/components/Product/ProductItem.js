@@ -16,6 +16,8 @@ import IconButton from "@mui/material/IconButton";
 import Link from "../../Link";
 import CartContext from "../../store/cart-context";
 import { NotificationContext } from "../../../context/notification";
+import { DiscountsContext } from "../../../context/discounts";
+
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export default function MultiActionAreaCard(props) {
@@ -24,12 +26,25 @@ export default function MultiActionAreaCard(props) {
 
   const ctxCart = React.useContext(CartContext);
   const ctxNotify = React.useContext(NotificationContext);
+  const ctxDiscounts = React.useContext(DiscountsContext);
 
-  const { id, name, price, description, art_id, sub_category, slug, discount } =
-    props;
+  const {
+    id,
+    name,
+    price,
+    description,
+    art_id,
+    sub_category,
+    sub_category_id,
+    slug,
+  } = props;
   function openCart() {
     ctxCart.onShowCart();
   }
+
+  const discount =
+    props.discount ||
+    ctxDiscounts.getDiscountPercentage(sub_category_id, sub_category);
   const addToCartHandler = (amount) => {
     const item = {
       item: {
