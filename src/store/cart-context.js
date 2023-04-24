@@ -63,6 +63,20 @@ export const CartContextProvider = (props) => {
           return cartItem !== "removed";
         });
       return updatedState;
+    } else if (action.type === "UPDATE_PRICE/DISCOUNT") {
+      const updatedState = state.map((cartItem, key, state) => {
+        if (cartItem.item.id === action.value.id) {
+          const price = action.value.price;
+          const discount = action.value.discount;
+          return {
+            item: { ...cartItem.item, price, discount },
+            amount: cartItem.amount,
+            stock: cartItem.stock,
+          };
+        } else return cartItem;
+      });
+
+      return updatedState;
     } else if (action.type === "REMOVE") {
       return state.filter((cartItem) => {
         return cartItem.item.id !== action.value.id;
@@ -96,7 +110,11 @@ export const CartContextProvider = (props) => {
     const temp = cartContent;
     if (cartContent) {
       return temp.reduce(
-        (total, cartItem) => +total + cartItem.item.price * cartItem.amount,
+        (total, cartItem) =>
+          +total +
+          (cartItem.item.price -
+            cartItem.item.price * (cartItem.item.discount / 100)) *
+            cartItem.amount,
         0
       );
     }

@@ -69,9 +69,12 @@ const Cart = (props) => {
               id={cartItem.item.id}
               key={cartItem.item.id}
               name={cartItem.item.name}
-              price={cartItem.item.price * cartItem.amount}
+              price={cartItem.item.price}
+              discount={cartItem.item.discount}
               amount={cartItem.amount}
               stock={cartItem.stock}
+              sub_category={cartItem.item.sub_category}
+              sub_category_id={cartItem.item.sub_category_id}
             />
           );
         })}

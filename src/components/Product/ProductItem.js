@@ -51,8 +51,12 @@ export default function MultiActionAreaCard(props) {
         id: id.toString(),
         art_id,
         name,
-        price: price - price * (discount / 100),
+        price,
+        discount,
         description,
+        sub_category,
+        sub_category_id,
+        slug,
       },
       amount: 1,
     };

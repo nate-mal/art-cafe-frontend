@@ -26,6 +26,9 @@ export default function ProductDetailed({ item }) {
     compatible_models,
     deliveryInfo,
     discount,
+    sub_category,
+    sub_category_id,
+    slug,
   } = item;
   const [qty, setQty] = React.useState(1);
   const addToCartHandler = () => {
@@ -34,8 +37,12 @@ export default function ProductDetailed({ item }) {
         id,
         art_id,
         name,
-        price: price - price * (discount / 100),
+        price,
+        discount,
         description,
+        sub_category,
+        sub_category_id,
+        slug,
       },
       amount: qty,
     };
