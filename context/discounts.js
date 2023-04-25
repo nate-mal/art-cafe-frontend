@@ -38,6 +38,7 @@ export default function DiscountsProvider({ children }) {
       // filteredDiscounts.sort(function (a, b) {
       //   return new Date(b.createdAt) - new Date(a.createdAt);
       // });
+      // todo
 
       return filteredDiscounts[0].percentage;
     },
