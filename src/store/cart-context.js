@@ -112,8 +112,10 @@ export const CartContextProvider = (props) => {
       return temp.reduce(
         (total, cartItem) =>
           +total +
-          (cartItem.item.price -
-            cartItem.item.price * (cartItem.item.discount / 100)) *
+          Math.round(
+            cartItem.item.price -
+              Math.ceil(cartItem.item.price * (cartItem.item.discount / 100))
+          ) *
             cartItem.amount,
         0
       );

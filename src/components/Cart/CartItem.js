@@ -191,7 +191,8 @@ const CartItem = (props) => {
                   })}
                 >
                   {`${(
-                    ((price - price * (discount / 100)) * props.amount) /
+                    (Math.round(price - Math.ceil(price * (discount / 100))) *
+                      props.amount) /
                     100
                   ).toFixed(2)} lei`}
                 </Typography>

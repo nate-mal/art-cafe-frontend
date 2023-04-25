@@ -111,9 +111,11 @@ const App = ({ onHit, setQuery, query }) => {
                 </strong>{" "}
                 {discount && (
                   <strong style={{ marginLeft: ".5em", color: "#f6a118" }}>
-                    {((hit.price - hit.price * (discount / 100)) / 100).toFixed(
-                      2
-                    )}{" "}
+                    {(
+                      Math.round(
+                        hit.price - Math.ceil(hit.price * (discount / 100))
+                      ) / 100
+                    ).toFixed(2)}{" "}
                     lei
                   </strong>
                 )}

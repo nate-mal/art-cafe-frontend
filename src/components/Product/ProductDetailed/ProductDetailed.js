@@ -99,7 +99,10 @@ export default function ProductDetailed({ item }) {
                 marginLeft: ".5em",
               }}
             >
-              {((price - price * (discount / 100)) / 100).toFixed(2)} lei
+              {(
+                Math.round(price - Math.ceil(price * (discount / 100))) / 100
+              ).toFixed(2)}
+              lei
             </strong>
           )}
         </Typography>
