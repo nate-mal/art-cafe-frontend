@@ -102,6 +102,20 @@ const CartItem = (props) => {
           color: "orange",
         };
         break;
+      case "unavailable":
+        stock = {
+          ...props.stock,
+          label: `produs indisponibil`,
+          color: "red",
+        };
+        break;
+      case "on-demand":
+        stock = {
+          ...props.stock,
+          label: `indisponibil ( doar pe comandă 14-28 zile)`,
+          color: "red",
+        };
+        break;
       default:
         stock = undefined;
         break;

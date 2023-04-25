@@ -37,9 +37,24 @@ export default function MultiActionAreaCard(props) {
     sub_category,
     sub_category_id,
     slug,
+    availability,
+    stock_amount,
   } = props;
   function openCart() {
     ctxCart.onShowCart();
+  }
+
+  let unavailable_status = null;
+  if (availability === "in-stock-in" && (!stock_amount || stock_amount <= 0)) {
+    unavailable_status = "sold-out";
+  }
+
+  if (
+    !["in-stock-ex", "in-stock-in", "undefined-stock", "sold-out"].includes(
+      availability
+    )
+  ) {
+    unavailable_status = availability;
   }
 
   const discount =
@@ -93,6 +108,24 @@ export default function MultiActionAreaCard(props) {
           })}
         >
           -{discount} %
+        </Typography>
+      )}
+      {unavailable_status && (
+        <Typography
+          variant="body1"
+          sx={(theme) => ({
+            fontSize: "1rem",
+            padding: ".5em",
+            position: "absolute",
+            top: 100,
+            right: 50,
+            background: theme.palette.primary.main,
+            color: "#fff",
+            borderRadius: "5px",
+            zIndex: 10,
+          })}
+        >
+          {unavailable_status === "sold-out" ? "Stoc epuizat" : "Indisponibil"}
         </Typography>
       )}
       <CardActionArea component={Link} href={{ pathname: `/products/${slug}` }}>
@@ -179,6 +212,7 @@ export default function MultiActionAreaCard(props) {
               Detalii produs
             </Button>
             <IconButton
+              disabled={Boolean(unavailable_status)}
               color="primary"
               aria-label="add to shopping cart"
               onClick={addToCartHandler}

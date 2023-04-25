@@ -172,6 +172,8 @@ export async function getServerSideProps(ctx) {
       "art_id",
       "slug",
       "discount",
+      "availability",
+      "stock_amount",
     ],
   });
 

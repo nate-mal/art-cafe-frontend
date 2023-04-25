@@ -33,6 +33,22 @@ export default function ProductDetailedPage({ item }) {
 
   const price = data ? data.data.attributes.price : item.price;
 
+  const { availability, stock_amount } = item;
+  // check availability
+  let unavailable_status = null;
+  if (availability === "in_stock_in" && (!stock_amount || stock_amount <= 0)) {
+    unavailable_status = "sold_out";
+  }
+
+  if (
+    !["in_stock-ex", "in_stock_in", "undefined_stock", "sold_out"].includes(
+      availability
+    )
+  ) {
+    unavailable_status = availability;
+  }
+  console.log("av", availability);
+
   const deliveryInfo =
     "\n*Livrare prin curier rapid national - 29,99 lei (cost fix fara KM taxabili). \n*Livrare gratuita pentru comenzi achitate prin serviciul de plăți online. \n*Va rugam sa luati in considerare predarea catre curier a produselor in 2-5 zile lucratoare pentru produsele marcate cu stoc extern. \n *Comanda minimă este de 300 de RON. Prețurile produselor sunt exprimate în lei și includ TVA. \n*Te tinem la curent cu statusul comenzii printr-un e-mail si/sau sms in momentul in care comanda este finalizata si este predata catre curier.  \n*Majoritatea produselor sunt disponibile intr-un depozit logistic in international,iar acestea necesita tranzit 2-5 zile,verificare calitativa si ambalare.";
   return (
@@ -69,6 +85,26 @@ export default function ProductDetailedPage({ item }) {
                 -{discount} %
               </Typography>
             )}
+            {unavailable_status && (
+              <Typography
+                variant="body1"
+                sx={(theme) => ({
+                  fontSize: "1.2rem",
+                  padding: ".5em",
+                  position: "absolute",
+                  top: 100,
+                  right: 100,
+                  background: theme.palette.primary.main,
+                  color: "#fff",
+                  borderRadius: "5px",
+                  zIndex: 10,
+                })}
+              >
+                {unavailable_status === "sold_out"
+                  ? "Stoc epuizat"
+                  : "Indisponibil"}
+              </Typography>
+            )}
             <ProductCarousel
               art_id={item.art_id}
               imgNr={item.imgNr}
@@ -77,7 +113,13 @@ export default function ProductDetailedPage({ item }) {
           </Grid>
           <Grid item xs={12} md={6}>
             <ProductDetailed
-              item={{ ...item, price, discount, deliveryInfo }}
+              item={{
+                ...item,
+                price,
+                discount,
+                deliveryInfo,
+                unavailable_status,
+              }}
             />
           </Grid>
         </Grid>
@@ -147,6 +189,8 @@ export async function getStaticProps(ctx) {
               price
               images_nr
               discount
+              availability
+              stock_amount
               compatible_models {
                 data {
                   id
@@ -266,13 +310,15 @@ export async function getStaticProps(ctx) {
     art_id: response.attributes.art_id,
     price: response.attributes.price,
     discount: response.attributes.discount,
+    availability: response.attributes.availability,
+    stock_amount: response.attributes.stock_amount,
     description: response.attributes.description,
     imgNr: response.attributes.images_nr,
     compatible_models: compatible_models,
     sub_category: response.attributes.sub_category.data.attributes.ro_name,
     sub_category_id: response.attributes.sub_category.data.id,
   };
-
+  console.log(item.availability);
   return {
     props: {
       item,

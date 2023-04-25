@@ -5,8 +5,9 @@ import Grid from "@mui/material/Grid";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { useTheme, useMediaQuery, Card, Button } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { NotificationContext } from "../../../../context/notification";
-
+import Router from "next/router";
 import LabTabs from "./LabTabs";
 import Link from "../../../Link";
 import classes from "./ProductDetailed.module.css";
@@ -26,10 +27,12 @@ export default function ProductDetailed({ item }) {
     compatible_models,
     deliveryInfo,
     discount,
+    unavailable_status,
     sub_category,
     sub_category_id,
     slug,
   } = item;
+
   const [qty, setQty] = React.useState(1);
   const addToCartHandler = () => {
     const item = {
@@ -56,13 +59,13 @@ export default function ProductDetailed({ item }) {
       matchesMD ? ctxCart.onShowCart : undefined
     );
   };
+  const origin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
+  const path = Router.asPath;
+  const url = `${origin}${path}`;
 
-  // React.useEffect(() => {
-  //   (async () => {
-  //     const data = await fetch("http://192.168.100.8:4002/api/products/5001");
-  //     console.log(await data.json());
-  //   })();
-  // }, []);
   return (
     <Grid item md alignItems="center" sx={{ position: "relative" }}>
       <Typography
@@ -134,16 +137,57 @@ export default function ProductDetailed({ item }) {
           }}
         /> */}
         <QuantityPicker value={qty} setValue={setQty} />
-        <Button
-          variant="contained"
-          sx={{
-            borderRadius: "50px",
-          }}
-          onClick={addToCartHandler}
-        >
-          Adaugă în coș <AddShoppingCartIcon sx={{ marginLeft: ".5em" }} />
-        </Button>
+        <Grid item>
+          {unavailable_status === "on_demand" ? (
+            <Button
+              variant="contained"
+              sx={{
+                ...theme.typography.estimate,
+                borderRadius: 50,
+                backgroundColor: theme.palette.primary.main,
+                width: "fit-content",
+                fontSize: "1.25rem",
+
+                "&:hover": {
+                  backgroundColor: theme.palette.primary.light,
+                },
+              }}
+              href={`https://api.whatsapp.com/send/?phone=0751465658&text=${url}`}
+              component={Link}
+              target="_blank"
+            >
+              <WhatsAppIcon style={{ marginRight: ".5em" }} />
+              <p> Comandă </p>
+            </Button>
+          ) : (
+            <Button
+              disabled={Boolean(unavailable_status)}
+              variant="contained"
+              sx={{
+                borderRadius: "50px",
+              }}
+              onClick={addToCartHandler}
+            >
+              {unavailable_status ? (
+                <div>Indisponibil</div>
+              ) : (
+                <div>
+                  Adaugă în coș{" "}
+                  <AddShoppingCartIcon sx={{ marginLeft: ".5em" }} />
+                </div>
+              )}
+            </Button>
+          )}
+        </Grid>
       </Grid>
+      {unavailable_status === "on_demand" && (
+        <Grid item>
+          <Typography variant="body1" color="red">
+            Produs indisponibil, doar pe comandă, termen estimativ de livrare
+            14-28 zile.
+          </Typography>
+        </Grid>
+      )}
       <LabTabs
         items={[
           {
