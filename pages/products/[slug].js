@@ -76,7 +76,9 @@ export default function ProductDetailedPage({ item }) {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <ProductDetailed item={{ ...item, discount, deliveryInfo }} />
+            <ProductDetailed
+              item={{ ...item, price, discount, deliveryInfo }}
+            />
           </Grid>
         </Grid>
       </Container>
