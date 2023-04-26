@@ -10,11 +10,8 @@ import Head from "next/head";
 import ProductDetailed from "../../src/components/Product/ProductDetailed/ProductDetailed";
 import ProductCarousel from "../../src/components/Product/ProductDetailed/ProductCarousel";
 import { DiscountsContext } from "../../context/discounts";
+import client from "../../apollo-client";
 
-const client = new ApolloClient({
-  uri: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-  cache: new InMemoryCache(),
-});
 export default function ProductDetailedPage({ item }) {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
@@ -41,13 +38,12 @@ export default function ProductDetailedPage({ item }) {
   }
 
   if (
-    !["in_stock-ex", "in_stock_in", "undefined_stock", "sold_out"].includes(
+    !["in_stock_ex", "in_stock_in", "undefined_stock", "sold_out"].includes(
       availability
     )
   ) {
     unavailable_status = availability;
   }
-  console.log("av", availability);
 
   const deliveryInfo =
     "\n*Livrare prin curier rapid national - 29,99 lei (cost fix fara KM taxabili). \n*Livrare gratuita pentru comenzi achitate prin serviciul de plăți online. \n*Va rugam sa luati in considerare predarea catre curier a produselor in 2-5 zile lucratoare pentru produsele marcate cu stoc extern. \n *Comanda minimă este de 300 de RON. Prețurile produselor sunt exprimate în lei și includ TVA. \n*Te tinem la curent cu statusul comenzii printr-un e-mail si/sau sms in momentul in care comanda este finalizata si este predata catre curier.  \n*Majoritatea produselor sunt disponibile intr-un depozit logistic in international,iar acestea necesita tranzit 2-5 zile,verificare calitativa si ambalare.";

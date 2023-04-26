@@ -34,6 +34,7 @@ export default function ProductDetailed({ item }) {
   } = item;
 
   const [qty, setQty] = React.useState(1);
+  const [url, setUrl] = React.useState("url");
   const addToCartHandler = () => {
     const item = {
       item: {
@@ -59,12 +60,16 @@ export default function ProductDetailed({ item }) {
       matchesMD ? ctxCart.onShowCart : undefined
     );
   };
-  const origin =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "";
-  const path = Router.asPath;
-  const url = `${origin}${path}`;
+
+  React.useEffect(() => {
+    const origin =
+      typeof window !== "undefined" && window.location.origin
+        ? window.location.origin
+        : "";
+    const path = Router.asPath;
+    setUrl(`${origin}${path}`);
+  }, []);
+  console.log(unavailable_status);
 
   return (
     <Grid item md alignItems="center" sx={{ position: "relative" }}>
@@ -152,7 +157,7 @@ export default function ProductDetailed({ item }) {
                   backgroundColor: theme.palette.primary.light,
                 },
               }}
-              href={`https://api.whatsapp.com/send/?phone=0751465658&text=${url}`}
+              href={`https://api.whatsapp.com/send/?phone=40751465658&text=${url}`}
               component={Link}
               target="_blank"
             >
@@ -171,7 +176,7 @@ export default function ProductDetailed({ item }) {
               {unavailable_status ? (
                 <div>Indisponibil</div>
               ) : (
-                <div>
+                <div style={{ display: "flex", alignItems: "center" }}>
                   Adaugă în coș{" "}
                   <AddShoppingCartIcon sx={{ marginLeft: ".5em" }} />
                 </div>

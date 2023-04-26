@@ -930,12 +930,8 @@ const EstimatePage = () => {
         {questions
           .filter((question) => question.active)
           .map((question, index) => (
-            <Box 
-            
-              key={index}
-           
-            >
-              <Grid item  >
+            <Box key={index}>
+              <Grid item>
                 <Typography
                   variant="h2"
                   align="center"
@@ -970,7 +966,7 @@ const EstimatePage = () => {
                 }}
               >
                 {question.options.map((option) => (
-                  <Grid 
+                  <Grid
                     key={option.id}
                     item
                     container
@@ -992,7 +988,6 @@ const EstimatePage = () => {
                           : null,
                       },
                     }}
-                    
                   >
                     <Grid item sx={{ maxWidth: "12em" }}>
                       <Typography
@@ -1009,7 +1004,6 @@ const EstimatePage = () => {
                     <Grid
                       item
                       style={{ marginRight: matchesMD ? "1em" : undefined }}
-                     
                     >
                       <img src={option.icon} alt={option.iconAlt} />
                     </Grid>
@@ -1313,7 +1307,7 @@ const EstimatePage = () => {
                     backgroundColor: theme.palette.primary.light,
                   },
                 }}
-                href={`https://api.whatsapp.com/send/?phone=40749060251&text=${getMessage()}`}
+                href={`https://api.whatsapp.com/send/?phone=40751465658&text=${getMessage()}`}
                 component={Link}
                 target="_blank"
               >

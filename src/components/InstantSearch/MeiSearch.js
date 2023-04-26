@@ -41,6 +41,24 @@ const App = ({ onHit, setQuery, query }) => {
     const discount =
       hit.discount ||
       ctxDiscounts.getDiscountPercentage(hit.sub_category_id, hit.sub_category);
+
+    const { stock_amount, availability } = hit;
+    // check availability
+    let unavailable_status = null;
+    if (
+      availability === "in_stock_in" &&
+      (!stock_amount || stock_amount <= 0)
+    ) {
+      unavailable_status = "sold-out";
+    }
+
+    if (
+      !["in-stock-ex", "in-stock-in", "undefined-stock", "sold-out"].includes(
+        availability
+      )
+    ) {
+      unavailable_status = availability;
+    }
     return (
       <a
         className={classes.card}
@@ -78,6 +96,26 @@ const App = ({ onHit, setQuery, query }) => {
               >
                 -{discount} %
               </span>
+            )}
+            {unavailable_status && (
+              <Typography
+                variant="body1"
+                sx={(theme) => ({
+                  fontSize: ".7rem",
+                  padding: ".5em",
+                  position: "absolute",
+                  top: 50,
+                  left: 20,
+                  background: theme.palette.primary.main,
+                  color: "#fff",
+                  borderRadius: "5px",
+                  zIndex: 10,
+                })}
+              >
+                {unavailable_status === "sold-out"
+                  ? "Stoc epuizat"
+                  : "Indisponibil"}
+              </Typography>
             )}
             <img
               src={`/images/${hit.art_id}/image-0.jpg`}
