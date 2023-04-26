@@ -34,11 +34,14 @@ export const CartContextProvider = (props) => {
             const updatedAmount =
               parseInt(cartItem.amount) + parseInt(action.value.amount);
             alreadyinCart = true;
-
+            const stock = action.value.stock;
             return {
               item: cartItem.item,
               amount: +updatedAmount,
-              stock: action.value.stock,
+              stock,
+              bad_stock: stock
+                ? !["in-stock", "undefined-stock"].includes(stock.status)
+                : true,
             };
           } else return cartItem;
         });
@@ -50,13 +53,17 @@ export const CartContextProvider = (props) => {
         .map((cartItem, key, state) => {
           if (cartItem.item.id === action.value.id) {
             const updatedAmount = cartItem.amount + action.value.amount;
-            if (updatedAmount > 0)
+            if (updatedAmount > 0) {
+              const stock = action.value.stock;
               return {
                 item: cartItem.item,
                 amount: updatedAmount,
-                stock: action.value.stock,
+                stock,
+                bad_stock: stock
+                  ? !["in-stock", "undefined-stock"].includes(stock.status)
+                  : true,
               };
-            else return "removed";
+            } else return "removed";
           } else return cartItem;
         })
         .filter((cartItem) => {
@@ -68,10 +75,14 @@ export const CartContextProvider = (props) => {
         if (cartItem.item.id === action.value.id) {
           const price = action.value.price;
           const discount = action.value.discount;
+          const stock = cartItem.stock;
           return {
             item: { ...cartItem.item, price, discount },
             amount: cartItem.amount,
-            stock: cartItem.stock,
+            stock,
+            bad_stock: stock
+              ? !["in-stock", "undefined-stock"].includes(stock.status)
+              : true,
           };
         } else return cartItem;
       });

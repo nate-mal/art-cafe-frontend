@@ -7,6 +7,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { promo_code } from "../../../../lib/settings";
 export default function PaymentForm({ payment_method, setPaymentMethod }) {
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -14,7 +15,25 @@ export default function PaymentForm({ payment_method, setPaymentMethod }) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Metodă de plată
+        Metodă de plată{" "}
+        {payment_method === "online" && (
+          <span style={{ fontSize: "1em" }}>&#128526;</span>
+        )}
+        {payment_method === "online" && (
+          <span
+            data-aos="zoom-in"
+            data-aos-delay="900"
+            style={{ fontSize: ".7rem", marginLeft: ".5em" }}
+          >
+            Încearcă cod{" "}
+            <Typography
+              variant="span"
+              sx={{ border: 1, fontSize: ".9rem", padding: "5px" }}
+            >
+              {promo_code}
+            </Typography>
+          </span>
+        )}
       </Typography>
       <Grid container spacing={3}>
         <Grid item>
@@ -31,7 +50,7 @@ export default function PaymentForm({ payment_method, setPaymentMethod }) {
               <FormControlLabel
                 value="online"
                 control={<Radio />}
-                label="Plată online (Livrare gratuită + cupoane de reducere)"
+                label="Plată online (cupoane de reducere ->  5-10% discount la toată comanda)"
               />
               <FormControlLabel
                 value="cashondelivery"

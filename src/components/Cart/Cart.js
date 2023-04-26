@@ -18,7 +18,7 @@ import Router from "next/router";
 import CartItem from "./CartItem";
 import CartContext from "../../store/cart-context";
 import CloseIcon from "@mui/icons-material/Close";
-import { minOrder } from "../../../lib/settings";
+import { minOrder, min_free_shipping } from "../../../lib/settings";
 // import Checkout from "./Checkout";
 const iOS =
   typeof navigator !== "undefined" &&
@@ -31,11 +31,8 @@ const Cart = (props) => {
     cartIsValid = false;
   }
   ctxCart.cartContent.map((cartItem) => {
-    if (
-      !cartItem.stock ||
-      cartItem.stock.status === "out-of-stock" ||
-      cartItem.stock.satus === "sold-out"
-    ) {
+    const stock = cartItem.stock;
+    if (!stock || !["in-stock", "undefined-stock"].includes(stock.status)) {
       cartIsValid = false;
     }
   });
@@ -157,6 +154,18 @@ const Cart = (props) => {
           <IconButton onClick={ctxCart.showCart.function}>
             <CloseIcon />
           </IconButton>
+          {min_free_shipping > ctxCart.cartCost ? (
+            <Typography variant="subtitle1" style={{ fontSize: "1rem" }}>
+              *adaugă{" "}
+              {((min_free_shipping - ctxCart.cartCost) / 100).toFixed(2)} lei și
+              beneficiezi de livrare gratuită.
+            </Typography>
+          ) : (
+            <Typography variant="subtitle1" style={{ fontSize: "1rem" }}>
+              *felicitări, beneficiezi de livrare gratuită.{" "}
+              <span style={{ fontSize: "1em" }}>&#128526;</span>
+            </Typography>
+          )}
         </Grid>
         <Grid item sx={{ height: "70vh" }}>
           <ul className={styles["cart-items"]}>

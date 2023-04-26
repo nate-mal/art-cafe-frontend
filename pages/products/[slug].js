@@ -46,7 +46,7 @@ export default function ProductDetailedPage({ item }) {
   }
 
   const deliveryInfo =
-    "\n*Livrare prin curier rapid national - 29,99 lei (cost fix fara KM taxabili). \n*Livrare gratuita pentru comenzi achitate prin serviciul de plăți online. \n*Va rugam sa luati in considerare predarea catre curier a produselor in 2-5 zile lucratoare pentru produsele marcate cu stoc extern. \n *Comanda minimă este de 300 de RON. Prețurile produselor sunt exprimate în lei și includ TVA. \n*Te tinem la curent cu statusul comenzii printr-un e-mail si/sau sms in momentul in care comanda este finalizata si este predata catre curier.  \n*Majoritatea produselor sunt disponibile intr-un depozit logistic in international,iar acestea necesita tranzit 2-5 zile,verificare calitativa si ambalare.";
+    "\n*Livrare prin curier rapid national - 29,99 lei (cost fix fara KM taxabili). \n*Livrare gratuita pentru comenzi peste 400 de lei. \n*Vă rugăm să luați în considerare predarea către curier a produselor în 2-5 zile lucratoare pentru produsele marcate cu stoc extern. \n *Comanda minimă este de 100 de RON. Prețurile produselor sunt exprimate în lei și includ TVA. \n*Te ținem la curent cu statusul comenzii printr-un e-mail si/sau sms in momentul in care comanda este finalizată și este predată către curier.  \n*Majoritatea produselor sunt disponibile intr-un depozit logistic in internațional,iar acestea necesită tranzit 2-5 zile,verificare calitativă și ambalare.";
   return (
     <>
       <Head>
@@ -56,7 +56,7 @@ export default function ProductDetailedPage({ item }) {
         <meta property="og:description" content={item.description} />
         <meta
           property="og:image"
-          itemprop="image"
+          itemProp="image"
           content={`${process.env.NEXT_PUBLIC_URL}/images/${item.art_id}/image-0.jpg`}
         />
         <meta property="og:updated_time" content="1681823297" />
@@ -314,7 +314,7 @@ export async function getStaticProps(ctx) {
     sub_category: response.attributes.sub_category.data.attributes.ro_name,
     sub_category_id: response.attributes.sub_category.data.id,
   };
-  console.log(item.availability);
+
   return {
     props: {
       item,
