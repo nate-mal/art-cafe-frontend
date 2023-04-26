@@ -199,32 +199,33 @@ export default function Checkout(props) {
       setActiveStep(activeStep + 1);
     }
     if (activeStep === 2) {
-      const fetchOrder = async () => {
-        // setLoading(true)
-        console.log(res.checkout_session);
-        try {
-          setLoading(true);
-          Router.push(
-            `/checkout/success?checkout_session=${res.checkout_session}`
-          );
-          // const orderRes = await axios.post("/api/confirm", {
-          //   checkout_session: res.checkout_session,
-          // });
-          // console.log(orderRes);
+      // const fetchOrder = async () => {
+      //   console.log(res.checkout_session);
+      //   try {
+      //     Router.push(
+      //       `/checkout/success?checkout_session=${res.checkout_session}`
+      //     );
+      //     // const orderRes = await axios.post("/api/confirm", {
+      //     //   checkout_session: res.checkout_session,
+      //     // });
+      //     // console.log(orderRes);
 
-          // setOrder(orderRes.data);
-          // ctxCart.updateCart("CLEAN");
-        } catch (err) {
-          console.log(err);
-          setOrder(null);
-        } finally {
-          setLoading(false);
-        }
-        // setLoading(false)
-      };
-      fetchOrder();
+      //     // setOrder(orderRes.data);
+      //     // ctxCart.updateCart("CLEAN");
+      //   } catch (err) {
+      //     console.log(err);
+      //     setOrder(null);
+      //   } finally {
+      //     setLoading(false);
+      //   }
+      //   // setLoading(false)
+      // };
+      setLoading(true);
+      Router.push(`/checkout/success?checkout_session=${res.checkout_session}`);
+
       return;
     }
+
     setActiveStep(activeStep + 1);
   };
 
@@ -260,6 +261,9 @@ export default function Checkout(props) {
       >
         <Typography component="h1" variant="h4" align="center">
           Checkout
+        </Typography>
+        <Typography component="h5" variant="subtitle1" align="center">
+          {(ctxCart.cartCost / 100).toFixed(2)} lei
         </Typography>
         <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
           {steps.map((label) => (
@@ -300,7 +304,7 @@ export default function Checkout(props) {
         ) : ( */}
         <React.Fragment>
           {getStepContent(activeStep)}
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             {activeStep !== 0 && (
               <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
                 Back
@@ -362,7 +366,7 @@ export function EmptyCartMessageComponent({ stockIsValid }) {
                 minOrder / 100
               ).toFixed(0)}
           lei pentru a putea continua.`
-            : `Verifică valabilitatea stocului  în coș și revino`}
+            : `Verifică  valabilitatea stocului  în coș și revino`}
         </Typography>
         <Typography variant="subtitle1" gutterBottom align="justify">
           Dar nu-ți face griji, suntem aici pentru a te ajuta să găsești cele

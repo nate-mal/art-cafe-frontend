@@ -23,12 +23,12 @@ export default function PaymentForm({ payment_method, setPaymentMethod }) {
           <span
             data-aos="zoom-in"
             data-aos-delay="900"
-            style={{ fontSize: ".7rem", marginLeft: ".5em" }}
+            style={{ fontSize: ".6rem", marginLeft: ".3em" }}
           >
-            Încearcă cod{" "}
+            aplică cod{" "}
             <Typography
               variant="span"
-              sx={{ border: 1, fontSize: ".9rem", padding: "5px" }}
+              sx={{ border: 1, fontSize: ".9rem", padding: "3px" }}
             >
               {promo_code}
             </Typography>

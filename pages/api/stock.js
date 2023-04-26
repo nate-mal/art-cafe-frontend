@@ -1,7 +1,9 @@
 import axios from "axios";
 import strapi from "/lib/api";
-
-const checkInternStock = async (productId, targetQty, product) => {
+const provider_check_mode = process.env.PROVIDER_CHECK_MODE || "strict";
+// if is set to 'un-strict' when check stock function would return 'undefined-stock' will be send to client as undefined-stock
+// if is not set when check stock function would return 'undefined-stock'   to client as will be sent unavailable-stock restricting the order on checkout
+const checkInternStock = async (targetQty, product) => {
   const stock_amount = product.data.attributes.stock_amount;
   if (stock_amount <= 0) {
     return { status: "sold-out" };
@@ -50,7 +52,7 @@ export default async function handler(req, res) {
 
     const product = findProduct.data;
 
-    const stock_intern = await checkInternStock(productId, target, product);
+    const stock_intern = await checkInternStock(target, product);
     const availability = product.data.attributes.availability;
     if (availability === "in-stock-in") {
       res.status(200).json({ ...stock_intern, location: "intern" });
@@ -98,7 +100,13 @@ export default async function handler(req, res) {
         break;
       default:
         const stock_extern = await checkExternStock(productId, target);
-        stock = { ...stock_extern, location: "extern" };
+        console.log("provider-mode", provider_check_mode);
+        if (
+          stock_extern.status === "undefined-stock" &&
+          provider_check_mode !== "un-strict"
+        ) {
+          stock = { status: "unavailable" };
+        } else stock = { ...stock_extern, location: "extern" };
         break;
     }
 

@@ -12,15 +12,10 @@ export default function CheckoutPage() {
 
   const isMounted = React.useRef(false);
   let stockIsValid = true;
-  if (ctxCart.cartContent.length <= 0) {
-    stockIsValid = false;
-  }
+
   ctxCart.cartContent.map((cartItem) => {
-    if (
-      !cartItem.stock ||
-      cartItem.stock.status === "out-of-stock" ||
-      cartItem.stock.satus === "sold-out"
-    ) {
+    const stock = cartItem.stock;
+    if (!stock || !["in-stock", "undefined-stock"].includes(stock.status)) {
       stockIsValid = false;
     }
   });
