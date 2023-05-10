@@ -32,15 +32,15 @@ export default function googleCallback() {
   return (
     <>
       <Box style={{ minHeight: "100vh" }}></Box>
-      <Backdrop
+      {/* <Backdrop
         sx={{
           color: "#fff",
           zIndex: (theme) => theme.zIndex.drawer + 1,
         }}
         open={Boolean(!user)}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      > */}
+      {!user && <CircularProgress color="inherit" />}
+      {/* </Backdrop> */}
     </>
   );
 }

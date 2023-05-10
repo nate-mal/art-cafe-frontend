@@ -92,7 +92,7 @@ const LoginFormBase = () => {
       <Grid
         container
         direction="row"
-        data-aos={matchesMD ? "fade-up" : "fade-right"}
+        data-aos={matchesMD ? "fade-in" : "fade-right"}
       >
         <Grid
           item

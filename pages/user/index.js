@@ -45,12 +45,12 @@ export default function Home() {
         </>
       )}
 
-      <Backdrop
+      {/* <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={Boolean(!user)}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      > */}
+      {!user && <CircularProgress color="inherit" />}
+      {/* </Backdrop> */}
     </Grid>
   );
 }
