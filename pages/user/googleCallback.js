@@ -5,6 +5,7 @@ import { UserContext } from "../../context/user";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 export default function googleCallback() {
   const [error, setError] = useState();
   const router = useRouter();
@@ -30,17 +31,17 @@ export default function googleCallback() {
   }
 
   return (
-    <>
-      <Box style={{ minHeight: "100vh" }}></Box>
-      {/* <Backdrop
-        sx={{
-          color: "#fff",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-        open={Boolean(!user)}
-      > */}
-      {!user && <CircularProgress color="secondary" />}
-      {/* </Backdrop> */}
-    </>
+    <Box style={{ minHeight: "100vh" }}>
+      {!user && (
+        <Grid
+          container
+          style={{ height: "90vh" }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <CircularProgress color="secondary" />
+        </Grid>
+      )}
+    </Box>
   );
 }

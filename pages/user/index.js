@@ -26,31 +26,37 @@ export default function Home() {
   }, [user]);
 
   return (
-    <Grid
-      item
-      className="flex flex-col justify-center items-center h-screen"
-      style={{ minHeight: "100vh" }}
-    >
+    <Grid item style={{ minHeight: "100vh" }}>
       {error && <div>{error}</div>}
       {user && (
-        <>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          style={{ marginTop: "2em" }}
+        >
           <div>
-            <h1 className="text-3xl">Welcome</h1>
+            <h1>Welcome</h1>
             <p>
               {id} - {user} {email}
               <br />
             </p>
           </div>
           <Logout />
-        </>
+        </Grid>
       )}
 
-      {/* <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={Boolean(!user)}
-      > */}
-      {!user && <CircularProgress color="secondary" />}
-      {/* </Backdrop> */}
+      {!user && (
+        <Grid
+          container
+          style={{ height: "90vh" }}
+          justifyContent="center"
+          alignItems="center"
+        >
+          <CircularProgress color="secondary" />
+        </Grid>
+      )}
     </Grid>
   );
 }
