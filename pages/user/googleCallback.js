@@ -39,7 +39,7 @@ export default function googleCallback() {
         }}
         open={Boolean(!user)}
       > */}
-      {!user && <CircularProgress color="inherit" />}
+      {!user && <CircularProgress color="secondary" />}
       {/* </Backdrop> */}
     </>
   );

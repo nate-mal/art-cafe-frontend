@@ -49,7 +49,7 @@ export default function Home() {
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={Boolean(!user)}
       > */}
-      {!user && <CircularProgress color="inherit" />}
+      {!user && <CircularProgress color="secondary" />}
       {/* </Backdrop> */}
     </Grid>
   );
