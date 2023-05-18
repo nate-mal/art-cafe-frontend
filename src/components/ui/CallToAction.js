@@ -82,7 +82,7 @@ const CallToAction = () => {
       </Grid>
       <Box
         sx={{
-          backgroundImage: `url("/assets/oradea-background.jpg")`,
+          backgroundImage: `url("/assets/oradea-background.webp")`,
           backgroundPosition: "center",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
@@ -90,7 +90,7 @@ const CallToAction = () => {
           height: "100%",
           width: "100%",
           [defaultTheme.breakpoints.down("md")]: {
-            backgroundImage: `url("/assets/oradea-background-mobile-f.jpg")`,
+            backgroundImage: `url("/assets/oradea-background-mobile-f.webp")`,
             backgroundAttachment: "inherit",
           },
         }}
