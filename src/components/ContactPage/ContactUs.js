@@ -14,8 +14,8 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import Link from "../../Link";
 
-const background = "/assets/oradea-background.jpg";
-const mobileBackground = "/assets/oradea-background-mobile-f.jpg";
+const background = "/assets/oradea-background.webp";
+const mobileBackground = "/assets/oradea-background-mobile-f.webp";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MailIcon from "@mui/icons-material/Mail";
 import RightArrow from "../ui/RightArrow";
