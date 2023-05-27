@@ -22,7 +22,6 @@ const Footer = ({ options }) => {
           padding: "1em",
         };
       }}
-      // style={{ backgroundColor: "brown" }}
     >
       <Grid
         item
@@ -73,16 +72,7 @@ const Footer = ({ options }) => {
           })}
         </Grid>
       </Hidden>
-      {/* <Box
-        component="img"
-        src="/assets/Footer Adornment.svg"
-        sx={{
-          width: "25rem",
-          [defaultTheme.breakpoints.down("md")]: { width: "200rem" },
-          [defaultTheme.breakpoints.down("sm")]: { width: "10rem" },
-          verticalAlign: "bottom",
-        }}
-      /> */}
+
       <Grid
         item
         container

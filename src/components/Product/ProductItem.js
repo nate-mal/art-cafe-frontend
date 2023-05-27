@@ -1,4 +1,5 @@
 import * as React from "react";
+7;
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -12,6 +13,7 @@ import {
   useTheme,
 } from "@mui/material";
 import Image from "next/image";
+import { CldImage } from "next-cloudinary";
 import IconButton from "@mui/material/IconButton";
 import Link from "../../Link";
 import CartContext from "../../store/cart-context";
@@ -39,6 +41,7 @@ export default function MultiActionAreaCard(props) {
     slug,
     availability,
     stock_amount,
+    images,
   } = props;
   function openCart() {
     ctxCart.onShowCart();
@@ -83,7 +86,11 @@ export default function MultiActionAreaCard(props) {
     );
   };
 
-  const image_path = `/images/${art_id}/image-0.jpg`;
+  const image_path =
+    images && images[0] && images[0].provider === "cloudinary"
+      ? images[0].id
+      : `/images/${art_id}/image-0.jpg`;
+
   return (
     <Card
       sx={{
@@ -131,15 +138,20 @@ export default function MultiActionAreaCard(props) {
       <CardActionArea component={Link} href={{ pathname: `/products/${slug}` }}>
         <Grid container direction="column" alignContent="center">
           <Grid item container justifyContent="center">
-            <Tooltip
+            {/* <Tooltip
               title={
-                <Image src={image_path} alt={name} width={250} height={250} />
+                <Image
+                  src={image_path}
+                  alt={name}
+                  width={250}
+                  height={250}
+                />
               }
               sx={{ width: "300px" }}
               placement="top-end"
-            >
-              <Image src={image_path} alt={name} width={150} height={150} />
-            </Tooltip>
+            > */}
+            <CldImage src={image_path} alt={name} width={150} height={150} />
+            {/* </Tooltip> */}
           </Grid>
           <Grid item>
             <CardContent

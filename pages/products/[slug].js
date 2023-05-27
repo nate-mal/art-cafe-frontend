@@ -105,6 +105,7 @@ export default function ProductDetailedPage({ item }) {
               art_id={item.art_id}
               imgNr={item.imgNr}
               name={item.name}
+              images={item.images}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -187,6 +188,15 @@ export async function getStaticProps(ctx) {
               discount
               availability
               stock_amount
+              images {
+                data {
+                  attributes {
+                    provider
+                    url
+                    provider_metadata
+                  }
+                }
+              }
               compatible_models {
                 data {
                   id
@@ -203,9 +213,9 @@ export async function getStaticProps(ctx) {
                   }
                 }
               }
-              sub_category { 
+              sub_category {
                 data {
-                id
+                  id
                   attributes {
                     ro_name
                     main_category {
@@ -298,6 +308,16 @@ export async function getStaticProps(ctx) {
       []
     );
   }
+  const images =
+    response.attributes.images &&
+    response.attributes.images.data &&
+    response.attributes.images.data.length > 0
+      ? response.attributes.images.data.map((im) => ({
+          url: im.attributes.url,
+          id: im.attributes.provider_metadata.public_id,
+          provider: im.attributes.provider,
+        }))
+      : [];
 
   const item = {
     id: response.id,
@@ -313,6 +333,7 @@ export async function getStaticProps(ctx) {
     compatible_models: compatible_models,
     sub_category: response.attributes.sub_category.data.attributes.ro_name,
     sub_category_id: response.attributes.sub_category.data.id,
+    images,
   };
 
   return {

@@ -118,7 +118,12 @@ const App = ({ onHit, setQuery, query }) => {
               </Typography>
             )}
             <img
-              src={`/images/${hit.art_id}/image-0.jpg`}
+              // src={`/images/${hit.art_id}/image-0.jpg`}
+              src={
+                hit.images && hit.images[0] && hit.images[0].url
+                  ? hit.images[0].url
+                  : "/images/${hit.art_id}/image-0.jpg"
+              }
               alt={hit.name}
               width="100px"
               style={{ padding: "1em" }}
