@@ -31,25 +31,25 @@ const forwardArrowDisabled = "/assets/forwardArrowDisabled.svg";
 
 // clean
 
-const maintenance = "/assets/estimate/maintenance.png";
-const clean = "/assets/estimate/cleaning2.png";
-const oil = "/assets/estimate/oil.png";
-const grinder = "/assets/estimate/grinder.png";
-const leak = "/assets/estimate/leak.png";
-const temperature = "/assets/estimate/temperature.png";
-const steamer = "/assets/estimate/steam.png";
-const noisy = "/assets/estimate/noisy.png";
-const cream = "/assets/estimate/no-cream.png";
-const coffee = "/assets/estimate/coffee.png";
-const coffee2 = "/assets/estimate/coffee2.png";
-const coffee3 = "/assets/estimate/coffee3.png";
-const yes = "/assets/estimate/yes.png";
-const yesno = "/assets/estimate/yesno.png";
-const no = "/assets/estimate/no.png";
-const problem = "/assets/estimate/problem.png";
-const automat = "/assets/estimate/automat.png";
-const semi_automat = "/assets/estimate/semi-automat.png";
-const capsule = "/assets/estimate/capsule.png";
+const maintenance = "/assets/estimate/maintenance.webp";
+const clean = "/assets/estimate/cleaning2.webp";
+const oil = "/assets/estimate/oil.webp";
+const grinder = "/assets/estimate/grinder.webp";
+const leak = "/assets/estimate/leak.webp";
+const temperature = "/assets/estimate/temperature.webp";
+const steamer = "/assets/estimate/steam.webp";
+const noisy = "/assets/estimate/noisy.webp";
+const cream = "/assets/estimate/no-cream.webp";
+const coffee = "/assets/estimate/coffee.webp";
+const coffee2 = "/assets/estimate/coffee2.webp";
+const coffee3 = "/assets/estimate/coffee3.webp";
+const yes = "/assets/estimate/yes.webp";
+const yesno = "/assets/estimate/yesno.webp";
+const no = "/assets/estimate/no.webp";
+const problem = "/assets/estimate/problem.webp";
+const automat = "/assets/estimate/automat.webp";
+const semi_automat = "/assets/estimate/semi-automat.webp";
+const capsule = "/assets/estimate/capsule.webp";
 
 import estimateAnimation from "../../animations/estimateAnimation/data";
 const min_cost = 50;

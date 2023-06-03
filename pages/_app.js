@@ -96,7 +96,7 @@ export default function MyApp(props) {
       offset: 200,
       duration: 600,
       easing: "ease-in-sine",
-      delay: 100,
+      delay: 0,
     });
   }, []);
 

@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function MartItem(props) {
   const { name, id, _meilisearch_id } = props;
 
-  const image_path = `/marks/mark-${id}.png`;
+  const image_path = `/marks/mark-${id}.webp`;
 
   return (
     <Card>
