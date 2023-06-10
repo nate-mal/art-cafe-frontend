@@ -38,6 +38,7 @@ const App = ({ onHit, setQuery, query }) => {
   };
 
   const Hit = ({ hit }) => {
+    // console.log(hit);
     const discount =
       hit.discount ||
       ctxDiscounts.getDiscountPercentage(hit.sub_category_id, hit.sub_category);
@@ -117,17 +118,41 @@ const App = ({ onHit, setQuery, query }) => {
                   : "Indisponibil"}
               </Typography>
             )}
-            <img
-              // src={`/images/${hit.art_id}/image-0.jpg`}
-              src={
-                hit.images && hit.images[0] && hit.images[0].url
-                  ? hit.images[0].url
-                  : "/images/${hit.art_id}/image-0.jpg"
-              }
-              alt={hit.name}
-              width="100px"
-              style={{ padding: "1em" }}
-            />
+            <div
+              style={{
+                margin: "1em",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundImage: `url(https://ik.imagekit.io/artcafe/tr:w-15,h-15/${
+                  hit.pictures && hit.pictures[0]
+                    ? hit.pictures[0].thumbnail_url.substring(
+                        hit.pictures[0].thumbnail_url.lastIndexOf("/") + 1
+                      )
+                    : "Product-Image-Coming-Soon.png"
+                })`,
+                width: "75px",
+                height: "75px",
+              }}
+            >
+              <img
+                // src={`/images/${hit.art_id}/image-0.jpg`}
+                src={
+                  hit.pictures &&
+                  hit.pictures[0] &&
+                  hit.pictures[0].thumbnail_url
+                    ? `${hit.pictures[0].thumbnail_url}?tr=w-100`
+                    : `https://ik.imagekit.io/artcafe/Product-Image-Coming-Soon.png?tr=w-100`
+                }
+                alt={hit.name}
+                width="75px"
+                style={{
+                  width: "100%",
+                  aspectRatio: "1 / 1",
+                  objectFit: "cover",
+                  objectPosition: "bottom",
+                }}
+              />
+            </div>
           </div>
           <div>
             <div

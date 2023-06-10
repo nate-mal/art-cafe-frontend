@@ -174,7 +174,7 @@ export async function getServerSideProps(ctx) {
       "discount",
       "availability",
       "stock_amount",
-      "images",
+      "pictures",
     ],
   });
 

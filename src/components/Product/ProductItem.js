@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import {
+  Box,
   Button,
   CardActionArea,
   CardActions,
@@ -12,8 +13,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import Image from "next/image";
-import { CldImage } from "next-cloudinary";
+import ImageKit from "../../ImageKit";
 import IconButton from "@mui/material/IconButton";
 import Link from "../../Link";
 import CartContext from "../../store/cart-context";
@@ -41,7 +41,7 @@ export default function MultiActionAreaCard(props) {
     slug,
     availability,
     stock_amount,
-    images,
+    pictures,
   } = props;
   function openCart() {
     ctxCart.onShowCart();
@@ -86,10 +86,14 @@ export default function MultiActionAreaCard(props) {
     );
   };
 
-  const image_path =
-    images && images[0] && images[0].provider === "cloudinary"
-      ? images[0].id
-      : `/images/${art_id}/image-0.jpg`;
+  console.log(pictures);
+
+  var image_path =
+    pictures && pictures[0]
+      ? pictures[0].thumbnail_url.substring(
+          pictures[0].thumbnail_url.lastIndexOf("/") + 1
+        )
+      : "Product-Image-Coming-Soon.png";
 
   return (
     <Card
@@ -137,7 +141,7 @@ export default function MultiActionAreaCard(props) {
       )}
       <CardActionArea component={Link} href={{ pathname: `/products/${slug}` }}>
         <Grid container direction="column" alignContent="center">
-          <Grid item container justifyContent="center">
+          <Grid item container justifyContent="center" alignItems="center">
             {/* <Tooltip
               title={
                 <Image
@@ -150,7 +154,33 @@ export default function MultiActionAreaCard(props) {
               sx={{ width: "300px" }}
               placement="top-end"
             > */}
-            <CldImage src={image_path} alt={name} width={150} height={150} />
+            <Grid
+              item
+              style={{
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundImage: `url(https://ik.imagekit.io/artcafe/tr:w-15,h-15/${image_path})`,
+                width: "150px",
+                height: "150px",
+              }}
+            >
+              <Box
+                style={{
+                  heigth: "100%",
+                  aspectRatio: "1 / 1",
+                  objectFit: "cover",
+                  objectPosition: "bottom",
+                }}
+              >
+                <ImageKit
+                  src={image_path}
+                  alt={name}
+                  width={150}
+                  height={150}
+                />
+              </Box>
+            </Grid>
+
             {/* </Tooltip> */}
           </Grid>
           <Grid item>

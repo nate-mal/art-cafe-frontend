@@ -105,7 +105,7 @@ export default function ProductDetailedPage({ item }) {
               art_id={item.art_id}
               imgNr={item.imgNr}
               name={item.name}
-              images={item.images}
+              pictures={item.pictures}
             />
           </Grid>
           <Grid item xs={12} md={6}>
@@ -165,7 +165,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(ctx) {
-  //   console.log(ctx.params);
   const { slug } = ctx.params;
 
   const { data } = await client.query({
@@ -188,12 +187,12 @@ export async function getStaticProps(ctx) {
               discount
               availability
               stock_amount
-              images {
+              pictures {
                 data {
                   attributes {
                     provider
-                    url
-                    provider_metadata
+                    url 
+                    hash
                   }
                 }
               }
@@ -308,13 +307,14 @@ export async function getStaticProps(ctx) {
       []
     );
   }
-  const images =
-    response.attributes.images &&
-    response.attributes.images.data &&
-    response.attributes.images.data.length > 0
-      ? response.attributes.images.data.map((im) => ({
+
+  const pictures =
+    response.attributes.pictures &&
+    response.attributes.pictures.data &&
+    response.attributes.pictures.data.length > 0
+      ? response.attributes.pictures.data.map((im) => ({
           url: im.attributes.url,
-          id: im.attributes.provider_metadata.public_id,
+          id: im.attributes.hash,
           provider: im.attributes.provider,
         }))
       : [];
@@ -333,7 +333,7 @@ export async function getStaticProps(ctx) {
     compatible_models: compatible_models,
     sub_category: response.attributes.sub_category.data.attributes.ro_name,
     sub_category_id: response.attributes.sub_category.data.id,
-    images,
+    pictures,
   };
 
   return {

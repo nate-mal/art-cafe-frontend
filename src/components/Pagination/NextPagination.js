@@ -19,25 +19,65 @@ export default function NextPagination(props) {
   );
   const handleChange = (event, value) => {
     router.push({
-      query: { ...query, offset: value ? (value - 1) * limit : 0 },
+      query: {
+        ...query,
+        offset: value ? (value - 1) * limit : 0,
+      },
     });
+  };
+  const handleChangeWithoutScroll = (event, value) => {
+    router.push(
+      {
+        query: { ...query, offset: value ? (value - 1) * limit : 0 },
+      },
+      undefined,
+      { scroll: false }
+    );
   };
   const handleChangeCount = (event) => {
     const count = parseInt(event.target.value, 10);
     setCount(count);
-    router.push({
-      query: { ...query, offset: 0, limit: count },
-    });
+    router.push(
+      {
+        query: { ...query, offset: 0, limit: count },
+      },
+      undefined,
+      { scroll: false }
+    );
   };
+  // React.useEffect(() => {
+  //   const element = document.getElementById("pg-box");
+  //   if (element) {
+  //     // 👇 Will scroll smoothly to the top of the next section
+  //     element.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // }, [router]);
+
+  const isInitialMount = React.useRef(true);
+
+  React.useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      //  useEffect code here to be run on update
+      const element = document.getElementById("pg-box");
+      if (element) {
+        // 👇 Will scroll smoothly to the top of the next section
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [router]);
 
   return (
-    <Grid container direction="column" sx={{ marginBottom: "1em" }}>
+    <Grid container direction="column" sx={{ marginBottom: "1em" }} id="pg-box">
       <Grid item container justifyContent="end">
         <TablePagination
           component="div"
           count={total}
           page={page - 1}
-          onPageChange={(event, value) => handleChange(event, value + 1)}
+          onPageChange={(event, value) =>
+            handleChangeWithoutScroll(event, value + 1)
+          }
           rowsPerPage={count}
           labelRowsPerPage="Show:"
           onRowsPerPageChange={handleChangeCount}

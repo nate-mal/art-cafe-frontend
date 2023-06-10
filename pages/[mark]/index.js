@@ -20,12 +20,18 @@ export default function Categories({ results }) {
           name="description"
           content={`Categorii de piese de schimb disponibile pentru ${name}`}
         />
-        
-<meta property="og:updated_time" content="1681823297"/>
-<meta property="og:title" content={`Art Cafe ${name}`} />
-<meta property="og:description" content={`Categorii de piese de schimb disponibile pentru ${name}`} />
-<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/${image_path}` }/>
-  
+
+        <meta property="og:updated_time" content="1681823297" />
+        <meta property="og:title" content={`Art Cafe ${name}`} />
+        <meta
+          property="og:description"
+          content={`Categorii de piese de schimb disponibile pentru ${name}`}
+        />
+        <meta
+          property="og:image"
+          itemprop="image"
+          content={`${process.env.NEXT_PUBLIC_URL}/${image_path}`}
+        />
       </Head>
       <Container maxWidth="lg">
         <Box sx={{ my: 4 }}>
@@ -129,8 +135,8 @@ export async function getStaticProps(ctx) {
     ],
     distinctAttribute: "sub_category",
   });
- 
- const set_2 = await productsIndex.updateSettings({
+
+  const set_2 = await productsIndex.updateSettings({
     distinctAttribute: "sub_category_id",
   });
   const set_3 = await productsIndex.updateSettings({
@@ -215,6 +221,10 @@ export async function getStaticProps(ctx) {
       cat_name_ex_art_ids[item.sub_category_id] = {
         name: item.sub_category,
         ex_art_id: item.art_id,
+        ex_thumbnail_url:
+          item.pictures && item.pictures[0]
+            ? item.pictures[0].thumbnail_url
+            : "https://ik.imagekit.io/artcafe/Product-Image-Coming-Soon.png",
       };
     }
   });
