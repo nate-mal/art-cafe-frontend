@@ -88,7 +88,7 @@ export default function MultiActionAreaCard(props) {
 
   console.log(pictures);
 
-  var image_path =
+  const image_path =
     pictures && pictures[0]
       ? pictures[0].thumbnail_url.substring(
           pictures[0].thumbnail_url.lastIndexOf("/") + 1

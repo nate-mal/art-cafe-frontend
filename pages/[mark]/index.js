@@ -10,7 +10,7 @@ import { MeiliSearch } from "meilisearch";
 export default function Categories({ results }) {
   // console.log(results);
   const { id, markMeiId, name, estimatedTotalHits, categories } = results;
-  console.log(categories);
+  // console.log(categories);
   const image_path = `/marks/mark-${id}.png`;
   return (
     <>
@@ -143,17 +143,7 @@ export async function getStaticProps(ctx) {
     distinctAttribute: "sub_category",
   });
 
-  // do {
-  //   const tasks = await client.getTasks({
-  //     statuses: ["enqueued", "processing"],
-  //   });
-  //   const results = tasks.results;
-  //   // 150ms
-  //   if (results.length > 0) break;
-
-  //   await new Promise((resolve) => setTimeout(resolve, 150));
-  // } while (true);
-  console.log("setoro", set);
+  // console.log("setoro", set);
 
   await index.waitForTask(set.taskUid);
   await index.waitForTask(set_2.taskUid);
@@ -161,7 +151,7 @@ export async function getStaticProps(ctx) {
   const tasks = await client.getTasks({
     statuses: ["enqueued", "processing"],
   });
-  console.log("taskotu", tasks);
+  // console.log("taskotu", tasks);
 
   const filter =
     mark === "mark-1"
@@ -245,8 +235,8 @@ export async function getStaticProps(ctx) {
   });
 
   // check length
-  console.log(mark_name, "(producs): ", categories_product.hits.length);
-  console.log(mark_name, "(categories): ", categories_ids.length);
+  // console.log(mark_name, "(producs): ", categories_product.hits.length);
+  // console.log(mark_name, "(categories): ", categories_ids.length);
 
   return {
     props: {

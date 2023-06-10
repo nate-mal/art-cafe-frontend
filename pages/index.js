@@ -17,36 +17,45 @@ export default function Marks({ marks }) {
               Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
               Bosch si Gaggia."
         />
-<meta property="og:title" content="Art Cafe Ro" />
-<meta property="og:description" content="Piese de schimb pentru aparatele de cafea Jura, DeLonghi, Saeco,
+        <meta property="og:title" content="Art Cafe Ro" />
+        <meta
+          property="og:description"
+          content="Piese de schimb pentru aparatele de cafea Jura, DeLonghi, Saeco,
               Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
-              Bosch si Gaggia." />
-<meta property="og:image" itemprop="image" content={`${process.env.NEXT_PUBLIC_URL}/logo.png`}/>
-<meta property="og:updated_time" content="1681823297"/>
-
+              Bosch si Gaggia."
+        />
+        <meta
+          property="og:image"
+          itemprop="image"
+          content={`${process.env.NEXT_PUBLIC_URL}/logo.png`}
+        />
+        <meta property="og:updated_time" content="1681823297" />
       </Head>
       <Container maxWidth="lg">
         {/* <Box sx={{ my: 4 }}> */}
-          {/* <Link href="/products">Products</Link> */}
-          <Box data-aos="fade-zoom-in" sx={{ padding: "2em", textAlign: "center" }}>
-            <Typography
-              variant="h1"
-              component="h2"
-              align="center"
-              sx={{ fontSize: "4rem" }}
-            >
-              Piese de schimb
-            </Typography>
-            <Typography variant="body2" component="p" gutterBottom>
-              Piese de schimb pentru aparatele de cafea Jura, DeLonghi, Saeco,
-              Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
-              Bosch si Gaggia.
-            </Typography>
-            <Typography variant="subtitle1" component="p" gutterBottom>
-              Alege o marcă:
-            </Typography>
-          </Box>
-          <MarkList items={marks} />
+        {/* <Link href="/products">Products</Link> */}
+        <Box
+          data-aos="fade-zoom-in"
+          sx={{ padding: "2em", textAlign: "center" }}
+        >
+          <Typography
+            variant="h1"
+            component="h2"
+            align="center"
+            sx={{ fontSize: "4rem" }}
+          >
+            Piese de schimb
+          </Typography>
+          <Typography variant="body2" component="p" gutterBottom>
+            Piese de schimb pentru aparatele de cafea Jura, DeLonghi, Saeco,
+            Nivona, Siemens, Melitta, Philips, Philips-Saeco, Krups, Miele,
+            Bosch si Gaggia.
+          </Typography>
+          <Typography variant="subtitle1" component="p" gutterBottom>
+            Alege o marcă:
+          </Typography>
+        </Box>
+        <MarkList items={marks} />
         {/* </Box> */}
       </Container>
       <LandingPage />
@@ -69,12 +78,13 @@ export async function getStaticProps(ctx) {
       "name",
       "models",
       "model_ids",
+      "picture",
     ],
   });
 
   const response = await index.getDocuments({
     limit: 30,
-    fields: ["id", "name", "_meilisearch_id"],
+    fields: ["id", "name", "_meilisearch_id", "picture"],
   });
 
   if (!response) {

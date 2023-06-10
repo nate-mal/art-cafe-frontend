@@ -13,16 +13,8 @@ const imageKitLoader = ({ src, width, quality }) => {
   return `${urlEndpoint}/${src}?tr=${paramsString}`;
 };
 
-const ImageKit = ({ src, alt, width, height }) => {
-  return (
-    <Image
-      loader={imageKitLoader}
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-    />
-  );
+const ImageKit = (props) => {
+  return <Image loader={imageKitLoader} {...props} />;
 };
 
 export default ImageKit;
