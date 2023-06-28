@@ -11,6 +11,9 @@ import Header from "../src/components/ui/Header/Header";
 import "aos/dist/aos.css";
 import "../src/styles/global.css";
 import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
+import "yet-another-react-lightbox/plugins/counter.css";
+
 import AOS from "aos";
 import Footer from "../src/components/ui/Footer/Footer";
 import UserProvider from "../context/user";

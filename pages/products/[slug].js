@@ -9,7 +9,6 @@ import Grid from "@mui/material/Grid";
 import Head from "next/head";
 import ProductDetailed from "../../src/components/Product/ProductDetailed/ProductDetailed";
 import ProductCarousel from "../../src/components/Product/ProductDetailed/ProductCarousel";
-import Gallery from "../../src/components/Product/ProductDetailed/LightGallery";
 import { DiscountsContext } from "../../context/discounts";
 import client from "../../apollo-client";
 

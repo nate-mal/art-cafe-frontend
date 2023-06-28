@@ -12,7 +12,12 @@ import ImageKit from "../../../ImageKit";
 
 import Lightbox from "yet-another-react-lightbox";
 
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
+import Counter from "yet-another-react-lightbox/plugins/counter";
+import Share from "yet-another-react-lightbox/plugins/share";
+import Download from "yet-another-react-lightbox/plugins/download";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import NextImageMagnifier from "./NextJsImage";
 export default function ProductCarousel({
   art_id,
   name,
@@ -52,15 +57,26 @@ export default function ProductCarousel({
       </Carousel>
       <Lightbox
         open={open}
+        plugins={[Thumbnails, Counter, Share, Download]}
+        closeOnBackdropClick={true}
         close={() => setOpen(false)}
-        slides={pictures.map((item) => item.url)}
+        slides={pictures.map((item) => ({
+          src: item.url,
+          share: { src: item.url, title: name },
+          download: `${item.url}?download`,
+        }))}
+        styles={{
+          container: { backgroundColor: "rgba(0, 0, 0, .9)" },
+        }}
         render={{
           slide: ({ slide, rect }) => {
             const size = rect.width > 600 ? 600 : rect.width;
+
             return (
-              <ImageKit
+              <NextImageMagnifier
                 alt={name}
-                src={slide.substring(slide.lastIndexOf("/") + 1)}
+                // src={slide.src.substring(slide.src.lastIndexOf("/") + 1)}
+                src={slide.src}
                 width={size}
                 height={size}
               />
