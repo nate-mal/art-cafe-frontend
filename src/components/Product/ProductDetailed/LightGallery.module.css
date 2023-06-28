@@ -1,0 +1,10 @@
+
+
+.custom_wrapper {
+display: flex;
+justify-content: center;
+}
+
+.custom_wrapper img {
+    cursor: pointer;
+}

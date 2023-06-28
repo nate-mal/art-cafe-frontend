@@ -305,6 +305,7 @@ const Header = ({ options, specialOption }) => {
         style={{
           transition: "all .6s  ease",
           marginTop: scroll === "down" ? "-7em" : 0,
+          zIndex: 1000,
         }}
       >
         <Toolbar disableGutters sx={{ justifyContent: "end" }}>

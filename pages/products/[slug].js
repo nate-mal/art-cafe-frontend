@@ -9,6 +9,7 @@ import Grid from "@mui/material/Grid";
 import Head from "next/head";
 import ProductDetailed from "../../src/components/Product/ProductDetailed/ProductDetailed";
 import ProductCarousel from "../../src/components/Product/ProductDetailed/ProductCarousel";
+import Gallery from "../../src/components/Product/ProductDetailed/LightGallery";
 import { DiscountsContext } from "../../context/discounts";
 import client from "../../apollo-client";
 
@@ -101,6 +102,7 @@ export default function ProductDetailedPage({ item }) {
                   : "Indisponibil"}
               </Typography>
             )}
+
             <ProductCarousel
               art_id={item.art_id}
               imgNr={item.imgNr}
@@ -108,6 +110,7 @@ export default function ProductDetailedPage({ item }) {
               pictures={item.pictures}
             />
           </Grid>
+
           <Grid item xs={12} md={6}>
             <ProductDetailed
               item={{

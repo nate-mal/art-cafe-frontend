@@ -17,7 +17,7 @@ const Footer = ({ options }) => {
       sx={(theme) => {
         return {
           backgroundColor: theme.palette.primary.main,
-          zIndex: defaultTheme.zIndex.appBar - 2,
+          zIndex: defaultTheme.zIndex.appBar - 100,
           position: "relative",
           padding: "1em",
         };
