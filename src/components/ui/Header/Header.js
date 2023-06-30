@@ -13,9 +13,12 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { Card, IconButton, Tab, useMediaQuery, Badge } from "@mui/material";
+import { IconButton, useMediaQuery, Badge } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { useTheme } from "@emotion/react";
 import Image from "next/image";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -141,7 +144,7 @@ const Header = ({ options, specialOption }) => {
         onOpen={() => setOpenDrawer(true)}
         sx={(theme) => {
           return {
-            zIndex: defaultTheme.zIndex.appBar - 1,
+            zIndex: defaultTheme.zIndex.appBar - 500,
             "& .MuiPaper-root": { backgroundColor: theme.palette.common.blue },
           };
         }}
@@ -288,12 +291,12 @@ const Header = ({ options, specialOption }) => {
         onClick={() => setOpenDrawer((prev) => !prev)}
         disableRipple
       >
-        {/* {openDrawer ? (
+        {openDrawer ? (
           <CloseIcon sx={{ height: "50px", width: "50px" }} />
         ) : (
           <MenuIcon sx={{ height: "50px", width: "50px" }} />
-        )} */}
-        <AnimDrawerIcon open={openDrawer} />
+        )}
+        {/* <AnimDrawerIcon open={openDrawer} /> */}
       </IconButton>
     </>
   );
@@ -315,26 +318,18 @@ const Header = ({ options, specialOption }) => {
             sx={{ padding: 0, marginRight: "auto" }}
             disableRipple
           >
-            <Box
-              component="img"
+            <Image
               alt="company logo"
-              src="/assets/logo.png"
-              sx={{
-                [defaultTheme.breakpoints.down("md")]: {
-                  height: "5em",
-                },
-                [defaultTheme.breakpoints.up("md")]: {
-                  height: "5.5em",
-                  pading: "1em",
-                },
-                [defaultTheme.breakpoints.up("lg")]: {
-                  height: "6.5em",
-                },
-              }}
+              src="/assets/logo.webp"
+              height={80}
+              width={250}
+              style={{ height: "5em" }}
             />
           </Button>
-          <Hidden mdDown> {tabs}</Hidden>
-          <Hidden smUp>
+          <Hidden mdDown implementation="css">
+            {tabs}
+          </Hidden>
+          <Hidden smUp implementation="css">
             <IconButton
               color="secondary"
               style={{ padding: "4px" }}
@@ -343,7 +338,7 @@ const Header = ({ options, specialOption }) => {
               <SearchIcon />
             </IconButton>
           </Hidden>
-          <Hidden smDown>
+          <Hidden smDown implementation="css">
             <ExpandSearch onClick={() => setInstantSearch(true)} />
           </Hidden>
           <InstantSearchDialog
