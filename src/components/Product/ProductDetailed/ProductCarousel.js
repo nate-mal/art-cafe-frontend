@@ -13,14 +13,15 @@ import ImageKit from "../../../ImageKit";
 import Lightbox from "yet-another-react-lightbox";
 
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
-import Counter from "yet-another-react-lightbox/plugins/counter";
 import Share from "yet-another-react-lightbox/plugins/share";
 import Download from "yet-another-react-lightbox/plugins/download";
+import Captions from "yet-another-react-lightbox/plugins/captions";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import NextImageMagnifier from "./NextJsImage";
 export default function ProductCarousel({
   art_id,
   name,
+  description,
   imgNr,
   discount,
   pictures,
@@ -43,7 +44,7 @@ export default function ProductCarousel({
             <Item
               onClick={() => setOpen(true)}
               key={i}
-              path={item.url.substring(pictures[0].url.lastIndexOf("/") + 1)}
+              path={item.url.substring(item.url.lastIndexOf("/") + 1)}
               name={name}
             />
           ))
@@ -57,13 +58,15 @@ export default function ProductCarousel({
       </Carousel>
       <Lightbox
         open={open}
-        plugins={[Thumbnails, Counter, Share, Download]}
+        plugins={[Thumbnails, Share, Download, Captions]}
         closeOnBackdropClick={true}
         close={() => setOpen(false)}
         slides={pictures.map((item) => ({
           src: item.url,
           share: { src: item.url, title: name },
           download: `${item.url}?download`,
+          title: name,
+          description,
         }))}
         styles={{
           container: { backgroundColor: "rgba(0, 0, 0, .9)" },

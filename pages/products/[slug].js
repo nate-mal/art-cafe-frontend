@@ -106,6 +106,7 @@ export default function ProductDetailedPage({ item }) {
               art_id={item.art_id}
               imgNr={item.imgNr}
               name={item.name}
+              description={item.description}
               pictures={item.pictures}
             />
           </Grid>

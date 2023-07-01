@@ -1,4 +1,7 @@
 import * as React from "react";
+import ImageKit from "../../../ImageKit";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 export default function NextImageMagnifier(props) {
   const {
@@ -21,35 +24,57 @@ export default function NextImageMagnifier(props) {
         width: width,
       }}
     >
-      <img
-        alt={alt}
-        src={src}
-        width={width}
-        // height={height}
-        style={{ height: height, width: width }}
-        onMouseEnter={(e) => {
-          // update image size and turn-on magnifier
-          const elem = e.currentTarget;
-          const { width, height } = elem.getBoundingClientRect();
-          setSize([width, height]);
-          setShowMagnifier(true);
+      <Grid
+        item
+        style={{
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundImage: `url(https://ik.imagekit.io/artcafe/tr:w-50,h-50/${src.substring(
+            src.lastIndexOf("/") + 1
+          )})`,
+          width: { width },
+          // height: "150px",
         }}
-        onMouseMove={(e) => {
-          // update cursor position
-          const elem = e.currentTarget;
-          const { top, left } = elem.getBoundingClientRect();
+      >
+        <Box
+          style={{
+            heigth: "100%",
+            aspectRatio: "1 / 1",
+            objectFit: "cover",
+            objectPosition: "bottom",
+          }}
+        >
+          <img
+            alt={alt}
+            // src={src + 1}
+            width={width}
+            // height={height}
+            style={{ height: height, width: width }}
+            onMouseEnter={(e) => {
+              // update image size and turn-on magnifier
+              const elem = e.currentTarget;
+              const { width, height } = elem.getBoundingClientRect();
+              setSize([width, height]);
+              setShowMagnifier(true);
+            }}
+            onMouseMove={(e) => {
+              // update cursor position
+              const elem = e.currentTarget;
+              const { top, left } = elem.getBoundingClientRect();
 
-          // calculate cursor position on the image
-          const x = e.pageX - left - window.pageXOffset;
-          const y = e.pageY - top - window.pageYOffset;
-          setXY([x, y]);
-        }}
-        onMouseLeave={() => {
-          // close magnifier
-          setShowMagnifier(false);
-        }}
-        {...props}
-      />
+              // calculate cursor position on the image
+              const x = e.pageX - left - window.pageXOffset;
+              const y = e.pageY - top - window.pageYOffset;
+              setXY([x, y]);
+            }}
+            onMouseLeave={() => {
+              // close magnifier
+              setShowMagnifier(false);
+            }}
+            {...props}
+          />
+        </Box>
+      </Grid>
 
       <div
         style={{
