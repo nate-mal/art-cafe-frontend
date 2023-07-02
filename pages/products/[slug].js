@@ -14,6 +14,7 @@ import ProductDetailed from "../../src/components/Product/ProductDetailed/Produc
 import ProductCarousel from "../../src/components/Product/ProductDetailed/ProductCarousel";
 import { DiscountsContext } from "../../context/discounts";
 import client from "../../apollo-client";
+import ModelGroups from "../../src/components/Product/ProductDetailed/Models/ModelGroups";
 
 export default function ProductDetailedPage({ item }) {
   const [url, setUrl] = React.useState("https://www.artcafe.ro");
@@ -156,6 +157,11 @@ export default function ProductDetailedPage({ item }) {
             />
           </Grid>
         </Grid>
+        <Grid container>
+          <Grid item>
+            <ModelGroups groups={item.compatible_models} />
+          </Grid>
+        </Grid>
       </Container>
     </>
   );
@@ -242,6 +248,15 @@ export async function getStaticProps(ctx) {
                         id
                         attributes {
                           name
+                           picture {
+                data {
+                  attributes {
+                    provider
+                    url 
+                    hash
+                  }
+                }
+              }
                         }
                       }
                     }
@@ -307,6 +322,8 @@ export async function getStaticProps(ctx) {
         name: modelData.attributes.name,
         markId: modelData.attributes.mark.data.id,
         markName: modelData.attributes.mark.data.attributes.name,
+        markPicture:
+          modelData.attributes.mark.data.attributes.picture.data.attributes,
       };
     });
     compatible_models = compatible_models.reduce(
@@ -320,6 +337,7 @@ export async function getStaticProps(ctx) {
         if (!existingMark) {
           accumulator.push({
             markName: currentValue.markName,
+            markPicture: currentValue.markPicture,
             markId: currentValue.markId,
             models: [
               {

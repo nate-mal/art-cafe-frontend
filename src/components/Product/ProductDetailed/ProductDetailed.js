@@ -129,18 +129,6 @@ export default function ProductDetailed({ item }) {
         justifyContent="space-between"
         sx={{ marginBottom: "2em" }}
       >
-        {/* <TextField
-          id="standard-number"
-          label="Cantitate"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-          sx={{
-            width: "5em",
-          }}
-        /> */}
         <QuantityPicker value={qty} setValue={setQty} />
         <Grid item>
           {unavailable_status === "on_demand" ? (
