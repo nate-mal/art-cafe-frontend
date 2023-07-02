@@ -35,9 +35,7 @@ export default function CategoriList({ items, markMeiId }) {
   const [showHalf, setHalf] = useState(false);
   return (
     <Grid container sx={{ flexGrow: 1 }}>
-      <Box
-       data-aos="fade-zoom-in"
-      >
+      <Box>
         <Grid item container spacing={2}>
           {sorted_items.slice(0, half).map((item) => {
             return (

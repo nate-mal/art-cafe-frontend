@@ -1,18 +1,22 @@
 import * as React from "react";
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 import useSWR from "swr";
 import { backend_url } from "../../lib/settings";
 
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import ShareIcon from "@mui/icons-material/Share";
+import IconButton from "@mui/material/IconButton";
 import Head from "next/head";
+import Router from "next/router";
 import ProductDetailed from "../../src/components/Product/ProductDetailed/ProductDetailed";
 import ProductCarousel from "../../src/components/Product/ProductDetailed/ProductCarousel";
 import { DiscountsContext } from "../../context/discounts";
 import client from "../../apollo-client";
 
 export default function ProductDetailedPage({ item }) {
+  const [url, setUrl] = React.useState("https://www.artcafe.ro");
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `${backend_url}/api/products/${item.id}`,
@@ -47,6 +51,11 @@ export default function ProductDetailedPage({ item }) {
 
   const deliveryInfo =
     "\n*Livrare prin curier rapid national - 29,99 lei (cost fix fara KM taxabili). \n*Livrare gratuita pentru comenzi peste 400 de lei. \n*Vă rugăm să luați în considerare predarea către curier a produselor în 2-5 zile lucratoare pentru produsele marcate cu stoc extern. \n *Comanda minimă este de 100 de RON. Prețurile produselor sunt exprimate în lei și includ TVA. \n*Te ținem la curent cu statusul comenzii printr-un e-mail si/sau sms in momentul in care comanda este finalizată și este predată către curier.  \n*Majoritatea produselor sunt disponibile intr-un depozit logistic in internațional,iar acestea necesită tranzit 2-5 zile,verificare calitativă și ambalare.";
+
+  React.useEffect(() => {
+    setUrl(Router.asPath);
+  }, []);
+
   return (
     <>
       <Head>
@@ -57,12 +66,36 @@ export default function ProductDetailedPage({ item }) {
         <meta
           property="og:image"
           itemProp="image"
-          content={`${process.env.NEXT_PUBLIC_URL}/images/${item.art_id}/image-0.jpg`}
+          content={item.pictures[0].url}
         />
         <meta property="og:updated_time" content="1681823297" />
       </Head>
       <Container maxWidth="lg" style={{ minHeight: "100vh" }}>
-        <Grid container spacing={4} sx={{ marginTop: "5em" }}>
+        <Grid
+          container
+          justifyContent="end"
+          sx={{
+            marginTop: "3em",
+            marginBottom: "1em",
+            position: "sticky",
+            top: 10,
+            right: 10,
+          }}
+        >
+          <Grid item>
+            <IconButton
+              onClick={() => {
+                navigator.share({
+                  url: url,
+                  title: `Art Cafe - ${item.name}`,
+                });
+              }}
+            >
+              <ShareIcon></ShareIcon>
+            </IconButton>
+          </Grid>
+        </Grid>
+        <Grid container spacing={4}>
           <Grid item xs={12} md={6} style={{ position: "relative" }}>
             {discount && (
               <Typography

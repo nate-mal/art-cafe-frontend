@@ -7,7 +7,7 @@ import {
   useMediaQuery,
   IconButton,
 } from "@mui/material";
-
+import Router from "next/router";
 import ImageKit from "../../../ImageKit";
 
 import Lightbox from "yet-another-react-lightbox";
@@ -30,7 +30,11 @@ export default function ProductCarousel({
   const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [open, setOpen] = React.useState(false);
+  const [url, setUrl] = React.useState("https://www.artcafe.ro");
 
+  React.useEffect(() => {
+    setUrl(Router.asPath);
+  }, []);
   return (
     <>
       <Grid container justifyContent="end">
@@ -63,7 +67,7 @@ export default function ProductCarousel({
         close={() => setOpen(false)}
         slides={pictures.map((item) => ({
           src: item.url,
-          share: { src: item.url, title: name },
+          share: { url: url, title: name },
           download: `${item.url}?download`,
           title: name,
           description,

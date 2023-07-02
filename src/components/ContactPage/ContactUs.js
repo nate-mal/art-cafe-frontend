@@ -123,11 +123,7 @@ const ContactUs = (props) => {
     </React.Fragment>
   );
   return (
-    <Grid
-      container
-      direction="row"
-      data-aos={matchesMD ? "fade-up" : "fade-right"}
-    >
+    <Grid container direction="row" data-aos={!matchesMD && "fade-right"}>
       <Grid
         item
         container
@@ -139,7 +135,7 @@ const ContactUs = (props) => {
         xl={3}
         sx={{
           marginTop: matchesSM ? "3em" : matchesMD ? "5em" : "3em",
-          marginBottom: matchesMD ? "5em" : 0,
+          marginBottom: "10em",
         }}
       >
         <Grid item>
@@ -161,7 +157,7 @@ const ContactUs = (props) => {
             <Grid item>
               <Typography
                 variant="body1"
-                href="tel:555555555"
+                href="tel:0751465658"
                 component="a"
                 sx={{
                   color: theme.palette.common.blue,
@@ -169,7 +165,7 @@ const ContactUs = (props) => {
                   textDecoration: "none",
                 }}
               >
-                (555)-555-555
+                (0751)-465-658
               </Typography>
             </Grid>
           </Grid>
@@ -181,14 +177,14 @@ const ContactUs = (props) => {
               <Typography
                 variant="body1"
                 component="a"
-                href="mailto:malitan.contact@gmail.com"
+                href="mailto:artcafe.ro@hotmail.com"
                 sx={{
                   color: theme.palette.common.blue,
                   fontSize: "1rem",
                   textDecoration: "none",
                 }}
               >
-                artcafe@gmail.com
+                artcafe.ro@hotmail.com
               </Typography>
             </Grid>
           </Grid>
@@ -439,6 +435,7 @@ const ContactUs = (props) => {
           backgroundImage: `url(${background})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
+          marginTop: "-10em",
           height: "60em",
           [theme.breakpoints.down("md")]: {
             backgroundImage: `url(${mobileBackground})`,

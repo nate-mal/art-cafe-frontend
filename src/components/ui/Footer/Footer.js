@@ -20,6 +20,7 @@ const Footer = ({ options }) => {
           zIndex: defaultTheme.zIndex.appBar - 100,
           position: "relative",
           padding: "1em",
+          marginTop: "10em",
         };
       }}
     >

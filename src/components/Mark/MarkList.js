@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 
 import MarkItem from "./MarkItem";
-import { Button, Fade,Box, useMediaQuery, useTheme } from "@mui/material";
+import { Button, Fade, Box, useMediaQuery, useTheme } from "@mui/material";
 // import NextPagination from "../Pagination/NextPagination";
 const MyFade = ({
   children,
@@ -37,9 +37,7 @@ export default function MarkList({ items }) {
   return (
     <Grid container style={{ flexGrow: 1 }}>
       {/* <NextPagination total={total} limit={limit}> */}
-      <Box
-        data-aos="fade-zoom-in"
-      >
+      <Box>
         <Grid item container spacing={2}>
           {items.slice(0, half).map((item) => {
             return (
