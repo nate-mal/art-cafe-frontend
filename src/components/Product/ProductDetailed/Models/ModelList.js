@@ -41,7 +41,7 @@ export default function ModelList({ items }) {
         <Grid item container spacing={2}>
           {items.slice(0, half).map((item, index) => {
             return (
-              <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+              <Grid key={item.id} item>
                 <ModelItem key={item.id} {...item} />
               </Grid>
             );
@@ -53,7 +53,7 @@ export default function ModelList({ items }) {
           <Grid item container spacing={2} sx={{ marginTop: ".4em" }}>
             {items.slice(half).map((item) => {
               return (
-                <Grid key={item.id} item xs={12} sm={6} md={4} lg={3}>
+                <Grid key={item.id} item>
                   <ModelItem half={true} key={item.id} {...item} />
                 </Grid>
               );

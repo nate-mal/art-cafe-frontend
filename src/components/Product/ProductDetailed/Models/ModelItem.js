@@ -1,8 +1,7 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
 
 // import Link from "../../Link";
-import { CardActionArea, Grid, Paper, Typography } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 
 export default function ModelItem(props) {
   const { name } = props;
@@ -15,15 +14,15 @@ export default function ModelItem(props) {
         textAlign: "center",
         alignItems: "center",
         padding: "1em",
+        width: "fit-content",
       }}
     >
       {/* <Link href={`${_meilisearch_id}`}> */}
 
-      <Grid item>
-        <Typography variant="h6" component="p">
-          {name}
-        </Typography>
-      </Grid>
+      <Typography variant="h6" component="p">
+        {name}
+      </Typography>
+
       {/* </Link> */}
     </Paper>
   );

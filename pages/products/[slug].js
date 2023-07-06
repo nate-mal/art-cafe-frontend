@@ -15,6 +15,7 @@ import ProductCarousel from "../../src/components/Product/ProductDetailed/Produc
 import { DiscountsContext } from "../../context/discounts";
 import client from "../../apollo-client";
 import ModelGroups from "../../src/components/Product/ProductDetailed/Models/ModelGroups";
+import SimilarProducts from "../../src/components/Product/ProductDetailed/SimilarProducts";
 
 export default function ProductDetailedPage({ item }) {
   const [url, setUrl] = React.useState("https://www.artcafe.ro");
@@ -157,9 +158,12 @@ export default function ProductDetailedPage({ item }) {
             />
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item>
+        <Grid container direction="column">
+          <Grid item sx={{ marginTop: "2em" }}>
             <ModelGroups groups={item.compatible_models} />
+          </Grid>
+          <Grid item>
+            <SimilarProducts search={item.name} />
           </Grid>
         </Grid>
       </Container>

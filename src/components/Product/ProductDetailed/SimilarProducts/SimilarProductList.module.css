@@ -1,0 +1,33 @@
+
+.container {
+    display: flex;
+    overflow-x: scroll;
+    width: 75vw;
+    padding: 20px 0;
+    margin-top: 5em;
+  }
+  
+  .card {
+    flex-shrink: 0;
+    width: 300px;
+    /* height: 200px; */
+    border-radius: 10px;
+    margin-left: 10px;
+    /* background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; */
+  }
+
+  /* On screens that are 1200px or less,*/
+@media screen and (max-width: 1200px) {
+  .container {
+    width:90vw;
+  }
+}
+
+/* On screens that are 600px or less,  */
+@media screen and (max-width: 600px) {
+  .container {
+    width: 95vw;
+  }
+}

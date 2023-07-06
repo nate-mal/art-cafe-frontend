@@ -10,7 +10,7 @@ export default function ModelGroups({ groups }) {
           Modele de aparate compatibile
         </Typography>
         {groups.map((group) => (
-          <Box key={group.markId}>
+          <Box key={group.markId} sx={{ marginTop: "1em" }}>
             <ImageKit
               src={group.markPicture.url.substring(
                 group.markPicture.url.lastIndexOf("/") + 1
