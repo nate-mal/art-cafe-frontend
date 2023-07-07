@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 const SimilarProductList = ({ products }) => {
   return (
     <>
-      <div className={classes.container} data-aos="fade-left">
+      <div className={classes.container}>
         {products.map((item, index) => (
           <div key={index} className={classes.card}>
             <ProductItem {...item} />
