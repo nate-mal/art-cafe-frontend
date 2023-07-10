@@ -32,7 +32,11 @@ const CallToAction = () => {
           data-aos-delay="600"
         >
           <Grid item sx={{ color: theme.palette.primary.main }}>
-            <Typography variant="h2">
+            <Typography
+              variant="h2"
+              color="white"
+              sx={{ textShadow: "1px 1px 2px brown" }}
+            >
               Reparații rapide și profesionale
               <br /> pentru aparatul tău de cafea
             </Typography>

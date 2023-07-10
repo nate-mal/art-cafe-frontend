@@ -49,7 +49,7 @@ export default function MyApp(props) {
 
     {
       name: "About Us",
-      link: "/",
+      link: "/about",
     },
     {
       name: "Contact Us",

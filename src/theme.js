@@ -11,7 +11,7 @@ export const roboto = Roboto({
 // Create a theme instance.
 const artBrown = "#6f4a2f";
 const artOrange = "#f6a118";
-const artGrey = "#868686";
+const artGrey = "##454141";
 const theme = createTheme({
   palette: {
     common: {
@@ -61,7 +61,7 @@ const theme = createTheme({
     caption: { color: artGrey, textAlign: "center" },
     subtitle1: { fontSize: "1.25rem", fontWeight: 300, color: artGrey },
     body1: { color: "#000", fontSize: ".8rem", fontWeight: 500 },
-    body2: { color: artGrey },
+    body2: { color: artGrey, fontSize: "1rem" },
     tab: {
       fontFamily: "Raleway",
       textTransform: "none",
