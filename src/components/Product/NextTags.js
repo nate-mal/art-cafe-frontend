@@ -11,6 +11,8 @@ import { Head } from "next/document";
 import Search from "../ui/Search";
 import { ModelTrainingTwoTone } from "@mui/icons-material";
 import NextAccordion from "./NextAccordion";
+import DialogSelectorPro from "../ui/SelectorPro/DialogForm";
+import { IconButton } from "@mui/material";
 export default function NextTags(props) {
   const { mark, category, search, model } = props.options;
   const onSearch = props.onSearch;
@@ -29,8 +31,12 @@ export default function NextTags(props) {
         {mark && (
           <Grid item>
             <Typography variant="h4" component="h2" gutterBottom>
+              <IconButton varint="contained" component={Link} href={`/`}>
+                <KeyboardReturnIcon />
+              </IconButton>
               Produse disponibile pentru {mark.title}
             </Typography>
+
             <Image
               src={`/marks/mark-${mark.id}.png`}
               alt={mark.title}
@@ -40,11 +46,15 @@ export default function NextTags(props) {
             />
           </Grid>
         )}
-        <Button varint="contained" component={Link} href={`/`}>
-          <KeyboardReturnIcon />
-          {mark ? "Schimbă marca" : "Selectează marcă"}
-        </Button>
+        {!mark && (
+          <Button varint="contained" component={Link} href={`/`}>
+            <KeyboardReturnIcon />
+            Selectează marcă
+          </Button>
+        )}
+        <DialogSelectorPro />
       </Grid>
+
       <NextAccordion>
         {mark && (
           <Grid item>

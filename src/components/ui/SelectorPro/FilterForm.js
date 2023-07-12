@@ -29,7 +29,7 @@ const reducer = (state, action) => {
   }
 };
 
-export default function FilterForm() {
+export default function FilterForm(props) {
   const [marks, setMarks] = React.useState([]);
   const [models, setModels] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
@@ -139,6 +139,7 @@ export default function FilterForm() {
           container
           direction="column"
           spacing={3}
+          alignItems="center"
           component={Paper}
           sx={(theme) => ({
             margin: 0,
@@ -147,85 +148,80 @@ export default function FilterForm() {
             // backgroundColor: theme.palette.secondary.main,
           })}
         >
-          <Grid item>
-            <Typography
-              variant="h3"
-              gutterBottom
-              textAlign="center"
-              style={{ marginBottom: "1em" }}
+          <Typography
+            variant="h3"
+            gutterBottom
+            textAlign="center"
+            style={{ marginBottom: "1em" }}
+          >
+            Caută o piesă
+          </Typography>
+
+          <AsyncAutocomplete
+            value={filter.mark}
+            options={marks}
+            loading={loadingMarks}
+            onSelected={(value) =>
+              dispatchFilter({ type: "select_mark", value })
+            }
+            label="Marcă"
+            noOptionsText="Fără opțiuni"
+          />
+
+          <AsyncAutocomplete
+            value={filter.model}
+            options={models}
+            loading={loadingModels}
+            onSelected={(value) =>
+              dispatchFilter({ type: "select_model", value })
+            }
+            label="Model"
+            noOptionsText="Fără opțiuni, alege o marcă"
+          />
+
+          <AsyncAutocomplete
+            value={filter.category}
+            options={categories}
+            loading={loadingCategories}
+            onSelected={(value) =>
+              dispatchFilter({ type: "select_category", value })
+            }
+            label="Categorie"
+            noOptionsText="Fără opțiuni, alege o marcă"
+          />
+
+          {filter.mark.id && (
+            <Button
+              variant="contained"
+              component={Link}
+              href={`/products?markMeiId=mark-${filter.mark.id}${
+                filter.category.id
+                  ? `&category=${filter.category.id}&categoryName=${filter.category.name}`
+                  : ""
+              }${
+                filter.model.id
+                  ? `&model=${filter.model.id}&modelName=${filter.model.name}`
+                  : ""
+              }`}
+              data-aos="zoom-in"
+              sx={(theme) => ({
+                ...theme.typography.estimate,
+                borderRadius: 50,
+                hieght: 80,
+                width: "fit-content",
+                backgroundColor: theme.palette.secondary.main,
+                "&:hover": {
+                  backgroundColor: theme.palette.secondary.light,
+                },
+                fontsize: "1.5rem",
+                marginTop: "2em",
+                fontFamily: "Roboto, sans-serif",
+              })}
+              onClick={props.onSearch ? props.onSearch : () => {}}
             >
-              Caută o piesă
-            </Typography>
-          </Grid>
-          <Grid item>
-            <AsyncAutocomplete
-              value={filter.mark}
-              options={marks}
-              loading={loadingMarks}
-              onSelected={(value) =>
-                dispatchFilter({ type: "select_mark", value })
-              }
-              label="Marcă"
-              noOptionsText="Fără opțiuni"
-            />
-          </Grid>
-          <Grid item>
-            <AsyncAutocomplete
-              value={filter.model}
-              options={models}
-              loading={loadingModels}
-              onSelected={(value) =>
-                dispatchFilter({ type: "select_model", value })
-              }
-              label="Model"
-              noOptionsText="Fără opțiuni, alege o marcă"
-            />
-          </Grid>
-          <Grid item>
-            <AsyncAutocomplete
-              value={filter.category}
-              options={categories}
-              loading={loadingCategories}
-              onSelected={(value) =>
-                dispatchFilter({ type: "select_category", value })
-              }
-              label="Categorie"
-              noOptionsText="Fără opțiuni, alege o marcă"
-            />
-          </Grid>
-          <Grid item container justifyContent="center">
-            {filter.mark.id && (
-              <Button
-                variant="contained"
-                component={Link}
-                href={`/products?markMeiId=mark-${filter.mark.id}${
-                  filter.category.id
-                    ? `&category=${filter.category.id}&categoryName=${filter.category.name}`
-                    : ""
-                }${
-                  filter.model.id
-                    ? `&model=${filter.model.id}&modelName=${filter.model.name}`
-                    : ""
-                }`}
-                data-aos="zoom-in"
-                sx={(theme) => ({
-                  ...theme.typography.estimate,
-                  borderRadius: 50,
-                  hieght: 80,
-                  width: "fit-content",
-                  backgroundColor: theme.palette.secondary.main,
-                  "&:hover": {
-                    backgroundColor: theme.palette.secondary.light,
-                  },
-                  fontsize: "1.5rem",
-                  marginTop: "2em",
-                  fontFamily: "Roboto, sans-serif",
-                })}
-              >
-                CAUTĂ
-              </Button>
-            )}
-          </Grid>
+              CAUTĂ
+            </Button>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>
