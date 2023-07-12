@@ -92,8 +92,16 @@ export async function getServerSideProps(ctx) {
     "Cache-Control",
     "public, s-maxage=60, state-while-revalidate=599"
   );
-  const { search, category, categoryName, markMeiId, model, offset, limit } =
-    ctx.query;
+  const {
+    search,
+    category,
+    categoryName,
+    markMeiId,
+    model,
+    modelName,
+    offset,
+    limit,
+  } = ctx.query;
   const setLimit =
     limit && !isNaN(limit) && +limit > 0 && +limit <= 100 ? +limit : 10;
   const setOffset = offset && !isNaN(offset) && +offset > 0 ? +offset : 0;
@@ -144,12 +152,16 @@ export async function getServerSideProps(ctx) {
       filter =
         markMeiId === "mark-1"
           ? `compatible_models_ids = universal AND sub_category_id=${category}`
-          : `compatible_models_ids IN [${models_ids.toString()}] AND sub_category_id =${category}`;
+          : `compatible_models_ids IN [${
+              model ? model : models_ids.toString()
+            }] AND sub_category_id =${category}`;
     } else {
       filter =
         markMeiId === "mark-1"
           ? `compatible_models_ids = universal`
-          : `compatible_models_ids IN [${models_ids.toString()}]`;
+          : `compatible_models_ids IN [${
+              model ? model : models_ids.toString()
+            }]`;
     }
 
     filterApplied.mark = { title: mark_name, mei_id: markMeiId, id: mark_id };
@@ -217,6 +229,9 @@ export async function getServerSideProps(ctx) {
   }
   if (search) {
     filterApplied.search = { title: search };
+  }
+  if (model) {
+    filterApplied.model = { title: modelName ? modelName : model, id: model };
   }
 
   return {

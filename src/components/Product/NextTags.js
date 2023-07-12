@@ -9,8 +9,10 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 import { Head } from "next/document";
 import Search from "../ui/Search";
+import { ModelTrainingTwoTone } from "@mui/icons-material";
+import NextAccordion from "./NextAccordion";
 export default function NextTags(props) {
-  const { mark, category, search } = props.options;
+  const { mark, category, search, model } = props.options;
   const onSearch = props.onSearch;
   const query = props.query;
 
@@ -43,93 +45,136 @@ export default function NextTags(props) {
           {mark ? "Schimbă marca" : "Selectează marcă"}
         </Button>
       </Grid>
+      <NextAccordion>
+        {mark && (
+          <Grid item>
+            <Button
+              varint="contained"
+              component={Link}
+              href={`/${query.markMeiId}`}
+            >
+              <KeyboardReturnIcon />
+              {category ? "Schimbă categoria" : "Selectează categorie"}
+            </Button>
+          </Grid>
+        )}
+        <Grid item container justifyContent="start">
+          {category && (
+            <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
+              <Typography variant="body2" component="div">
+                Categorie:
+              </Typography>
 
-      {mark && (
-        <Grid item>
-          <Button
-            varint="contained"
-            component={Link}
-            href={`/${query.markMeiId}`}
-          >
-            <KeyboardReturnIcon />
-            {category ? "Schimbă categoria" : "Selectează categorie"}
-          </Button>
+              <Card
+                sx={{
+                  position: "relative",
+                  padding: ".5em",
+                  marginLeft: "1em",
+                  overflow: "visible",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{ fontSize: "1.2rem" }}
+                >
+                  {category.title}
+                </Typography>
+                <Link
+                  href={{
+                    query: {
+                      ...query,
+                      category: undefined,
+                      categoryName: undefined,
+                    },
+                  }}
+                  sx={{
+                    position: "absolute",
+                    top: "-15px",
+                    right: "-10px",
+                  }}
+                >
+                  <CancelIcon fontSize="large" />
+                </Link>
+              </Card>
+            </Grid>
+          )}
+          {model && (
+            <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
+              <Typography variant="body2" component="div">
+                Model:
+              </Typography>
+
+              <Card
+                sx={{
+                  position: "relative",
+                  padding: ".5em",
+                  marginLeft: "1em",
+                  overflow: "visible",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  component="div"
+                  sx={{ fontSize: "1.2rem" }}
+                >
+                  {model.title}
+                </Typography>
+                <Link
+                  href={{
+                    query: { ...query, model: undefined, modelName: undefined },
+                  }}
+                  sx={{
+                    position: "absolute",
+                    top: "-15px",
+                    right: "-10px",
+                  }}
+                >
+                  <CancelIcon fontSize="large" />
+                </Link>
+              </Card>
+            </Grid>
+          )}
+          {search ? (
+            <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
+              <Typography variant="body2" component="div">
+                Căutare:
+              </Typography>
+
+              <Card
+                sx={{
+                  position: "relative",
+                  padding: ".5em",
+                  marginLeft: "1em",
+                  overflow: "visible",
+                }}
+              >
+                <Typography
+                  variant="div"
+                  component="body1"
+                  sx={{ fontSize: "1.2rem" }}
+                >
+                  {search.title}
+                </Typography>
+                <Link
+                  href={{ query: { ...query, search: undefined } }}
+                  sx={{
+                    position: "absolute",
+                    top: "-15px",
+                    right: "-10px",
+                  }}
+                >
+                  <CancelIcon fontSize="large" />
+                </Link>
+              </Card>
+            </Grid>
+          ) : (
+            <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
+              <Search onSearch={onSearch} />
+            </Grid>
+          )}
         </Grid>
-      )}
-      <Grid item container justifyContent="start">
-        {category && (
-          <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
-            <Typography variant="body2" component="div">
-              Categorie:
-            </Typography>
-
-            <Card
-              sx={{
-                position: "relative",
-                padding: ".5em",
-                marginLeft: "1em",
-                overflow: "visible",
-              }}
-            >
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{ fontSize: "1.2rem" }}
-              >
-                {category.title}
-              </Typography>
-              <Link
-                href={{ query: { ...query, category: undefined } }}
-                sx={{
-                  position: "absolute",
-                  top: "-15px",
-                  right: "-10px",
-                }}
-              >
-                <CancelIcon fontSize="large" />
-              </Link>
-            </Card>
-          </Grid>
-        )}
-        {search ? (
-          <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
-            <Typography variant="body2" component="div">
-              Căutare:
-            </Typography>
-
-            <Card
-              sx={{
-                position: "relative",
-                padding: ".5em",
-                marginLeft: "1em",
-                overflow: "visible",
-              }}
-            >
-              <Typography
-                variant="div"
-                component="body1"
-                sx={{ fontSize: "1.2rem" }}
-              >
-                {search.title}
-              </Typography>
-              <Link
-                href={{ query: { ...query, search: undefined } }}
-                sx={{
-                  position: "absolute",
-                  top: "-15px",
-                  right: "-10px",
-                }}
-              >
-                <CancelIcon fontSize="large" />
-              </Link>
-            </Card>
-          </Grid>
-        ) : (
-          <Grid item container alignItems="center" sx={{ margin: "1em" }} md>
-            <Search onSearch={onSearch} />
-          </Grid>
-        )}
-      </Grid>
+      </NextAccordion>
     </Grid>
   );
 }

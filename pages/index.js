@@ -5,6 +5,7 @@ import MarkList from "../src/components/Mark/MarkList";
 import LandingPage from "../src/components/LandingPage/LandingPage";
 import { MeiliSearch } from "meilisearch";
 import Head from "next/head";
+import FilterForm from "../src/components/ui/SelectorPro/FilterForm";
 
 export default function Marks({ marks }) {
   return (
@@ -34,6 +35,7 @@ export default function Marks({ marks }) {
       <Container maxWidth="lg">
         {/* <Box sx={{ my: 4 }}> */}
         {/* <Link href="/products">Products</Link> */}
+        <FilterForm />
         <Box sx={{ padding: "2em", textAlign: "center" }}>
           <Typography
             variant="h1"
