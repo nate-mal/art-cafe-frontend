@@ -2,7 +2,7 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useTheme, useMediaQuery } from "@mui/material";
+import classes from "./AsyncAutocomplete.module.css";
 export default function AsyncAutocomplete({
   options,
   loading,
@@ -12,8 +12,6 @@ export default function AsyncAutocomplete({
   label,
 }) {
   const [open, setOpen] = React.useState(false);
-  const theme = useTheme();
-  const matchesSM = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <Autocomplete
       id="asynchronous-demo"
@@ -51,11 +49,7 @@ export default function AsyncAutocomplete({
               </React.Fragment>
             ),
           }}
-          sx={{
-            paddingTop: "1em",
-            paddingBottom: "1em",
-            width: matchesSM ? "250px" : "400px",
-          }}
+          className={classes.autocomplete}
         />
       )}
     />

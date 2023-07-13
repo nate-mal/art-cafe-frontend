@@ -101,10 +101,6 @@ export default function FilterForm(props) {
     );
 
     console.log(response);
-    // const formatedData = data.models.data.map((entry) => ({
-    //   id: entry.id,
-    //   name: entry.attributes.name,
-    // }));
 
     setLoadingCategories(false);
     if (response.status === 200) {
@@ -128,9 +124,6 @@ export default function FilterForm(props) {
     }
   }, [filter.mark.id, filter.model.id]);
 
-  console.log("marks", marks);
-  console.log("models", models);
-  console.log("categories", categories);
   return (
     <React.Fragment>
       <Grid container sx={{ marginTop: "4em" }} justifyContent="center">
@@ -141,12 +134,11 @@ export default function FilterForm(props) {
           spacing={3}
           alignItems="center"
           component={Paper}
-          sx={(theme) => ({
+          style={{
             margin: 0,
             padding: "2em",
             maxWidth: "50em",
-            // backgroundColor: theme.palette.secondary.main,
-          })}
+          }}
         >
           <Typography
             variant="h3"
