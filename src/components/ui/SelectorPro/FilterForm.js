@@ -126,7 +126,7 @@ export default function FilterForm(props) {
 
   return (
     <React.Fragment>
-      <Grid container sx={{ marginTop: "4em" }} justifyContent="center">
+      <Grid container justifyContent="center">
         <Grid
           item
           container
@@ -182,38 +182,36 @@ export default function FilterForm(props) {
             noOptionsText="Fără opțiuni, alege o marcă"
           />
 
-          {filter.mark.id && (
-            <Button
-              variant="contained"
-              component={Link}
-              href={`/products?markMeiId=mark-${filter.mark.id}${
-                filter.category.id
-                  ? `&category=${filter.category.id}&categoryName=${filter.category.name}`
-                  : ""
-              }${
-                filter.model.id
-                  ? `&model=${filter.model.id}&modelName=${filter.model.name}`
-                  : ""
-              }`}
-              data-aos="zoom-in"
-              sx={(theme) => ({
-                ...theme.typography.estimate,
-                borderRadius: 50,
-                hieght: 80,
-                width: "fit-content",
-                backgroundColor: theme.palette.secondary.main,
-                "&:hover": {
-                  backgroundColor: theme.palette.secondary.light,
-                },
-                fontsize: "1.5rem",
-                marginTop: "2em",
-                fontFamily: "Roboto, sans-serif",
-              })}
-              onClick={props.onSearch ? props.onSearch : () => {}}
-            >
-              CAUTĂ
-            </Button>
-          )}
+          <Button
+            variant="contained"
+            component={Link}
+            disabled={!filter.mark.id}
+            href={`/products?markMeiId=mark-${filter.mark.id}${
+              filter.category.id
+                ? `&category=${filter.category.id}&categoryName=${filter.category.name}`
+                : ""
+            }${
+              filter.model.id
+                ? `&model=${filter.model.id}&modelName=${filter.model.name}`
+                : ""
+            }`}
+            sx={(theme) => ({
+              ...theme.typography.estimate,
+              borderRadius: 50,
+              hieght: 80,
+              width: "fit-content",
+              backgroundColor: theme.palette.secondary.main,
+              "&:hover": {
+                backgroundColor: theme.palette.secondary.light,
+              },
+              fontsize: "1.5rem",
+              marginTop: "2em",
+              fontFamily: "Roboto, sans-serif",
+            })}
+            onClick={props.onSearch ? props.onSearch : () => {}}
+          >
+            CAUTĂ
+          </Button>
         </Grid>
       </Grid>
     </React.Fragment>
