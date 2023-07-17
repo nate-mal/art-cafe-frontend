@@ -1,45 +1,131 @@
-# Material UI - Next.js example
 
-## How to use
+# ArtCafe E-commerce Website
 
-Download the example [or clone the repo](https://github.com/mui/material-ui):
+Welcome to the frontend repository of ArtCafe, an e-commerce website specializing in selling coffee machine parts, refurbished coffee machines, and offering repair services for coffee machines. This Next.js app, combined with Strapi for content management and Stripe for payment processing, forms the backbone of our user-friendly and intuitive website.
 
-<!-- #default-branch-switch -->
+**Website Demo:** [www.artcafe.store](https://www.artcafe.store)
 
-```sh
-curl https://codeload.github.com/mui/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/material-next
-cd material-next
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+  - [Instant Search](#instant-search)
+  - [Coffee Machine Parts](#coffee-machine-parts)
+  - [Repair Services](#repair-services)
+  - [Reparo Estimate](#reparo-estimate)
+  - [Stripe Integration](#stripe-integration)
+- [Getting Started](#getting-started)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Project Overview
+Our e-commerce website is built using Next.js, a powerful and flexible React framework that enables server-side rendering and optimized performance. Strapi serves as our headless CMS, managing product listings, descriptions,and whatnot. Stripe powers our secure payment processing, ensuring safe transactions for our customers.
+
+## Features
+
+### Instant Search
+I've implemented an instant search functionality using MeiliSearch, allowing users to find products quickly and effortlessly. The prominent instant search box on our website enables users to search for specific products or browse by category, enhancing their shopping experience.
+
+### Coffee Machine Parts
+The Coffee Machine Parts section offers a wide selection of parts for various types of coffee machines. Each product page is designed with high-quality images, detailed descriptions, and customer reviews to assist users in making informed purchasing decisions.
+
+### Repair Services
+Our Repair Services section provides a variety of services, ranging from basic maintenance to troubleshooting and repairs. Customers can easily schedule a repair for their coffee machines through this section, making the process hassle-free.
+
+### Reparo Estimate
+To make it convenient for customers, we've created the Reparo Estimate section. This features a simple quiz that helps customers estimate the cost of repairing their broken coffee machines, enabling them to plan and budget accordingly.
+
+### Stripe Integration
+To handle payment processing securely, we've seamlessly integrated Stripe into our website's checkout process. With this integration, customer payment information is kept safe, making online transactions smooth and reliable.
+
+## Getting Started
+
+### Installation
+To get the frontend up and running on your local machine, follow these steps:
+
+1. Clone this repository: `git clone https://github.com/nate-mal/art-cafe-frontend`
+2. Change to the project directory: `cd art-cafe-frontend`
+3. Install dependencies: `npm install`
+
+### Configuration
+Before running the app, you'll need to configure some environment variables:
+
+1. Create a `.env` file at the root of the project.
+2. Add the necessary environment variables, such as Stripe API keys and MeiliSearch configuration.
+
+Here's an example `.env` file:
+
 ```
+MEI_HOST=your_meilisearch_url
+MEI_MASTER_KEY=your_meilisearch_key
+NEXT_PUBLIC_API_URL=your_backend_url(strapi)
+NEXT_PUBLIC_URL=your_client_url
 
-Install it and run:
-
-```sh
-npm install
-npm run dev
+LOCATION_KEY=key_used_for_requestingspecificdata_from_strapi(products url from provider to check the stock with a google cloud function)
+EMAIL_SERVER_USER=youremail@domain.com
+EMAIL_SERVER_PASSWORD=youremailpassword
+EMAIL_SERVER_HOST=hot
+EMAIL_SERVER_PORT=hostport
+EMAIL_ADDRESS_FROM=Art Cafe <noreply.youremail@domain.com>
+EMAIL_ADDRESS_REPLY=yourreplyemail@domain.com
 ```
+3. Also change the stripe public key  in Checkout component  and the variables from lib/settings file accordingly
 
-or:
+```
+ const minOrder = min_order_amount_in_cents;
+const min_free_shipping = min_order_for_free_shipping_in_cents;
+const promo_code = "your_promo_code";
+const backend_url = "your_strapibackend_url";
 
-<!-- #default-branch-switch -->
+```
+4. Create a function to check the stock from the provider based on the specific provider API and update the link in the stock API endpoint, if not the nextjs stock endpoint handler will check only the intern stock in strapi.
 
-[![Edit on StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/mui/material-ui/tree/master/examples/material-next)
+### Usage
+To start the development server, run: `npm run dev`
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui/material-ui/tree/master/examples/material-next)
+Visit `http://localhost:3000` in your web browser to access the e-commerce website.
 
-## The idea behind the example
+## Contributing
+We welcome contributions from the community! If you find any issues or have suggestions for improvement, please submit a pull request or open an issue in this repository.
 
-The project uses [Next.js](https://github.com/vercel/next.js), which is a framework for server-rendered React apps.
-It includes `@mui/material` and its peer dependencies, including [Emotion](https://emotion.sh/docs/introduction), the default style engine in Material UI v5.
-If you prefer, you can [use styled-components instead](https://mui.com/material-ui/guides/interoperability/#styled-components).
+## License
+The project is licensed under the [MIT License](LICENSE).
 
-## The Link component
+For the backend repository and instructions on setting up the entire project, please visit [ArtCafe Backend Repository](https://github.com/nate-mal/strapi).
 
-The [example folder](https://github.com/mui/material-ui/tree/HEAD/examples/material-next-ts) provides an adapter for the use of [Next.js's Link component](https://nextjs.org/docs/api-reference/next/link) with MUI.
-More information [in the documentation](https://mui.com/material-ui/guides/routing/#next-js).
+Thank you for being part of this exciting project, and we hope our website serves coffee machine enthusiasts everywhere with a delightful shopping experience!
 
-## What's next?
 
-<!-- #default-branch-switch -->
 
-You now have a working example project.
-You can head back to the documentation, continuing browsing it from the [templates](https://mui.com/material-ui/getting-started/templates/) section.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
