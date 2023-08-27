@@ -315,15 +315,18 @@ const Header = ({ options, specialOption }) => {
           <Button
             component={Link}
             href="/"
-            sx={{ padding: 0, marginRight: "auto" }}
+            sx={{
+              padding: 0,
+              marginRight: "auto",
+            }}
             disableRipple
           >
-            <Image
+            <img
               alt="company logo"
-              src="/assets/logo.webp"
-              height={80}
+              src="/assets/logo.svg"
+              height={100}
               width={250}
-              style={{ height: "5em" }}
+              style={{ height: "5em", marginLeft: "-.5em" }}
             />
           </Button>
           <Hidden mdDown implementation="css">
