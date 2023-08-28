@@ -52,6 +52,13 @@ export default function FilterForm(props) {
               id
               attributes {
                 name
+                picture {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
               }
             }
           }
@@ -61,6 +68,7 @@ export default function FilterForm(props) {
     const formatedData = data.marks.data.map((entry) => ({
       id: entry.id,
       name: entry.attributes.name,
+      picture: entry.attributes.picture.data.attributes.url,
     }));
     setLoadingMarks(false);
     setMarks(formatedData);
@@ -104,7 +112,11 @@ export default function FilterForm(props) {
 
     setLoadingCategories(false);
     if (response.status === 200) {
-      setCategories(response.data.categories);
+      const categories = response.data.categories.map((item) => ({
+        ...item,
+        picture: item.ex_thumbnail_url,
+      }));
+      setCategories(categories);
     }
   };
   React.useEffect(() => {
@@ -136,7 +148,7 @@ export default function FilterForm(props) {
           component={Paper}
           style={{
             margin: 0,
-            padding: "2em",
+            padding: "1.5em",
             maxWidth: "50em",
           }}
         >

@@ -32,26 +32,43 @@ export default function FormDialog() {
       >
         <ChecklistRoundedIcon style={{ marginRight: ".2em" }} /> Selector Pro
       </Button>
-      <Dialog open={open} onClose={handleClose} fullScreen={matchesSM}>
-        <Box style={{ textAlign: "right" }}>
-          <IconButton
-            onClick={handleClose}
-            style={{
-              // width: "2em",
-              marginTop: "1em",
-              marginRight: "1em",
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </Box>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullScreen={matchesSM}
+        sx={{
+          "& .MuiDialog-paper": { backgroundColor: "transparent" },
+        }}
+      >
         <Grid
           container
           style={{ height: matchesSM && "100vh" }}
           justifyContent="center"
           alignContent="center"
         >
-          <Grid item style={{ marginTop: matchesSM && "-4em" }}>
+          <Grid
+            item
+            style={{ marginTop: matchesSM && "-4em", paddingTop: "1em" }}
+          >
+            <Box
+              style={{
+                textAlign: "right",
+                justifySelft: "right",
+
+                marginBottom: "-3em",
+              }}
+            >
+              <IconButton
+                onClick={handleClose}
+                style={{
+                  height: "1em",
+                  marginTop: "1em",
+                  marginRight: ".5em",
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            </Box>
             <FilterForm onSearch={handleClose} />
           </Grid>
         </Grid>

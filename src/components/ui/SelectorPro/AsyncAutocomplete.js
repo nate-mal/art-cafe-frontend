@@ -3,6 +3,8 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
 import classes from "./AsyncAutocomplete.module.css";
+import ImageKit from "../../../ImageKit";
+import { Box, Grid } from "@mui/material";
 export default function AsyncAutocomplete({
   options,
   loading,
@@ -12,10 +14,16 @@ export default function AsyncAutocomplete({
   label,
 }) {
   const [open, setOpen] = React.useState(false);
+
+  const getImagePathFromUrl = (url) => {
+    return url
+      ? url.substring(url.lastIndexOf("/") + 1)
+      : "Product-Image-Coming-Soon.png";
+  };
+
   return (
     <Autocomplete
       id="asynchronous-demo"
-      // sx={{ width: 300 }}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -37,7 +45,9 @@ export default function AsyncAutocomplete({
       renderInput={(params) => (
         <TextField
           {...params}
+          fullWidth
           label={label}
+          style={{ width: "80vw", maxWidth: "40em" }}
           InputProps={{
             ...params.InputProps,
             endAdornment: (
@@ -45,12 +55,44 @@ export default function AsyncAutocomplete({
                 {loading ? (
                   <CircularProgress color="inherit" size={20} />
                 ) : null}
+                {value.picture && (
+                  <ImageKit
+                    src={getImagePathFromUrl(value.picture)}
+                    alt={value.name}
+                    style={{
+                      objectFit: "scale-down",
+                      fontWeight: "bolder",
+                    }}
+                    width={50}
+                    height={40}
+                  />
+                )}
                 {params.InputProps.endAdornment}
               </React.Fragment>
             ),
           }}
           className={classes.autocomplete}
         />
+      )}
+      renderOption={(props, option) => (
+        <li {...props}>
+          <Box style={{ display: "flex", alignItems: "center" }}>
+            {option.picture && (
+              <ImageKit
+                src={getImagePathFromUrl(option.picture)}
+                alt={option.name}
+                style={{
+                  marginRight: 15,
+                  objectFit: "scale-down",
+                  fontWeight: "bolder",
+                }}
+                width={50}
+                height={40}
+              />
+            )}
+            {option.name}
+          </Box>
+        </li>
       )}
     />
   );
