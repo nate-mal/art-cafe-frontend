@@ -20,7 +20,7 @@ import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const searchClient = instantMeiliSearch(
   "https://artcafe-meilisearch-production.up.railway.app/",
-  "6d90112e1da3ec2f49ed432d45e40092300c47997776f1bdd5e00a184f2e286a"
+  "cc4fa6205a841ce1ccf7200164f29fba5e58babc365cf53afac3002fbf42380f"
 );
 const sessionStorageCache = createInfiniteHitsSessionStorageCache();
 
