@@ -15,12 +15,13 @@ import {
   createInfiniteHitsSessionStorageCache,
   connectInfiniteHits,
 } from "react-instantsearch-dom";
+import { meilisearch_public_key, meilisearch_url } from "../../../lib/settings";
 // import "./App.css";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const searchClient = instantMeiliSearch(
-  "https://artcafe-meilisearch-production.up.railway.app/",
-  "cc4fa6205a841ce1ccf7200164f29fba5e58babc365cf53afac3002fbf42380f"
+  meilisearch_url,
+  meilisearch_public_key
 );
 const sessionStorageCache = createInfiniteHitsSessionStorageCache();
 
